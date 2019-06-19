@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-# secret.key tp be REMOVED prior to submission
+# secret.key to be REMOVED prior to submission
 # Use an env variable instead
 app.secret_key = 'qjfg[73hzd<Gid#-h'
 
@@ -18,8 +18,6 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    print("2")
-    
     # Get all kv pairs
     allQuotes = (mongo.db.quotes.find_one ({},{ "_id": 0, "quote": 1}))
     # Store just the value array as x
@@ -29,9 +27,24 @@ def index():
     quoteText = x[i+1]
     print(quoteName, " - ", quoteText)
     
-    
     return render_template('index.html',
-    drinks = mongo.db.drinks.find())
+    drinks = mongo.db.drinks.find(),
+    quoteName = quoteName,
+    quoteText = quoteText)
+    
+@app.route("/login")
+def login():
+    return render_template('login.html')
+    
+
+@app.route("/register")
+def register():
+    return render_template('register.html')
+
+    
+@app.route("/search")
+def search():
+    return render_template('search.html')
     
 
 if __name__ == '__main__':

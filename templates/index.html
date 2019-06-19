@@ -1,15 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>This is the index content</h1>
+<div class="container">
+    
+    <h1>This is the index content</h1>
 
-{% for drink in drinks %}
+    {% for drink in drinks %}
 
-<p>Hey {{drink.name}}</p>
+    <p>Hey {{drink.name}}</p>
 
-{% endfor %}
+    {% endfor %}
 
+    <h4>{{quoteText}}</h4>
+    <h6>{{quoteName}}</h6>
 
-
-<h4>Footer somewhere here...</h4>
-
+</div>
 {% endblock %}

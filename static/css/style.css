@@ -1,1 +1,36 @@
 /*CSS Style Sheet*/
+
+/* --------------------------------------------------------- Footer Styling -*/
+
+.social-icon-footer {
+    margin: 10px;
+    font-size: 1.6rem;
+    color: white;
+}
+
+.cocktail-icon-footer {
+    font-size: 2.4rem;
+    color: white;
+}
+
+.footer {
+    min-height: 50px;
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    padding: 8px;
+}
+
+
+/* ---------------------------------------------------------------- Testing -*/
+
+.border-outline {
+    border: 1px solid yellow;
+}

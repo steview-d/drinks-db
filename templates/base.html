@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Drinks</title>
+    <title>Cheers!</title>
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Font Awesome-->
@@ -21,13 +21,13 @@
     <header class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Drinks</a>
+                <a href="#" class="brand-logo">Cheers!</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Search</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Log In</a></li>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('search') }}">Search</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('login') }}">Log In</a></li>
                 </ul>
             </div>
         </nav>
@@ -41,12 +41,34 @@
     </ul>
 
 
-
-    {% block content %} {% endblock %}
+    <!--Main-->
+    <main>
+        {% block content %} {% endblock %}
+    </main>
 
     <!--Footer-->
 
+    <footer class="footer">
+        <div class="container">
+            <div class="row footer-content">
+                <div class="col s12 m4">
+                    <div>&copy;2019 Dave Laffan</div>
+                </div>
+                <div class="col s12 m4">
 
+                    <a class="" href="#!"><i class="fas fa-cocktail cocktail-icon-footer"></i></a>
+                </div>
+                
+
+                <div class="col s12 m4">
+                    <a href="https://github.com/steview-d" target="_blank"><i class="fab fa-github social-icon-footer"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-square social-icon-footer"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram social-icon-footer"></i></a>
+                    <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter-square social-icon-footer"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
