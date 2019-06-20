@@ -2,7 +2,30 @@
 
 <div class="container">
 
-    <h3>Register Screen. WOOHOO!</h3>
+    <h3 class="center">Create an account. It's quick, simple, and free!</h3>
+    
+        <div class="row">
+        <div class="col offset-s1 s10 offset-m2 m8 offset-l3 l6 center">
+            <form method="POST" action="{{ url_for('login') }}" class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Username" id="first_name" type="text" class="validate">
+                        <!--<label for="first_name">First Name</label>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Password" id="password" type="password" class="validate">
+                        <!--<label for="password">Password</label>-->
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit">CREATE ACCOUNT<i class="material-icons right">send</i></button>
+
+            </form>
+        </div>
+    </div>
+    
+    <p class = "center">Already have an account? Log in <a href="{{ url_for('login') }}">here</a>.</p>
 
 </div>
 

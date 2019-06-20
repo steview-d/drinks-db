@@ -21,13 +21,19 @@
     <header class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Cheers!</a>
+                <a href="{{ url_for('index') }}" class="brand-logo">Cheers!</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('search') }}">Search</a></li>
+                    {% if 'username' in session %}
+                    <li><a href="{{ url_for('account') }}">My Account</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('register') }}">Register</a></li>
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
+
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -58,7 +64,7 @@
 
                     <a class="" href="#!"><i class="fas fa-cocktail cocktail-icon-footer"></i></a>
                 </div>
-                
+
 
                 <div class="col s12 m4">
                     <a href="https://github.com/steview-d" target="_blank"><i class="fab fa-github social-icon-footer"></i></a>

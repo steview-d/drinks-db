@@ -1,6 +1,6 @@
 import os
 import random
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, session, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -32,9 +32,23 @@ def index():
     quoteName = quoteName,
     quoteText = quoteText)
     
-@app.route("/login")
+@app.route("/login", methods=['POST', 'GET'])
 def login():
+    if request.method == 'POST':
+        user_list = mongo.db.users
+        current_user = user_list.find_one({'userName': request.form['username']})
+        if current_user:
+            if request.form['password'] == current_user['password']:
+                session['username'] = request.form['username']
+                return redirect(url_for('index'))
+            ## Flash Message Here
     return render_template('login.html')
+    
+    
+@app.route("/logout")
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
     
 
 @app.route("/register")
@@ -42,6 +56,11 @@ def register():
     return render_template('register.html')
 
     
+@app.route("/account")
+def account():
+    return render_template('account.html')
+
+
 @app.route("/search")
 def search():
     return render_template('search.html')
