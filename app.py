@@ -51,8 +51,20 @@ def logout():
     return redirect(url_for('index'))
     
 
-@app.route("/register")
+@app.route("/register", methods=['POST', 'GET'])
 def register():
+    if request.method == 'POST':
+        user_list = mongo.db.users
+        check_existing = user_list.find_one({"userName": request.form['username']})
+        if not check_existing:
+            #user_list.insert_one(request.form.to_dict())
+            user_list.insert_one({"userName": request.form['username'], "password": request.form['password']});
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+        
+        return redirect(url_for('login'))
+        ## Flash already exists message
+
     return render_template('register.html')
 
     
