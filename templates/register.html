@@ -4,6 +4,16 @@
 
     <h3 class="center">Create an account. It's quick, simple, and free!</h3>
     
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    
+    <p>FLASHED MESSAGE (needs formatting) - {{ message }}</p>
+    
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
         <div class="row">
         <div class="col offset-s1 s10 offset-m2 m8 offset-l3 l6 center">
             <form method="POST" action="{{ url_for('register') }}" class="col s12">

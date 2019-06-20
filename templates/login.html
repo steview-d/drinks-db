@@ -4,18 +4,28 @@
 
     <h3 class="center">Log in to your account.</h3>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    
+    <p>FLASHED MESSAGE (needs formatting) - {{ message }}</p>
+    
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
     <div class="row">
         <div class="col offset-s1 s10 offset-m2 m8 offset-l3 l6 center">
             <form method="POST" action="{{ url_for('login') }}" class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Username" id="username" name="username" type="text" class="validate">
+                        <input placeholder="Username" id="username" name="username" type="text">
                         <!--<label for="first_name">First Name</label>-->
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Password" id="password" name="password" type="password" class="validate">
+                        <input placeholder="Password" id="password" name="password" type="password">
                         <!--<label for="password">Password</label>-->
                     </div>
                 </div>
@@ -24,8 +34,8 @@
             </form>
         </div>
     </div>
-    
-    <p class = "center">Not got an account? Register <a href="{{ url_for('register') }}">here</a>.</p>
+
+    <p class="center">Not got an account? Register <a href="{{ url_for('register') }}">here</a>.</p>
 
 
 </div>
