@@ -2,51 +2,39 @@
 
 <div class="container">
 
+    <!--Quotes-->
     <h4>{{quoteText}}</h4>
     <h6>{{quoteName}}</h6>
-
     <br>
 
+    <!--Categories-->
     <div class="row">
-
         {% for category in categories %}
-
-
         <div class="col s4 m3 xl2 border-outline">
             <p class="center">{{category.category}}</p>
         </div>
-
         {% endfor %}
-
     </div>
-
     <br>
 
+    <!--Drinks-->
     <div class="row">
-
-
         {% for drink in drinks %}
-
         <div class="col s4 border-outline">
             <p class="center">{{drink.name}}</p>
+            <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
-
         {% endfor %}
-
     </div>
 
     <!--Pagination-->
     <ul class="pagination center">
         <li class="disabled"><i class="material-icons">arrow_left</i></li>
-        {% for page_number in pages %}
-            
-            {% if page_number == current_page %}
-            <li class="active"><a>{{ page_number }}</a></li>
-            {% else %}
-            <li class="waves-effect"><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
-            {% endif %} 
-            
-        {% endfor %}
+        {% for page_number in pages %} {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
+        {% endif %} {% endfor %}
         <li class="disabled"><i class="material-icons">arrow_right</i></li>
     </ul>
 </div>

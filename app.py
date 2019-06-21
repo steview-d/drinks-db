@@ -3,6 +3,7 @@ import random
 from flask import flash, Flask, redirect, render_template, request, session, url_for
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
+from datetime import datetime
 
 #from flask_paginate import Pagination, get_page_parameter
 
@@ -19,8 +20,9 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
 mongo = PyMongo(app)
 
 
-#test
-per_page = 9
+@app.context_processor
+def inject_enumerate():
+    return dict(enumerate=enumerate)
 
 @app.route("/")
 def index():
@@ -40,7 +42,7 @@ def index():
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
-    drinks = mongo.db.drinks.find().sort('_id', pymongo.ASCENDING).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+    drinks = mongo.db.drinks.find().sort('name', pymongo.ASCENDING).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
     
     return render_template('index.html',
         drinks = drinks,
@@ -95,6 +97,34 @@ def account():
 def search():
     return render_template('search.html')
     
+
+@app.route("/drink/<drink_id>", methods=['GET', 'POST'])
+def drink(drink_id):
+    drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
+    # Format Date
+    date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
+    
+    # Get Ingredients
+    ingredients, measures = [], [] 
+    full_ingredients=list(drink.get('ingredients').values())
+    for i in range(0, len(full_ingredients),2):
+        ingredients.append(full_ingredients[i])
+        measures.append(full_ingredients[i+1])
+    # Store number of ingredients
+    num_ingredients = int(len(ingredients))
+    
+    # Instructions
+    instructions = drink['instructions'].split(". ")
+    print(type(instructions))
+    
+    return render_template('drink.html',
+        drink=drink,
+        date=date,
+        instructions = instructions,
+        ingredients = ingredients,
+        measures = measures,
+        num_ingredients=num_ingredients)
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

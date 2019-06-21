@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+
+    <div class="row center">
+        <h2>{{drink.name}}</h2>
+        <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
+        <br>
+        <button>EDIT DRINK</button>
+        <p>[needs wiring]</p>
+    </div>
+
+    <div class="row">
+        <div class="col s12 l6">
+            PICTURE {{drink.imageUrl}}
+        </div>
+        <div class="col s12 l6">
+            <ul>
+                {% for i in range(0, num_ingredients) %}
+                <div class="col s6">
+                    <!--<li><i class="fas fa-circle-notch"></i> {{drink.ingredients.get(i)}} </li>-->
+                    <!--{{ingredients}}-->
+                    {{ingredients[i]}}<br> {{measures[i]}}
+                    <!--for i in ingredient_dict:-->
+                    <!--print(ingredient_dict.get(i))-->
+                    <!--print(type(i))-->
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 l6">
+            INSTRUCTIONS<br>
+            
+            {% for i, j in enumerate(instructions) %}
+            
+            {{i+1}} {{j}}
+            <br>
+            
+            {% endfor %}
+        </div>
+        <div class="col s12 l6">
+            CATEGORY IMAGE
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
