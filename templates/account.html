@@ -45,11 +45,26 @@
             {% endfor %}
         </div>
 
+        <!--Pagination-->
+        {% if total_drinks_by_user > 4 %}
+        <ul class="pagination center">
+            <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            {% for page_number in pages %} {% if page_number == current_page %}
+            <li class="active"><a>{{ page_number }}</a></li>
+            {% else %}
+            <!--{{ url_for('account', account_name = session.username) }}-->
+            <li class="waves-effect"><a href="{{ url_for('account', account_name = session.username, current_page=page_number) }}">{{ page_number }}</a></li>
+            {% endif %} {% endfor %}
+            <li class="disabled"><i class="material-icons">arrow_right</i></li>
+        </ul>
+        {% endif %}
+
+
     </div>
     <div class="row">
         <h4>Drinks Favorited By You</h4>
 
-        {% for drink in user.favorites %}
+        {% for drink in favorited_drinks %}
         <p>{{drink}}</p>
         {% endfor %}
     </div>

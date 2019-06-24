@@ -94,6 +94,7 @@ def account(account_name):
     if account_name == session['username']:
         user = mongo.db.users.find_one({"userName": account_name})
         drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name})
+        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name})
 
         # Calculate total drink views & no' favorites
         total_views = 0
@@ -109,16 +110,29 @@ def account(account_name):
         most_favorited = mongo.db.drinks.find_one({"userName": account_name}, sort=[("favorites", -1)])
         
         total_drinks_by_user = mongo.db.drinks.find({"userName": account_name}).count()
-        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).limit(4)
+        # Comment out for pagination test
+        #drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1)
+        
+        # User Drinks Pagination
+        drinks_per_page = 4
+        current_page = int(request.args.get('current_page', 1))
+        # total_drinks = mongo.db.drinks.count()
+        num_pages = range(1, int(math.ceil(total_drinks_by_user / drinks_per_page)) +1)
+        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+
 
         return render_template('account.html',
         user=user,
         users_drinks=drinks_submitted_by_user,
+        favorited_drinks=drinks_favorited_by_user,
         total_drinks_by_user=total_drinks_by_user,
         views=total_views,
         favorites=total_favorites,
         most_viewed=most_viewed,
-        most_favorited=most_favorited)
+        most_favorited=most_favorited,
+        # Pagination Stuff
+        current_page = current_page,
+        pages = num_pages)
     else:
         return redirect(url_for('account', account_name = session['username']))
 
