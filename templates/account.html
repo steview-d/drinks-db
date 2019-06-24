@@ -2,7 +2,57 @@
 
 <div class="container">
 
-    <h3>User Account Page. TADA!</h3>
+    <div class="row">
+        <div class="col s12 l6">
+            <h4>Hi {{user.userName}}</h4>
+            <p>Your drinks have had a total of {{views}} views</p>
+            <p>Your drinks have been favorited a total of {{favorites}} times</p>
+        </div>
+        <div class="col s12 l6">
+            <div class="row">
+                <div class="col s6">
+                    <p>Your most viewed drink is</p>
+                    <p>{{most_viewed.name}}</p>
+                    <p>with {{most_viewed.views}} views.</p>
+                </div>
+                <div class="col s6">
+                    <p>pic: {{most_viewed.imageUrl}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <p>pic: {{most_favorited.imageUrl}}</p>
+                </div>
+                <div class="col s6">
+                    <p>Your most favorited drink is</p>
+                    <p>{{most_favorited.name}}</p>
+                    <p>with {{most_favorited.views}} users adding it to their favorites.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h4>Drinks Submitted By You</h4>
+        <h6>** Most recent first **</h6>
+
+        <p>You have submitted {{total_drinks_by_user}} drinks so far.</p>
+        <div class="row">
+            {% for drink in users_drinks %}
+            <div class="col s3 border-outline">
+                <p class="center">{{drink.name}}</p>
+                <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <div class="row">
+        <h4>Drinks Favorited By You</h4>
+
+        {% for drink in user.favorites %}
+        <p>{{drink}}</p>
+        {% endfor %}
+    </div>
 
 </div>
 

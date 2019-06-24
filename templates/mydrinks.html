@@ -2,22 +2,6 @@
 
 <div class="container">
 
-    <!--Quotes-->
-    <h4>{{quoteText}}</h4>
-    <h6>{{quoteName}}</h6>
-    <br>
-
-    <!--Categories-->
-    <div class="row">
-        {% for category in categories %}
-        <div class="col s4 m3 xl2 border-outline">
-            <p class="center">{{category.category.title()}}</p>
-            <a href="{{ url_for('category', category_name = category.category) }}">Click To View</a>
-        </div>
-        {% endfor %}
-    </div>
-    <br>
-
     <!--Drinks-->
     <div class="row">
         {% for drink in drinks %}

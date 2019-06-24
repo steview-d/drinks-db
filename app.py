@@ -86,9 +86,41 @@ def register():
     return render_template('register.html')
 
     
-@app.route("/account")
-def account():
-    return render_template('account.html')
+@app.route("/account/<account_name>", methods=['GET', 'POST'])
+def account(account_name):
+    # Check to make sure account being accessed through url matches
+    # account stored in session.
+    # This stops users accessing any account through the url bar.
+    if account_name == session['username']:
+        user = mongo.db.users.find_one({"userName": account_name})
+        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name})
+
+        # Calculate total drink views & no' favorites
+        total_views = 0
+        total_favorites = 0
+        for drink in drinks_submitted_by_user:
+            total_views += drink['views']
+            total_favorites += len(drink['favorites'])
+        
+        # Get most viewed drink for user
+        most_viewed = mongo.db.drinks.find_one({"userName": account_name}, sort=[("views", -1)])
+        
+        # Get most favorited drink for user
+        most_favorited = mongo.db.drinks.find_one({"userName": account_name}, sort=[("favorites", -1)])
+        
+        total_drinks_by_user = mongo.db.drinks.find({"userName": account_name}).count()
+        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).limit(4)
+
+        return render_template('account.html',
+        user=user,
+        users_drinks=drinks_submitted_by_user,
+        total_drinks_by_user=total_drinks_by_user,
+        views=total_views,
+        favorites=total_favorites,
+        most_viewed=most_viewed,
+        most_favorited=most_favorited)
+    else:
+        return redirect(url_for('account', account_name = session['username']))
 
 
 @app.route("/search")
@@ -135,13 +167,14 @@ def drink(drink_id):
         measures = measures)
 
 
-@app.route("/category/<category_id>", methods=['GET', 'POST'])
-def category(category_id):
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    drinks = mongo.db.drinks.find({"category": category_id})
+@app.route("/category/<category_name>", methods=['GET', 'POST'])
+def category(category_name):
+    category = mongo.db.categories.find_one({"category": category_name})
+    drinks = mongo.db.drinks.find({"category": category_name})
     return render_template('category.html',
         category=category,
         drinks = drinks)
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
