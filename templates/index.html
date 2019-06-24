@@ -12,6 +12,7 @@
         {% for category in categories %}
         <div class="col s4 m3 xl2 border-outline">
             <p class="center">{{category.category}}</p>
+            <a href="{{ url_for('category', category_id = category._id) }}">Click To View</a>
         </div>
         {% endfor %}
     </div>

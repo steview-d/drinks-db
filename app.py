@@ -5,8 +5,6 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
 
-#from flask_paginate import Pagination, get_page_parameter
-
 
 app = Flask(__name__)
 
@@ -101,6 +99,7 @@ def search():
 @app.route("/drink/<drink_id>", methods=['GET', 'POST'])
 def drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
+    
     # Format Date
     date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
     
@@ -110,21 +109,39 @@ def drink(drink_id):
     for i in range(0, len(full_ingredients),2):
         ingredients.append(full_ingredients[i])
         measures.append(full_ingredients[i+1])
-    # Store number of ingredients
-    num_ingredients = int(len(ingredients))
     
     # Instructions
     instructions = drink['instructions'].split(". ")
-    print(type(instructions))
     
+    # Faves & Views
+    ##
+    
+    # Comments
+    comment_user, comment_text = [], []
+    all_comments = drink['comments']
+    if all_comments:
+        for comment in all_comments:
+            user, text = comment.split(': ', 1)
+            comment_user.append(user)
+            comment_text.append(text)
+
     return render_template('drink.html',
         drink=drink,
         date=date,
         instructions = instructions,
+        comment_user = comment_user,
+        comment_text = comment_text,
         ingredients = ingredients,
-        measures = measures,
-        num_ingredients=num_ingredients)
+        measures = measures)
 
+
+@app.route("/category/<category_id>", methods=['GET', 'POST'])
+def category(category_id):
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    drinks = mongo.db.drinks.find({"category": category_id})
+    return render_template('category.html',
+        category=category,
+        drinks = drinks)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
