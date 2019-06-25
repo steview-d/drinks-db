@@ -112,6 +112,8 @@ def account(account_name):
         total_drinks_by_user = mongo.db.drinks.find({"userName": account_name}).count()
         # Comment out for pagination test
         #drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1)
+        # same for faves
+        total_fave_drinks_by_user = mongo.db.drinks.find({"favorites": account_name}).count()
         
         # User Drinks Pagination
         drinks_per_page = 4
@@ -121,10 +123,19 @@ def account(account_name):
         drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
 
 
+        # FAVE Drinks Pagination
+        fdrinks_per_page = 4
+        fcurrent_page = int(request.args.get('fcurrent_page', 1))
+        # total_drinks = mongo.db.drinks.count()
+        fnum_pages = range(1, int(math.ceil(total_fave_drinks_by_user / fdrinks_per_page)) +1)
+        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("dateAdded", -1).skip((fcurrent_page - 1) * fdrinks_per_page).limit(fdrinks_per_page)
+
+
+
         return render_template('account.html',
         user=user,
         users_drinks=drinks_submitted_by_user,
-        favorited_drinks=drinks_favorited_by_user,
+        # favorited_drinks=drinks_favorited_by_user,
         total_drinks_by_user=total_drinks_by_user,
         views=total_views,
         favorites=total_favorites,
@@ -132,7 +143,12 @@ def account(account_name):
         most_favorited=most_favorited,
         # Pagination Stuff
         current_page = current_page,
-        pages = num_pages)
+        pages = num_pages,
+        # FAVE Pagination Stuff
+        favorited_drinks=drinks_favorited_by_user,
+        fcurrent_page = fcurrent_page,
+        fpages = fnum_pages
+        )
     else:
         return redirect(url_for('account', account_name = session['username']))
 
@@ -188,6 +204,17 @@ def category(category_name):
     return render_template('category.html',
         category=category,
         drinks = drinks)
+
+
+## TESTING STUFF
+
+@app.route("/test_include")
+def test_include():
+    print("GFGJHJFGCJH")
+    return render_template('test_include.html')
+
+
+## END TESTING
 
 
 if __name__ == '__main__':
