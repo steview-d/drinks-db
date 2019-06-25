@@ -6,7 +6,7 @@
         <div class="col s12 l6">
             <h4>Hi {{user.userName}}</h4>
             <p>Your drinks have had a total of {{views}} views</p>
-            <p>Your drinks have been favorited a total of {{favorites}} times</p>
+            <p>Drinks submitted by you have been favorited a total of {{favorites}} times</p>
         </div>
         <div class="col s12 l6">
             <div class="row">
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-
+    <!--Users Submitted Drinks-->
     <div class="row">
         <h4>Drinks Submitted By You</h4>
         <h6>** Most recent first **</h6>
@@ -51,12 +51,14 @@
         {% if total_drinks_by_user > 4 %}
         <ul class="pagination center">
             <li class="disabled"><i class="material-icons">arrow_left</i></li>
-            {% for page_number in pages %} {% if page_number == current_page %}
+            {% for page_number in dr_pages %} 
+            {% if page_number == drinks_page %}
             <li class="active"><a>{{ page_number }}</a></li>
             {% else %}
             <!--{{ url_for('account', account_name = session.username) }}-->
-            <li class="waves-effect"><a href="{{ url_for('account', account_name = session.username, current_page=page_number, fcurrent_page=fcurrent_page) }}">{{ page_number }}</a></li>
-            {% endif %} {% endfor %}
+            <li class="waves-effect"><a href="{{ url_for('account', account_name = session.username, drinks_page=page_number, favorites_page=favorites_page) }}">{{ page_number }}</a></li>
+            {% endif %}
+            {% endfor %}
             <li class="disabled"><i class="material-icons">arrow_right</i></li>
         </ul>
         {% endif %}
@@ -64,9 +66,10 @@
 
     </div>
 
-
+    <!--Users Favorite Drinks-->
     <div class="row">
         <h4>Drinks Favorited By You</h4>
+        <p>Your drinks have been favorited by other users a total of {{total_fave_drinks_by_user}} times so far.</p>
 
         <div class="row">
             {% for drink in favorited_drinks %}
@@ -81,12 +84,14 @@
         {% if total_drinks_by_user > 4 %}
         <ul class="pagination center">
             <li class="disabled"><i class="material-icons">arrow_left</i></li>
-            {% for fpage_number in fpages %} {% if fpage_number == fcurrent_page %}
-            <li class="active"><a>{{ fpage_number }}</a></li>
+            {% for fv_page_number in fv_pages %}
+            {% if fv_page_number == favorites_page %}
+            <li class="active"><a>{{ fv_page_number }}</a></li>
             {% else %}
             <!--{{ url_for('account', account_name = session.username) }}-->
-            <li class="waves-effect"><a href="{{ url_for('account', account_name = session.username, current_page=current_page, fcurrent_page=fpage_number) }}">{{ fpage_number }}</a></li>
-            {% endif %} {% endfor %}
+            <li class="waves-effect"><a href="{{ url_for('account', account_name = session.username, drinks_page=drinks_page, favorites_page=fv_page_number) }}">{{ fv_page_number }}</a></li>
+            {% endif %}
+            {% endfor %}
             <li class="disabled"><i class="material-icons">arrow_right</i></li>
         </ul>
         {% endif %}

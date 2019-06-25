@@ -96,59 +96,53 @@ def account(account_name):
         drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name})
         drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name})
 
-        # Calculate total drink views & no' favorites
+        # For all drinks submitted by the user, calculate their total views &
+        # how many times they have been favorited
         total_views = 0
         total_favorites = 0
         for drink in drinks_submitted_by_user:
             total_views += drink['views']
             total_favorites += len(drink['favorites'])
         
-        # Get most viewed drink for user
+        # Get drinks which have been most viewed &
+        # favorited by others, for current user
         most_viewed = mongo.db.drinks.find_one({"userName": account_name}, sort=[("views", -1)])
-        
-        # Get most favorited drink for user
         most_favorited = mongo.db.drinks.find_one({"userName": account_name}, sort=[("favorites", -1)])
         
-        total_drinks_by_user = mongo.db.drinks.find({"userName": account_name}).count()
-        # Comment out for pagination test
-        #drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1)
-        # same for faves
-        total_fave_drinks_by_user = mongo.db.drinks.find({"favorites": account_name}).count()
+        # Get totals for drinks submitted and favorited for the user
+        total_drinks_by_user = drinks_submitted_by_user.count()
+        total_fave_drinks_by_user = drinks_favorited_by_user.count()
         
-        # User Drinks Pagination
+        # Pagination - User Submitted Drinks
         drinks_per_page = 4
-        current_page = int(request.args.get('current_page', 1))
-        # total_drinks = mongo.db.drinks.count()
-        num_pages = range(1, int(math.ceil(total_drinks_by_user / drinks_per_page)) +1)
-        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+        drinks_page = int(request.args.get('drinks_page', 1))
+        num_dr_pages = range(1, int(math.ceil(total_drinks_by_user / drinks_per_page)) +1)
+        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).skip((drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
 
-
-        # FAVE Drinks Pagination
-        fdrinks_per_page = 4
-        fcurrent_page = int(request.args.get('fcurrent_page', 1))
-        # total_drinks = mongo.db.drinks.count()
-        fnum_pages = range(1, int(math.ceil(total_fave_drinks_by_user / fdrinks_per_page)) +1)
-        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("dateAdded", -1).skip((fcurrent_page - 1) * fdrinks_per_page).limit(fdrinks_per_page)
-
+        # Pagination - Users Favorite Drinks
+        favorite_drinks_per_page = 4
+        favorites_page = int(request.args.get('favorites_page', 1))
+        num_fv_pages = range(1, int(math.ceil(total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
+        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("dateAdded", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
 
 
         return render_template('account.html',
         user=user,
         users_drinks=drinks_submitted_by_user,
-        # favorited_drinks=drinks_favorited_by_user,
-        total_drinks_by_user=total_drinks_by_user,
+        favorited_drinks=drinks_favorited_by_user,
+        # User stats
         views=total_views,
         favorites=total_favorites,
         most_viewed=most_viewed,
         most_favorited=most_favorited,
-        # Pagination Stuff
-        current_page = current_page,
-        pages = num_pages,
-        # FAVE Pagination Stuff
-        favorited_drinks=drinks_favorited_by_user,
-        fcurrent_page = fcurrent_page,
-        fpages = fnum_pages
-        )
+        total_drinks_by_user=total_drinks_by_user,
+        total_fave_drinks_by_user=total_fave_drinks_by_user,
+        # Pagination
+        drinks_page = drinks_page,
+        dr_pages = num_dr_pages,
+        favorites_page = favorites_page,
+        fv_pages = num_fv_pages)
+    
     else:
         return redirect(url_for('account', account_name = session['username']))
 
@@ -207,12 +201,6 @@ def category(category_name):
 
 
 ## TESTING STUFF
-
-@app.route("/test_include")
-def test_include():
-    print("GFGJHJFGCJH")
-    return render_template('test_include.html')
-
 
 ## END TESTING
 
