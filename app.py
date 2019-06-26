@@ -106,8 +106,10 @@ def account(account_name):
         
         # Get drinks which have been most viewed &
         # favorited by others, for current user
-        most_viewed = mongo.db.drinks.find_one({"userName": account_name}, sort=[("views", -1)])
-        most_favorited = mongo.db.drinks.find_one({"userName": account_name}, sort=[("favorites", -1)])
+        most_viewed = mongo.db.drinks.find_one({
+            "userName": account_name}, sort=[("views", -1)])
+        most_favorited = mongo.db.drinks.find_one({
+            "userName": account_name}, sort=[("favorites", -1)])
         
         # Get totals for drinks submitted and favorited for the user
         total_drinks_by_user = drinks_submitted_by_user.count()
@@ -147,31 +149,16 @@ def account(account_name):
         return redirect(url_for('account', account_name = session['username']))
 
 
-@app.route("/search")
-def search():
-    return render_template('search.html')
-    
-
 @app.route("/drink/<drink_id>", methods=['GET', 'POST'])
 def drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
     
     # Format Date
     date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
-    
-    # Get Ingredients
-    ingredients, measures = [], [] 
-    full_ingredients=list(drink.get('ingredients').values())
-    for i in range(0, len(full_ingredients),2):
-        ingredients.append(full_ingredients[i])
-        measures.append(full_ingredients[i+1])
-    
+
     # Instructions
     instructions = drink['instructions'].split(". ")
-    
-    # Faves & Views
-    ##
-    
+
     # Comments
     comment_user, comment_text = [], []
     all_comments = drink['comments']
@@ -186,11 +173,19 @@ def drink(drink_id):
         date=date,
         instructions = instructions,
         comment_user = comment_user,
-        comment_text = comment_text,
-        ingredients = ingredients,
-        measures = measures)
+        comment_text = comment_text)
 
 
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+
+    if request.method=='POST':
+        results=mongo.db.drinks.find({"$text": {"$search": (request.form.get('search_text'))}})
+        return render_template('search.html', results=results)
+    
+    return render_template('search.html')
+    
+    
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
 def category(category_name):
     category = mongo.db.categories.find_one({"category": category_name})

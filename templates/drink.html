@@ -2,6 +2,7 @@
 
 <div class="container">
 
+    <!--Drink Name-->
     <div class="row center">
         <h2>{{drink.name}}</h2>
         <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
@@ -10,26 +11,23 @@
         <p>[needs wiring]</p>
     </div>
 
+    <!--Picture & Ingredients-->
     <div class="row">
         <div class="col s12 l6">
             PICTURE {{drink.imageUrl}}
         </div>
         <div class="col s12 l6">
             <ul>
-                {% for i in range(0, ingredients | length) %}
+                {% for i in range(0, drink.ingredients | length) %} 
                 <div class="col s6">
-                    <!--<li><i class="fas fa-circle-notch"></i> {{drink.ingredients.get(i)}} </li>-->
-                    <!--{{ingredients}}-->
-                    {{ingredients[i]}}<br> {{measures[i]}}
-                    <!--for i in ingredient_dict:-->
-                    <!--print(ingredient_dict.get(i))-->
-                    <!--print(type(i))-->
+                    {{drink.ingredients[i]}}<br>
                 </div>
                 {% endfor %}
             </ul>
         </div>
     </div>
 
+    <!--Instructions & Category Image-->
     <div class="row">
         <div class="col s12 l6">
             INSTRUCTIONS<br> {% for i, j in enumerate(instructions) %} {{i+1}} {{j}}
@@ -40,50 +38,46 @@
         </div>
     </div>
 
+    <!--Favorites, Views & Comments-->
     <div class="row">
         <div class="col sm12 l4">
             FAVES & VIEWS
-            
+
             <p>Favorites: {{drink.favorites | count}}</p>
             <p>Views: {{drink.views}}</p>
-            
-            {% if drink.favorites | count < 1 %}
-            
-            <p>Not yet favorited by any users</p>
-            
-            {% else %}
-            
-            <p>Favorited By These Users</p>
-            
-            {% for x in drink.favorites %}
-            
-            <p>{{x}}</p>
-            
-            {% endfor %}
-            
-            {% endif %}
-            
-            
+
+            {% if drink.favorites | count
+            < 1 %} <p>Not yet favorited by any users</p>
+
+                {% else %}
+
+                <p>Favorited By These Users</p>
+
+                {% for x in drink.favorites %}
+
+                <p>{{x}}</p>
+
+                {% endfor %} {% endif %}
+
+
         </div>
         <div class="col sm12 l8">
-            COMMENTS<br>
-            
-            {% for x in range(0, comment_user | length) %}
-            
+            COMMENTS<br> {% for x in range(0, comment_user | length) %}
+
             <p>{{comment_user[x]}}</p>
             <p>{{comment_text[x]}}</p>
-            
+
             {% endfor %}
-            
+
         </div>
     </div>
 
 
 
 
-<div class="row center">
-    <a class="waves-effect waves-light btn-small history-back">back</a>
-</div>
+    <div class="row center">
+        <a class="waves-effect waves-light btn-small history-back">back</a>
+    </div>
 
 </div>
 

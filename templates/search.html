@@ -2,7 +2,29 @@
 
 <div class="container">
 
-    <h3>Search Screen. OHMYGOD!</h3>
+    <div class="row center">
+        <h4>Search</h4>
+        <hr>
+    </div>
+
+
+    <div class="row">
+        <form action="{{ url_for('search') }}" method="POST" class="col s12">
+            <span><i class="fas fa-search"></i></span><input placeholder="Search...." id="search_text" name="search_text" type="text">
+            <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
+        </form>
+    </div>
+
+    <div class="row">
+        {% for drink in results %}
+        <div class="col s4 border-outline">
+            <p class="center">{{drink.name}}</p>
+            <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
+        </div>
+        {% endfor %}
+    </div>
+
+
 
 </div>
 
