@@ -30,8 +30,10 @@
     <!--Instructions & Category Image-->
     <div class="row">
         <div class="col s12 l6">
-            INSTRUCTIONS<br> {% for i, j in enumerate(instructions) %} {{i+1}} {{j}}
+            <h5>INSTRUCTIONS</h5><br> {% for i, j in enumerate(instructions) %} {{i+1}} {{j}}
             <br> {% endfor %}
+            <h6>Serve in a {{drink.glassType}} glass.</h6>
+            
         </div>
         <div class="col s12 l6">
             CATEGORY IMAGE

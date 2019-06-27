@@ -183,13 +183,27 @@ def search():
         find=request.args['find']
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
-        results = mongo.db.drinks.find({'$text': {'$search': find }}).sort('_id', pymongo.ASCENDING).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        # results = mongo.db.drinks.find({'$text': {'$search': find }}).sort('_id', pymongo.ASCENDING).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        results = mongo.db.drinks.find({'$text': {'$search': find }},{
+            'score': {'$meta': 'textScore'}}).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]).skip(
+                (current_page - 1)*results_per_page).limit(results_per_page)
         num_results=results.count()
+        # If no results for search
+        if num_results==0:
+            return render_template('search.html',
+                find=find,
+                num_results=num_results)
+        
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
-        # Get values for 
+        # Get values for 'showing x - x of x results' in search results
         x=current_page * results_per_page
         first_result_num = x - results_per_page + 1
-        last_result_num = x if x < num_results else num_results 
+        last_result_num = x if x < num_results else num_results
+        
+        # print("")
+        # for i in results:
+        #     print(i)
+        # print("")
 
         return render_template('search.html',
             results=results,

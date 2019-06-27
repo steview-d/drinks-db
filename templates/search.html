@@ -15,6 +15,11 @@
         </form>
     </div>
 
+    <!--No results from search-->
+    {% if num_results == 0 %}
+    <h5 class="center">No drinks found for '{{find}}'. Please try another search.</h5>
+    {% endif %}
+    
     {% if results %}
     <!--Display Results-->
     <div class="row center">
@@ -24,7 +29,8 @@
     <div class="row">
         {% for drink in results %}
         <div class="col s4 border-outline center">
-            <p class="center">{{drink.name}}</p>
+            <p class="center">{{drink.name}} | {{drink.views}}</p>
+            <p class="center">{{drink.score}}</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}
@@ -33,13 +39,11 @@
     <!--Pagination-->
     <ul class="pagination center">
         <li class="disabled"><i class="material-icons">chevron_left</i></li>
-        {% for page_number in pages %}
-        {% if page_number == current_page %}
+        {% for page_number in pages %} {% if page_number == current_page %}
         <li class="active"><a>{{ page_number }}</a></li>
         {% else %}
         <li class="waves-effect"><a href="{{ url_for('search', current_page=page_number, find=find) }}">{{ page_number }}</a></li>
-        {% endif %}
-        {% endfor %}
+        {% endif %} {% endfor %}
         <li class="disabled"><i class="material-icons">chevron_right</i></li>
     </ul>
 
