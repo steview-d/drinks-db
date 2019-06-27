@@ -186,11 +186,18 @@ def search():
         results = mongo.db.drinks.find({'$text': {'$search': find }}).sort('_id', pymongo.ASCENDING).skip((current_page - 1)*results_per_page).limit(results_per_page)
         num_results=results.count()
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
- 
+        # Get values for 
+        x=current_page * results_per_page
+        first_result_num = x - results_per_page + 1
+        last_result_num = x if x < num_results else num_results 
+
         return render_template('search.html',
             results=results,
+            results_per_page=results_per_page,
             current_page = current_page,
             pages = num_pages,
+            first_result_num=first_result_num,
+            last_result_num=last_result_num,
             find=find)
     
     return render_template('search.html')

@@ -19,7 +19,7 @@
     <!--Display Results-->
     <div class="row center">
         <h5>Search Results</h5>
-        <h6>Showing x - x of {{results.count()}} results</h6>
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
     </div>
     <div class="row">
         {% for drink in results %}
