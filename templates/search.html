@@ -9,20 +9,42 @@
 
 
     <div class="row">
-        <form action="{{ url_for('search') }}" method="POST" class="col s12">
-            <span><i class="fas fa-search"></i></span><input placeholder="Search...." id="search_text" name="search_text" type="text">
+        <form action="{{ url_for('search') }}" class="col s12">
+            <span><i class="fas fa-search"></i></span><input placeholder="Search...." id="find" name="find" type="text">
             <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
         </form>
     </div>
 
+    {% if results %}
+    <!--Display Results-->
+    <div class="row center">
+        <h5>Search Results</h5>
+        <h6>Showing x - x of {{results.count()}} results</h6>
+    </div>
     <div class="row">
         {% for drink in results %}
-        <div class="col s4 border-outline">
+        <div class="col s4 border-outline center">
             <p class="center">{{drink.name}}</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}
     </div>
+
+    <!--Pagination-->
+    <ul class="pagination center">
+        <li class="disabled"><i class="material-icons">chevron_left</i></li>
+        {% for page_number in pages %}
+        {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for('search', current_page=page_number, find=find) }}">{{ page_number }}</a></li>
+        {% endif %}
+        {% endfor %}
+        <li class="disabled"><i class="material-icons">chevron_right</i></li>
+    </ul>
+
+
+    {% endif %}
 
 
 

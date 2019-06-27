@@ -176,16 +176,26 @@ def drink(drink_id):
         comment_text = comment_text)
 
 
-@app.route("/search", methods=['GET', 'POST'])
+@app.route("/search")
 def search():
 
-    if request.method=='POST':
-        results=mongo.db.drinks.find({"$text": {"$search": (request.form.get('search_text'))}})
-        return render_template('search.html', results=results)
+    if 'find' in request.args:
+        find=request.args['find']
+        results_per_page = 9
+        current_page = int(request.args.get('current_page', 1))
+        results = mongo.db.drinks.find({'$text': {'$search': find }}).sort('_id', pymongo.ASCENDING).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        num_results=results.count()
+        num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
+ 
+        return render_template('search.html',
+            results=results,
+            current_page = current_page,
+            pages = num_pages,
+            find=find)
     
     return render_template('search.html')
-    
-    
+
+
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
 def category(category_name):
     category = mongo.db.categories.find_one({"category": category_name})
