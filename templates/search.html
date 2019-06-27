@@ -22,6 +22,8 @@
     
     {% if results %}
     <!--Display Results-->
+    
+    {{max_weight}}
     <div class="row center">
         <h5>Search Results</h5>
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
@@ -30,7 +32,8 @@
         {% for drink in results %}
         <div class="col s4 border-outline center">
             <p class="center">{{drink.name}} | {{drink.views}}</p>
-            <p class="center">{{drink.score}}</p>
+            <p class="center">{{drink.score}}</p> <!--To remove - testing only-->
+            <p class="center">Search Relevance: {{ (drink.score / max_weight * 100) | round | int}}%</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}

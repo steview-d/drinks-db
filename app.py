@@ -200,11 +200,10 @@ def search():
         first_result_num = x - results_per_page + 1
         last_result_num = x if x < num_results else num_results
         
-        # print("")
-        # for i in results:
-        #     print(i)
-        # print("")
-
+        # Find max value of 'score'
+        max_weight = mongo.db.drinks.find_one({'$text': {'$search': find }},{
+            'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])
+        
         return render_template('search.html',
             results=results,
             results_per_page=results_per_page,
@@ -212,6 +211,7 @@ def search():
             pages = num_pages,
             first_result_num=first_result_num,
             last_result_num=last_result_num,
+            max_weight=max_weight['score'],
             find=find)
     
     return render_template('search.html')
