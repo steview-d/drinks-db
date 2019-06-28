@@ -155,7 +155,12 @@ def drink(drink_id):
     
     # Format Date
     date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
-
+    
+    # Increment view counter
+    # DISABLED FOR NOW. CONFIRMED WORKS, ENABLE LATER ON
+    # .update() is depreciated - should use update_one() or find_one_and_update()
+    # mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    
     # Instructions
     instructions = drink['instructions'].split(". ")
 
@@ -167,6 +172,16 @@ def drink(drink_id):
             user, text = comment.split(': ', 1)
             comment_user.append(user)
             comment_text.append(text)
+            
+    # Posting a comment
+    if request.method == 'POST':
+        if len(request.form.get('comment')) > 0:
+            new_comment=session['username'] + ": " + request.form.get('comment')
+            print(new_comment)
+            mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'comments': new_comment}})
+            flash("Comment posted, thanks {}".format(session['username']))
+            return redirect(url_for('drink', drink_id = drink_id))
+
 
     return render_template('drink.html',
         drink=drink,
