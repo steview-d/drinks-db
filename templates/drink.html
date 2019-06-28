@@ -48,11 +48,38 @@
     <!--Favorites, Views & Comments-->
     <div class="row">
         <div class="col sm12 l4">
-            FAVES & VIEWS
+            <h5>FAVES & VIEWS</h5>
 
             <p>Favorites: {{drink.favorites | count}}</p>
             <p>Views: {{drink.views}}</p>
 
+            <!--Add as favorite-->
+            {% if not session %}
+            <h5>You must be logged in to add as a favorite</h5>
+            {% elif session['username'] == drink.userName %}
+            <h5>You cannot add your own drinks to your favorites</h5>
+            {% else %}
+            <h5>Can add as fave!</h5>
+            
+                {% if is_favorite %}
+                
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id) }}">Remove Favorite</a>
+
+                
+                <i class="fas fa-heart"></i>
+                
+                {% else %}
+
+                <i class="far fa-heart"></i>
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id) }}">Add Favorite</a>
+                
+                {% endif %}
+            
+            
+            {% endif %}
+
+
+            <!--Displays num favorites-->
             {% if drink.favorites | count
             < 1 %} <p>Not yet favorited by any users</p>
 

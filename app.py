@@ -169,26 +169,52 @@ def drink(drink_id):
     all_comments = drink['comments']
     if all_comments:
         for comment in all_comments:
-            user, text = comment.split(': ', 1)
+            user, text = comment.split(':', 1)
             comment_user.append(user)
             comment_text.append(text)
             
     # Posting a comment
     if request.method == 'POST':
         if len(request.form.get('comment')) > 0:
-            new_comment=session['username'] + ": " + request.form.get('comment')
+            new_comment=session['username'] + ":" + request.form.get('comment')
             print(new_comment)
             mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'comments': new_comment}})
             flash("Comment posted, thanks {}".format(session['username']))
             return redirect(url_for('drink', drink_id = drink_id))
+
+    # Check if drink is in users favorites list
+    try:
+        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favorites']
+    except:
+        user_favorites=[]
+
+    is_favorite = 1 if drink_id in user_favorites else 0
 
 
     return render_template('drink.html',
         drink=drink,
         date=date,
         instructions = instructions,
+        is_favorite=is_favorite,
         comment_user = comment_user,
         comment_text = comment_text)
+
+
+@app.route("/toggle_favorite/<drink_id>")
+def toggle_favorite(drink_id):
+    
+    try:
+        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favorites']
+    except:
+        user_favorites=[]
+    
+    is_favorite = 1 if drink_id in user_favorites else 0
+    action = '$push' if is_favorite == 0 else '$pull'
+    
+    mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favorites': drink_id}})
+    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favorites': session['username']}})
+    
+    return redirect(url_for('drink', drink_id=drink_id))
 
 
 @app.route("/search")
@@ -198,7 +224,6 @@ def search():
         find=request.args['find']
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
-        # results = mongo.db.drinks.find({'$text': {'$search': find }}).sort('_id', pymongo.ASCENDING).skip((current_page - 1)*results_per_page).limit(results_per_page)
         results = mongo.db.drinks.find({'$text': {'$search': find }},{
             'score': {'$meta': 'textScore'}}).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]).skip(
                 (current_page - 1)*results_per_page).limit(results_per_page)
