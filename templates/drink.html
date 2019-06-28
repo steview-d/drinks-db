@@ -46,7 +46,7 @@
     </div>
 
     <!--Favorites, Views & Comments-->
-    <div class="row">
+    <div class="row" id="fv">
         <div class="col sm12 l4">
             <h5>FAVES & VIEWS</h5>
 
@@ -62,17 +62,11 @@
             <h5>Can add as fave!</h5>
             
                 {% if is_favorite %}
-                
-                <a href="{{ url_for('toggle_favorite', drink_id = drink._id) }}">Remove Favorite</a>
-
-                
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
                 <i class="fas fa-heart"></i>
-                
                 {% else %}
-
                 <i class="far fa-heart"></i>
-                <a href="{{ url_for('toggle_favorite', drink_id = drink._id) }}">Add Favorite</a>
-                
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a>
                 {% endif %}
             
             

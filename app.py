@@ -187,7 +187,6 @@ def drink(drink_id):
         user_favorites = mongo.db.users.find_one({'userName': session['username']})['favorites']
     except:
         user_favorites=[]
-
     is_favorite = 1 if drink_id in user_favorites else 0
 
 
@@ -200,25 +199,23 @@ def drink(drink_id):
         comment_text = comment_text)
 
 
-@app.route("/toggle_favorite/<drink_id>")
-def toggle_favorite(drink_id):
-    
-    try:
-        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favorites']
-    except:
-        user_favorites=[]
-    
-    is_favorite = 1 if drink_id in user_favorites else 0
-    action = '$push' if is_favorite == 0 else '$pull'
-    
+@app.route("/toggle_favorite/<drink_id>/<is_favorite>")
+def toggle_favorite(drink_id, is_favorite):
+    """Add or remove drink from favorites list for user and drink """
+    action = '$pull' if is_favorite == "1" else '$push'
     mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favorites': drink_id}})
     mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favorites': session['username']}})
     
-    return redirect(url_for('drink', drink_id=drink_id))
+    return redirect(url_for('drink', drink_id=drink_id, _anchor='fv'))
 
 
 @app.route("/search")
 def search():
+
+    #Get Categories for filter
+    filter_category = mongo.db.categories.find()
+    filter_glass = mongo.db.glass.find()
+    filter_difficulty = mongo.db.difficulty.find()
 
     if 'find' in request.args:
         find=request.args['find']
@@ -243,7 +240,7 @@ def search():
         # Find max value of 'score'
         max_weight = mongo.db.drinks.find_one({'$text': {'$search': find }},{
             'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])
-        
+            
         return render_template('search.html',
             results=results,
             results_per_page=results_per_page,
@@ -252,9 +249,15 @@ def search():
             first_result_num=first_result_num,
             last_result_num=last_result_num,
             max_weight=max_weight['score'],
+            filter_category=filter_category,
+            filter_glass=filter_glass,
+            filter_difficulty=filter_difficulty,
             find=find)
     
-    return render_template('search.html')
+    return render_template('search.html',
+        filter_category=filter_category,
+        filter_glass=filter_glass,
+        filter_difficulty=filter_difficulty)
 
 
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
