@@ -17,7 +17,7 @@
                     <select id="category_filter" name="category_filter">
                         <option value="" disabled selected>Filter By Category</option>
                         <option value=""></option>
-                        {% for item in filter_category %} {% if item == filter_category %}
+                        {% for item in all_categories %} {% if item == all_categories %}
                         <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
                         {% else %}
                         <option value="{{ item.category }}">{{ item.category.title() }}</option>
@@ -26,31 +26,30 @@
                     <label for="category_filter">Drink Category</label>
                 </div>
                 <div class="input-field col s4">
-                    <select id="category_filter" name="category_filter">
+                    <select id="glassType_filter" name="glassType_filter">
                         <option value="" disabled selected>Filter By Glass Type</option>
                         <option value=""></option>
-                        {% for item in filter_glass %} {% if item == filter_glass %}
+                        {% for item in all_glass_types %} {% if item == all_glass_types %}
                         <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
                         {% else %}
                         <option value="{{ item.glassType }}">{{ item.glassType.title() }}</option>
                         {% endif %} {% endfor %}
                     </select>
-                    <label for="category_filter">Glass Type</label>
+                    <label for="glassType_filter">Glass Type</label>
                 </div>
                 <div class="input-field col s4">
-                    <select id="category_filter" name="category_filter">
+                    <select id="difficulty_filter" name="difficulty_filter">
                         <option value="" disabled selected>Filter By Difficulty</option>
                         <option value=""></option>
-                        {% for item in filter_difficulty %} {% if item == filter_difficulty %}
+                        {% for item in all_difficulties %} {% if item == all_difficulties %}
                         <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
                         {% else %}
                         <option value="{{ item.difficulty }}">{{ item.difficulty.title() }}</option>
                         {% endif %} {% endfor %}
                     </select>
-                    <label for="category_filter">Difficulty</label>
+                    <label for="difficulty_filter">Difficulty</label>
                 </div>
             </div>
-
 
             <div class="center">
                 <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>

@@ -55,7 +55,9 @@ def index():
 def login():
     if request.method == 'POST':
         user_list = mongo.db.users
+        print(user_list)
         current_user = user_list.find_one({'userName': request.form['username']})
+        print(current_user)
         if current_user:
             if request.form['password'] == current_user['password']:
                 session['username'] = request.form['username']
@@ -160,6 +162,9 @@ def drink(drink_id):
     # DISABLED FOR NOW. CONFIRMED WORKS, ENABLE LATER ON
     # .update() is depreciated - should use update_one() or find_one_and_update()
     # mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    # add a redirect url_for to make sure view increase is shown when viewed?
+    # or is this adding redirects for sake of it? Could just always add one via the html display
+    # to show this amount before its updated for next view?
     
     # Instructions
     instructions = drink['instructions'].split(". ")
@@ -212,24 +217,77 @@ def toggle_favorite(drink_id, is_favorite):
 @app.route("/search")
 def search():
 
-    #Get Categories for filter
-    filter_category = mongo.db.categories.find()
-    filter_glass = mongo.db.glass.find()
-    filter_difficulty = mongo.db.difficulty.find()
+    # Get Categories for filter
+    all_categories = mongo.db.categories.find()
+    all_glass_types = mongo.db.glass.find()
+    all_difficulties = mongo.db.difficulty.find()
 
-    if 'find' in request.args:
+    # Create dict of filters set by user
+    if request.args:
+        filters = request.args.to_dict()
+        filter_list={}
+        del filters['find']
+        for k,v in filters.items():
+            new_k = k.split("_")[0]
+            filter_list[new_k]=v
+        
+        # temp_results=mongo.db.drinks.aggregate([{"$match" : { 
+        #     "$and": [ filter_list ] }} ])
+        # for a in temp_results:
+        #     print("HERE", a['name'])
+    
+    
+    if request.args:
+        # print("")
+        # print(filter_list)
+        # print("")
         find=request.args['find']
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
-        results = mongo.db.drinks.find({'$text': {'$search': find }},{
-            'score': {'$meta': 'textScore'}}).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]).skip(
-                (current_page - 1)*results_per_page).limit(results_per_page)
+        
+        # results = mongo.db.drinks.find({'$text': {'$search': find }},{
+        #     'score': {'$meta': 'textScore'}}).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]).skip(
+        #         (current_page - 1)*results_per_page).limit(results_per_page)
+        
+        # {'category': 'tequila'}
+        
+        
+        results = mongo.db.drinks.find(
+            {'$text': {'$search': find }}, {'score': {'$meta': 'textScore'}}
+            ).sort(
+            [('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
+            ).skip(
+            (current_page - 1)*results_per_page
+            ).limit(
+            results_per_page
+            )
+        
+        temp_results=mongo.db.drinks.find({  '$and': [filter_list] }  )
+        # temp_results=mongo.db.drinks.aggregate([{"$match" : { "$and": [ filter_list ] } } ])
+        print("")
+        for m in temp_results:
+            print("--> ", m['name'])
+        print("")
+        
+        more_temp_results=mongo.db.drinks.find(filter_list)
+        print("")
+        for m in more_temp_results:
+            print(m['name'])
+        print("")
+        print(type(filter_list))
+        print(filter_list)
+        
+
         num_results=results.count()
+            
         # If no results for search
         if num_results==0:
             return render_template('search.html',
                 find=find,
-                num_results=num_results)
+                num_results=num_results,
+                all_categories=all_categories,
+                all_glass_types=all_glass_types,
+                all_difficulties=all_difficulties)
         
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
         # Get values for 'showing x - x of x results' in search results
@@ -249,15 +307,15 @@ def search():
             first_result_num=first_result_num,
             last_result_num=last_result_num,
             max_weight=max_weight['score'],
-            filter_category=filter_category,
-            filter_glass=filter_glass,
-            filter_difficulty=filter_difficulty,
+            all_categories=all_categories,
+            all_glass_types=all_glass_types,
+            all_difficulties=all_difficulties,
             find=find)
     
     return render_template('search.html',
-        filter_category=filter_category,
-        filter_glass=filter_glass,
-        filter_difficulty=filter_difficulty)
+        all_categories=all_categories,
+        all_glass_types=all_glass_types,
+        all_difficulties=all_difficulties)
 
 
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
