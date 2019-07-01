@@ -231,29 +231,13 @@ def search():
             new_k = k.split("_")[0]
             filter_list[new_k]=v
         
-        # temp_results=mongo.db.drinks.aggregate([{"$match" : { 
-        #     "$and": [ filter_list ] }} ])
-        # for a in temp_results:
-        #     print("HERE", a['name'])
-    
-    
-    if request.args:
-        # print("")
-        # print(filter_list)
-        # print("")
         find=request.args['find']
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
         
-        # results = mongo.db.drinks.find({'$text': {'$search': find }},{
-        #     'score': {'$meta': 'textScore'}}).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]).skip(
-        #         (current_page - 1)*results_per_page).limit(results_per_page)
-        
-        # {'category': 'tequila'}
-        
-        
+        # Query db with search string and filters
         results = mongo.db.drinks.find(
-            {'$text': {'$search': find }}, {'score': {'$meta': 'textScore'}}
+            {'$and': [{'$text': {'$search': find }}, filter_list] }, {'score': {'$meta': 'textScore'}}
             ).sort(
             [('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
             ).skip(
@@ -262,22 +246,6 @@ def search():
             results_per_page
             )
         
-        temp_results=mongo.db.drinks.find({  '$and': [filter_list] }  )
-        # temp_results=mongo.db.drinks.aggregate([{"$match" : { "$and": [ filter_list ] } } ])
-        print("")
-        for m in temp_results:
-            print("--> ", m['name'])
-        print("")
-        
-        more_temp_results=mongo.db.drinks.find(filter_list)
-        print("")
-        for m in more_temp_results:
-            print(m['name'])
-        print("")
-        print(type(filter_list))
-        print(filter_list)
-        
-
         num_results=results.count()
             
         # If no results for search
@@ -296,9 +264,10 @@ def search():
         last_result_num = x if x < num_results else num_results
         
         # Find max value of 'score'
-        max_weight = mongo.db.drinks.find_one({'$text': {'$search': find }},{
+        max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_list] },{
             'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])
             
+
         return render_template('search.html',
             results=results,
             results_per_page=results_per_page,
