@@ -222,29 +222,50 @@ def search():
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
 
-    # Create dict of filters set by user
+    
     if request.args:
+        # Create dict of filters set by user
         filters = request.args.to_dict()
         filter_list={}
-        del filters['find']
-        for k,v in filters.items():
-            new_k = k.split("_")[0]
-            filter_list[new_k]=v
+        filters_to_look_for=['category_filter', 'glassType_filter', 'difficulty_filter']
+        # print("tytyty", filters['category_filter'])
+        
+        #THIS LOT CAN CHANGE BACK ONCE PAGINATION WORKING, GET RID OF TEMP_ STUFF
+        temp_filters=filters
+        del temp_filters['find']
+        for k,v in temp_filters.items():
+            if k in filters_to_look_for:
+                new_k = k.split("_")[0]
+                filter_list[new_k]=v
+        
+        # REFACTOR THIS
+        try:
+            category_filter=filters['category_filter']
+        except:
+            category_filter=[]
+        try:
+            glassType_filter=filters['glassType_filter']
+        except:
+            glassType_filter=[]
+        try:
+            difficulty_filter=filters['difficulty_filter']
+        except:
+            difficulty_filter=[]
+        
         
         find=request.args['find']
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
         
+        
+        
         # Query db with search string and filters
+        search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
         results = mongo.db.drinks.find(
-            {'$and': [{'$text': {'$search': find }}, filter_list] }, {'score': {'$meta': 'textScore'}}
-            ).sort(
-            [('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
-            ).skip(
-            (current_page - 1)*results_per_page
-            ).limit(
-            results_per_page
-            )
+            {'$and': [search_str, filter_list] }, {'score': {'$meta': 'textScore'}}
+            ).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
+            ).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        
         
         num_results=results.count()
             
@@ -253,6 +274,7 @@ def search():
             return render_template('search.html',
                 find=find,
                 num_results=num_results,
+                # Items for filters
                 all_categories=all_categories,
                 all_glass_types=all_glass_types,
                 all_difficulties=all_difficulties)
@@ -264,24 +286,35 @@ def search():
         last_result_num = x if x < num_results else num_results
         
         # Find max value of 'score'
-        max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_list] },{
-            'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])
-            
+        if find == "":
+            max_weight=int(1)
+        else:
+            max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_list] },{
+                'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])['score']
 
         return render_template('search.html',
+            find=find,
+            # Results 
             results=results,
+            first_result_num=first_result_num,
+            last_result_num=last_result_num,
+            # Search result scores
+            max_weight = max_weight,
+            # Pagination | Navigation
             results_per_page=results_per_page,
             current_page = current_page,
             pages = num_pages,
-            first_result_num=first_result_num,
-            last_result_num=last_result_num,
-            max_weight=max_weight['score'],
+            # Pagination | Selected filters
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter,
+            # Items for filters
             all_categories=all_categories,
             all_glass_types=all_glass_types,
-            all_difficulties=all_difficulties,
-            find=find)
+            all_difficulties=all_difficulties)
     
     return render_template('search.html',
+        # Items for filters
         all_categories=all_categories,
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties)
