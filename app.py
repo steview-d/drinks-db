@@ -217,28 +217,25 @@ def toggle_favorite(drink_id, is_favorite):
 @app.route("/search")
 def search():
 
-    # Get Categories for filter
+    # Get Categories for filter dropdowns
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
 
     
     if request.args:
-        # Create dict of filters set by user
+        # Take the filters selected by the user and convert them
+        # to a dict that can be used in the main search query 
         filters = request.args.to_dict()
-        filter_list={}
-        filters_to_look_for=['category_filter', 'glassType_filter', 'difficulty_filter']
-        # print("tytyty", filters['category_filter'])
-        
-        #THIS LOT CAN CHANGE BACK ONCE PAGINATION WORKING, GET RID OF TEMP_ STUFF
-        temp_filters=filters
-        del temp_filters['find']
-        for k,v in temp_filters.items():
-            if k in filters_to_look_for:
+        filter_dict={}
+        list_of_filters=['category_filter', 'glassType_filter', 'difficulty_filter']
+        for k,v in filters.items():
+            if k in list_of_filters:
                 new_k = k.split("_")[0]
-                filter_list[new_k]=v
+                filter_dict[new_k]=v
         
-        # REFACTOR THIS
+        # Keep track of filter values when navigating
+        # between multiple pages of results.
         try:
             category_filter=filters['category_filter']
         except:
@@ -253,19 +250,19 @@ def search():
             difficulty_filter=[]
         
         
+
         find=request.args['find']
+
+        # Pagination - part 1
         results_per_page = 9
         current_page = int(request.args.get('current_page', 1))
         
-        
-        
-        # Query db with search string and filters
+        # Query drinks db with search string and filters
         search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
         results = mongo.db.drinks.find(
-            {'$and': [search_str, filter_list] }, {'score': {'$meta': 'textScore'}}
+            {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
             ).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
             ).skip((current_page - 1)*results_per_page).limit(results_per_page)
-        
         
         num_results=results.count()
             
@@ -279,18 +276,22 @@ def search():
                 all_glass_types=all_glass_types,
                 all_difficulties=all_difficulties)
         
+        # Pagination - part 2
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
-        # Get values for 'showing x - x of x results' in search results
+        
+        # Get values for (example) 'showing 1 - 9 of 15 results' in search results
         x=current_page * results_per_page
         first_result_num = x - results_per_page + 1
         last_result_num = x if x < num_results else num_results
         
-        # Find max value of 'score'
-        if find == "":
-            max_weight=int(1)
-        else:
-            max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_list] },{
+        # From search results, find max value of 'score' to allow search.html
+        # to calculate the results relevance as a % of highest scoring result
+        if find != "":
+            max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_dict] },{
                 'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])['score']
+        else:
+            max_weight=None
+            
 
         return render_template('search.html',
             find=find,
