@@ -214,6 +214,26 @@ def toggle_favorite(drink_id, is_favorite):
     return redirect(url_for('drink', drink_id=drink_id, _anchor='fv'))
 
 
+@app.route("/add_drink", methods=['GET', 'POST'])
+def add_drink():
+    user = session['username']
+    all_categories = mongo.db.categories.find()
+    all_glass_types = mongo.db.glass.find()
+    all_difficulties = mongo.db.difficulty.find()
+
+    
+    if request.method=="POST":
+        return redirect(url_for('add_drink'))
+    
+    
+    return render_template('add_drink.html',
+        user=user,
+        all_categories=all_categories,
+        all_glass_types=all_glass_types,
+        all_difficulties=all_difficulties)
+
+
+
 @app.route("/search")
 def search():
 
