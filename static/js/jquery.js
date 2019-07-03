@@ -10,6 +10,9 @@ $(document).ready(function() {
         window.history.back();
     });
 
-    //
+    // Add Ingredients
+    $('#add_ingredient').click(function() {
+        
+    });
 
 });

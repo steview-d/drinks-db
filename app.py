@@ -171,8 +171,12 @@ def drink(drink_id):
 
     # Comments
     comment_user, comment_text = [], []
-    all_comments = drink['comments']
+    try:
+        all_comments = drink['comments']
+    except:
+        all_comments = []
     if all_comments:
+        
         for comment in all_comments:
             user, text = comment.split(':', 1)
             comment_user.append(user)
@@ -222,16 +226,38 @@ def add_drink():
     all_difficulties = mongo.db.difficulty.find()
 
     
-    if request.method=="POST":
+    if request.method == 'POST':
+        dict = request.form.to_dict()
+        dict['userName']=user
+        
+        # Add date
+        act_date = datetime.strptime(
+            datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
+        dict['dateAdded']=act_date
+        
+        # Create view counter
+        dict['views']=int(0)
+        
+        # Sort and process ingredients
+        
+        
+        
+        # Test Print
+        print("")
+        for k,v in dict.items():
+            print('Key: ',k,'\nValue: ',v)
+        print(type(dict))
+        
+        # confirmed works
+        # mongo.db.drinks.insert_one(dict) 
+
         return redirect(url_for('add_drink'))
-    
     
     return render_template('add_drink.html',
         user=user,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties)
-
 
 
 @app.route("/search")

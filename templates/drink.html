@@ -60,17 +60,12 @@
             <h5>You cannot add your own drinks to your favorites</h5>
             {% else %}
             <h5>Can add as fave!</h5>
-            
-                {% if is_favorite %}
-                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
-                <i class="fas fa-heart"></i>
-                {% else %}
-                <i class="far fa-heart"></i>
-                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a>
-                {% endif %}
-            
-            
-            {% endif %}
+
+            {% if is_favorite %}
+            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
+            <i class="fas fa-heart"></i> {% else %}
+            <i class="far fa-heart"></i>
+            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a> {% endif %} {% endif %}
 
 
             <!--Displays num favorites-->
@@ -91,20 +86,34 @@
         </div>
         <!--Comments-->
         <div class="col sm12 l8">
-            COMMENTS<br> {% for x in range(0, comment_user | length) %}
+            COMMENTS<br> {% if comment_user | length > 0 %} {% for x in range(0, comment_user | length) %}
 
             <p>{{comment_user[x]}}</p>
             <p>{{comment_text[x]}}</p>
 
-            {% endfor %} {% if session %}
+            {% endfor %} {% else %}
+
+            <h6>There are no comments for this drink yet.</h6>
+
+            {% endif %}
 
             <h5>Leave a comment</h5>
+            {% if session %}
 
             <div class="row">
                 <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
                     </i>
                     </span><input placeholder="Type your comment here" id="comment" name="comment" type="text">
                     <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
+                </form>
+            </div>
+
+            {% else %}
+            <div class="row">
+                <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
+                    </i>
+                    </span><input disabled placeholder="You must be logged in to leave a comment" id="comment" name="comment" type="text">
+                    <button disabled class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
                 </form>
             </div>
 
