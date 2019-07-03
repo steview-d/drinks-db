@@ -19,16 +19,20 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col s12 l6 center">
-                    <!--Drink Name-->
-                    <div class="col s12">
+                <div class="center">
+                    <h5>Details</h5>
+                </div>
+
+                <div class="col s12 center">
+                    <!--Drink Name | name="add_drink_name"-->
+                    <div class="col s12 l6">
                         <div class="input-field">
                             <input id="add_drink_name" name="add_drink_name" type="text" class="validate">
                             <label for="add_drink_name">Drink Name</label>
                         </div>
                     </div>
-                    <!--Category-->
-                    <div class="col s12">
+                    <!--Category | name="add_drink_category"-->
+                    <div class="col s12 l6">
                         <div class="input-field">
                             <select id="add_drink_category" name="add_drink_category">
                         <option value="" disabled selected>Choose A Category</option>
@@ -40,15 +44,18 @@
                         </select>
                         </div>
                     </div>
-                    <!--Drink Image-->
-                    <div class="col s12">
+                </div>
+                
+                <div class="col s12 center">
+                    <!--Drink Image | name="add_drink_image"-->
+                    <div class="col s12 l6">
                         <div class="input-field">
                             <input id="add_drink_image" name="add_drink_image" type="text" class="validate">
                             <label for="add_drink_image">Drink Image</label>
                         </div>
                     </div>
-                    <!--Glass Type-->
-                    <div class="col s12">
+                    <!--Glass Type | name="add_drink_glass_type"-->
+                    <div class="col s12 l6">
                         <div class="input-field">
                             <select id="add_drink_glass_type" name="add_drink_glass_type">
                         <option value="" disabled selected>Choose A Glass Type</option>
@@ -60,8 +67,18 @@
                         </select>
                         </div>
                     </div>
-                    <!--Difficulty-->
-                    <div class="col s12">
+                </div>
+                
+                <div class="col s12 center">
+                    <!--Instructions | name="add_drink_instructions"-->
+                    <div class="col s12 l6">
+                        <div class="input-field">
+                            <textarea id="add_drink_instructions" name="add_drink_instructions" class="materialize-textarea"></textarea>
+                            <label for="add_drink_instructions">Instructions</label>
+                        </div>
+                    </div>
+                    <!--Difficulty | name="add_drink_difficulty"-->
+                    <div class="col s12 l6">
                         <div class="input-field">
                             <select id="add_drink_difficulty" name="add_drink_difficulty">
                         <option value="" disabled selected>Choose A Difficulty</option>
@@ -73,46 +90,71 @@
                         </select>
                         </div>
                     </div>
-                    <!--Instructions-->
-                    <div class="col s12">
-                        <div class="input-field">
-                            <textarea id="add_drink_instructions" class="materialize-textarea"></textarea>
-                            <label for="add_drink_instructions">Instructions</label>
-                        </div>
-                    </div>
+                </div>
 
-                </div>
-                <div class="col s12 l6 center">
-                    <!--Ingredient / Measure One-->
-                    <div class="col s8">
-                        <div class="input-field">
-                            <input id="add_drink_ingredient_one" name="add_drink_ingredient_one" type="text" class="validate">
-                            <label for="add_drink_ingredient_one">Ingredient One</label>
-                        </div>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field">
-                            <input id="add_drink_measure_one" name="add_drink_measure_one" type="text" class="validate">
-                            <label for="add_drink_measure_one">Measure One</label>
-                        </div>
-                    </div>
-                    <!--Ingredient / Measure Two-->
-                    <div class="col s8">
-                        <div class="input-field">
-                            <input id="add_drink_ingredient_two" name="add_drink_ingredient_two" type="text" class="validate">
-                            <label for="add_drink_ingredient_two">Ingredient Two</label>
-                        </div>
-                    </div>
-                    <div class="col s4">
-                        <div class="input-field">
-                            <input id="add_drink_measure_two" name="add_drink_measure_twoe" type="text" class="validate">
-                            <label for="add_drink_measure_two">Measure Two</label>
-                        </div>
-                    </div>
-                </div>
             </div>
 
+            <!--Ingredients-->
+            <div class="row">
+                <div class="center">
+                    <h5>Ingredients</h5>
+                </div>
+                <div class="col s12 center">
+                    <!--Ingredient / Measure One | name="add_drink_ingredient_1" | name="add_drink_measure_1"-->
+                    <div class="col s4">
+                        <div class="input-field">
+                            <input id="add_drink_ingredient_1" name="add_drink_ingredient_1" type="text" class="validate">
+                            <label for="add_drink_ingredient_1">Ingredient One</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="add_drink_measure_1" name="add_drink_measure_1" type="text" class="validate">
+                            <label for="add_drink_measure_1">Measure One</label>
+                        </div>
+                    </div>
+                    <!--Ingredient / Measure Two | name="add_drink_ingredient_2" | name="add_drink_measure_2"-->
+                    <div class="col s4">
+                        <div class="input-field">
+                            <input id="add_drink_ingredient_2" name="add_drink_ingredient_2" type="text" class="validate">
+                            <label for="add_drink_ingredient_2">Ingredient Two</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="add_drink_measure_2" name="add_drink_measure_2" type="text" class="validate">
+                            <label for="add_drink_measure_2">Measure Two</label>
+                        </div>
+                    </div>
+                    <!--Ingredient / Measure Three | name="add_drink_ingredient_3" | name="add_drink_measure_3"-->
+                    <div class="col s4">
+                        <div class="input-field">
+                            <input id="add_drink_ingredient_3" name="add_drink_ingredient_3" type="text" class="validate">
+                            <label for="add_drink_ingredient_3">Ingredient Three</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="add_drink_measure_3" name="add_drink_measure_3" type="text" class="validate">
+                            <label for="add_drink_measure_3">Measure Three</label>
+                        </div>
+                    </div>
+                    <!--Ingredient / Measure Four | name="add_drink_ingredient_4" | name="add_drink_measure_4"-->
+                    <div class="col s4">
+                        <div class="input-field">
+                            <input id="add_drink_ingredient_4" name="add_drink_ingredient_4" type="text" class="validate">
+                            <label for="add_drink_ingredient_4">Ingredient Four</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="add_drink_measure_4" name="add_drink_measure_4" type="text" class="validate">
+                            <label for="add_drink_measure_4">Measure Four</label>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
 
             <hr>
             <div class="center">
