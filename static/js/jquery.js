@@ -22,13 +22,13 @@ $(document).ready(function() {
             $('#ingredients-container').append(
                 "<div class='col s4 l2 measure_field'>"+
                     "<div class='input-field'>"+
-                        "<input id='measure_" + (num_fields +1) +"' name='measure_" + (num_fields +1) +"' type='text' class='validate'>"+
+                        "<input id='measure_" + (num_fields +1) +"' name='measure_" + (num_fields +1) +"' type='text' class='validate' required>"+
                         "<label for='measure_" + (num_fields +1) +"'>Measure " + num_list[(num_fields)] +"</label>"+
                     "</div>"+
                 "</div>"+
                 "<div class='col s8 l4 ingredient_field'>"+
                     "<div class='input-field'>"+
-                        "<input id='ingredient_" + (num_fields +1) +"' name='ingredient_" + (num_fields +1) +"' type='text' class='validate'>"+
+                        "<input id='ingredient_" + (num_fields +1) +"' name='ingredient_" + (num_fields +1) +"' type='text' class='validate' required>"+
                         "<label for='ingredient_" + (num_fields +1) +"'>Ingredient " + num_list[(num_fields)] +"</label>"+
                     "</div>"+
                 "</div>"
@@ -46,6 +46,11 @@ $(document).ready(function() {
             num_fields -= 1;
         }
     });
+    
+    
+    // Fix to make sure validation text is displayed for select boxes when required
+    $("select[required]").css({display: "block", height: 0, padding: 0, width: 0});
+
 
 });
 

@@ -239,18 +239,6 @@ def add_drink():
         dict['views']=int(0)
         
         # Sort and process ingredients
-        """
-        Some kind of loop that iterates through dict and pulls any keys that
-        contain either ingredient or measure.
-        Then need to chuck into an array, alternating between ingredient &
-        measure. That array then plonked into dict using something like
-        dict['ingredients']=ingredients_array
-        That should do it!
-        """
-        
-        print("")
-        print("CURRENT TEST")
-        print("")
         ingredients = []
         for k,v in list(dict.items()):
             if ('ingredient' in k) or ('measure' in k):
@@ -266,7 +254,7 @@ def add_drink():
         print(type(dict))
         
         # confirmed works
-        mongo.db.drinks.insert_one(dict) 
+        # mongo.db.drinks.insert_one(dict) 
 
         return redirect(url_for('add_drink'))
     

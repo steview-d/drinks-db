@@ -28,14 +28,14 @@
                     <!--Drink Name | name="name"-->
                     <div class="col s12 l8">
                         <div class="input-field">
-                            <input id="name" name="name" type="text" class="validate">
+                            <input id="name" name="name" type="text" class="validate" required>
                             <label for="name">Drink Name</label>
                         </div>
                     </div>
                     <!--Category | name="category"-->
                     <div class="col s12 l4">
                         <div class="input-field">
-                            <select id="category" name="category">
+                            <select id="category" name="category" class="validate" required>
                         <option value="" disabled selected>Category</option>
                         {% for item in all_categories %} {% if item == all_categories %}
                         <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
@@ -52,14 +52,14 @@
                     <!--Drink Image | name="imageUrl"-->
                     <div class="col s12 l8">
                         <div class="input-field">
-                            <input id="imageUrl" name="imageUrl" type="text" class="validate">
+                            <input id="imageUrl" name="imageUrl" type="text" class="validate" required>
                             <label for="imageUrl">Drink Image</label>
                         </div>
                     </div>
                     <!--Glass Type | name="glassType"-->
                     <div class="col s12 l4">
                         <div class="input-field">
-                            <select id="glassType" name="glassType">
+                            <select id="glassType" name="glassType" class="validate" required>
                         <option value="" disabled selected>Glass Type</option>
                         {% for item in all_glass_types %} {% if item == all_categories %}
                         <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
@@ -76,14 +76,14 @@
                     <!--Instructions | name="instructions"-->
                     <div class="col s12 l8">
                         <div class="input-field">
-                            <textarea id="instructions" name="instructions" class="materialize-textarea"></textarea>
+                            <textarea id="instructions" name="instructions" class="materialize-textarea" required></textarea>
                             <label for="instructions">Instructions</label>
                         </div>
                     </div>
                     <!--Difficulty | name="difficulty"-->
                     <div class="col s12 l4">
                         <div class="input-field">
-                            <select id="difficulty" name="difficulty">
+                            <select id="difficulty" name="difficulty" class="validate" required>
                         <option value="" disabled selected>Difficulty</option>
                         {% for item in all_difficulties %} {% if item == all_categories %}
                         <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
@@ -102,55 +102,55 @@
                 </div>
 
                 <div class="col s12 center" id="ingredients-container">
-                    <!--Ingredient / Measure One | name="ingredient_1" | name="measure_1"-->
+                    <!--Ingredient / Measure One-->
                     <div class="col s4 l2 measure_field">
                         <div class="input-field">
-                            <input id="measure_1" name="measure_1" type="text" class="validate">
+                            <input id="measure_1" name="measure_1" type="text" class="validate" required>
                             <label for="measure_1">Measure One</label>
                         </div>
                     </div>
                     <div class="col s8 l4 ingredient_field">
                         <div class="input-field">
-                            <input id="ingredient_1" name="ingredient_1" type="text" class="validate">
+                            <input id="ingredient_1" name="ingredient_1" type="text" class="validate" required>
                             <label for="ingredient_1">Ingredient One</label>
                         </div>
                     </div>
-                    <!--Ingredient / Measure Two | name="ingredient_2" | name="measure_2"-->
+                    <!--Ingredient / Measure Two-->
                     <div class="col s4 l2 measure_field">
                         <div class="input-field">
-                            <input id="measure_2" name="measure_2" type="text" class="validate">
+                            <input id="measure_2" name="measure_2" type="text" class="validate" required>
                             <label for="measure_2">Measure Two</label>
                         </div>
                     </div>
                     <div class="col s8 l4 ingredient_field">
                         <div class="input-field">
-                            <input id="ingredient_2" name="ingredient_2" type="text" class="validate">
+                            <input id="ingredient_2" name="ingredient_2" type="text" class="validate" required>
                             <label for="ingredient_2">Ingredient Two</label>
                         </div>
                     </div>
-                    <!--Ingredient / Measure Three | name="ingredient_3" | name="measure_3"-->
+                    <!--Ingredient / Measure Three-->
                     <div class="col s4 l2 measure_field">
                         <div class="input-field">
-                            <input id="measure_3" name="measure_3" type="text" class="validate">
+                            <input id="measure_3" name="measure_3" type="text" class="validate" required>
                             <label for="measure_3">Measure Three</label>
                         </div>
                     </div>
                     <div class="col s8 l4 ingredient_field">
                         <div class="input-field">
-                            <input id="ingredient_3" name="ingredient_3" type="text" class="validate">
+                            <input id="ingredient_3" name="ingredient_3" type="text" class="validate" required>
                             <label for="ingredient_3">Ingredient Three</label>
                         </div>
                     </div>
-                    <!--Ingredient / Measure Four | name="ingredient_4" | name="measure_4"-->
+                    <!--Ingredient / Measure Four-->
                     <div class="col s4 l2 measure_field">
                         <div class="input-field">
-                            <input id="measure_4" name="measure_4" type="text" class="validate">
+                            <input id="measure_4" name="measure_4" type="text" class="validate" required>
                             <label for="measure_4">Measure Four</label>
                         </div>
                     </div>
                     <div class="col s8 l4 ingredient_field">
                         <div class="input-field">
-                            <input id="ingredient_4" name="ingredient_4" type="text" class="validate">
+                            <input id="ingredient_4" name="ingredient_4" type="text" class="validate" required>
                             <label for="ingredient_4">Ingredient Four</label>
                         </div>
                     </div>
