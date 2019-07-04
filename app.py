@@ -267,6 +267,30 @@ def add_drink():
         all_difficulties=all_difficulties)
 
 
+@app.route("/edit_drink/<drink_id>", methods=['GET', 'POST'])
+def edit_drink(drink_id):
+    drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
+    date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
+    
+    all_categories = mongo.db.categories.find()
+    all_glass_types = mongo.db.glass.find()
+    all_difficulties = mongo.db.difficulty.find()
+    
+    temp_matcher = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    temp_matcher_str = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+    
+    
+    return render_template('edit_drink.html',
+        drink=drink,
+        date=date,
+        all_categories=all_categories,
+        all_glass_types=all_glass_types,
+        all_difficulties=all_difficulties,
+        temp_matcher=temp_matcher,
+        temp_matcher_str=temp_matcher_str)
+
+
+
 @app.route("/search")
 def search():
 

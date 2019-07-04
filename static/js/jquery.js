@@ -3,6 +3,8 @@ $(document).ready(function() {
     $('.sidenav').sidenav();
     // Materialize Select
     $('select').formSelect();
+    // Materialize Tool Tip
+    $('.tooltipped').tooltip();
 
 
     // Back button
@@ -11,10 +13,10 @@ $(document).ready(function() {
     });
 
     // Add / Remove Ingredients
-    var num_fields = 4;
+    var num_fields = $('#ingredients-container .ingredient_field').length;
     var min_fields = 1;
     var max_fields = 10;
-    var num_list = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+    var num_list = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
     
     // Add
     $('#add_ingredient').click(function() {

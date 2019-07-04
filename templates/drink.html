@@ -11,9 +11,15 @@
     <div class="row center">
         <h2>{{drink.name}}</h2>
         <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
-        <br>
-        <button>EDIT DRINK</button>
-        <p>[needs wiring]</p>
+        <br> {% if session['username'] == drink.userName%}
+        <a class="waves-effect waves-light btn-small" href="{{ url_for('edit_drink', drink_id = drink._id) }}">
+            <i class="material-icons right">edit</i>Edit Drink
+        </a>
+        {% else %}
+        <a class="waves-effect waves-light btn-small tooltipped" data-position="bottom" data-tooltip="You can only edit your own drinks">
+            <i class="material-icons right">edit</i>Edit Drink
+        </a>
+        {% endif %}
     </div>
 
     <!--Picture & Ingredients-->
