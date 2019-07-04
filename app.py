@@ -238,7 +238,7 @@ def add_drink():
         # Create view counter
         dict['views']=int(0)
         
-        # Sort and process ingredients
+        # Sort and process ingredientsq
         ingredients = []
         for k,v in list(dict.items()):
             if ('ingredient' in k) or ('measure' in k):
@@ -246,6 +246,8 @@ def add_drink():
                 dict.pop(k)
         
         dict['ingredients'] = ingredients
+        dict['favorites'] = []
+        dict['comments'] = []
         
         # Test Print
         print("")
@@ -254,7 +256,7 @@ def add_drink():
         print(type(dict))
         
         # confirmed works
-        # mongo.db.drinks.insert_one(dict) 
+        mongo.db.drinks.insert_one(dict) 
 
         return redirect(url_for('add_drink'))
     
