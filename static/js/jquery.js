@@ -5,6 +5,8 @@ $(document).ready(function() {
     $('select').formSelect();
     // Materialize Tool Tip
     $('.tooltipped').tooltip();
+    // Materialize Modal
+    $('.modal').modal();
 
 
     // Back button

@@ -349,6 +349,19 @@ def edit_drink(drink_id):
         difficulty_match=drink['difficulty'])
 
 
+@app.route("/delete_drink/<drink_id>", methods=['GET', 'POST'])
+
+def delete_drink(drink_id):
+    drinks = mongo.db.drinks
+    
+    drink_name = drinks.find_one({"_id": ObjectId(drink_id)})['name']
+    drinks.delete_one({"_id": ObjectId(drink_id)})
+    
+    flash("{} has been deleted".format(drink_name))
+    return redirect(url_for('index'))
+
+
+
 @app.route("/search")
 def search():
 
