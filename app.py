@@ -276,8 +276,27 @@ def edit_drink(drink_id):
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
     
-    temp_matcher = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
-    temp_matcher_str = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+    # Such a crappy piece of code deserves and equally crappy explanation - so get to it.
+    # Also, can the nums be auto gen?
+    class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+    
+    
+    #########
+    #
+    # Next Job, is to link up the edit to the backend so it edits the drink
+    # Look into combining code of add drink into edit, as it's effectively the 
+    # same and could avoid repetition
+    #
+    #########
+    
+    #########
+    #
+    # Also, same for HTML for add and edit - is it feasible to somehow combine
+    # the 2 pages and have it render whats needed based on add or edit?
+    #
+    #########
+    
     
     
     return render_template('edit_drink.html',
@@ -286,8 +305,8 @@ def edit_drink(drink_id):
         all_categories=all_categories,
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties,
-        temp_matcher=temp_matcher,
-        temp_matcher_str=temp_matcher_str)
+        class_num=class_num,
+        class_name=class_name)
 
 
 
