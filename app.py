@@ -1,10 +1,8 @@
-import math, os
-import random
+import math, os, random
 from flask import flash, Flask, redirect, render_template, request, session, url_for
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
-
 
 app = Flask(__name__)
 
@@ -228,6 +226,7 @@ def add_drink():
     
     if request.method == 'POST':
         dict = request.form.to_dict()
+        
         dict['userName']=user
         
         # Add date
@@ -249,14 +248,7 @@ def add_drink():
         dict['favorites'] = []
         dict['comments'] = []
         
-        # Test Print
-        print("")
-        for k,v in dict.items():
-            print('Key: ',k,'\nValue: ',v)
-        print(type(dict))
-        
-        # confirmed works
-        mongo.db.drinks.insert_one(dict) 
+        #mongo.db.drinks.insert_one(dict) 
 
         return redirect(url_for('add_drink'))
     
@@ -272,6 +264,7 @@ def edit_drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
     date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
     
+    # user = session['username']
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
@@ -281,14 +274,20 @@ def edit_drink(drink_id):
     class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
     class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
     
-    
-    #########
-    #
-    # Next Job, is to link up the edit to the backend so it edits the drink
-    # Look into combining code of add drink into edit, as it's effectively the 
-    # same and could avoid repetition
-    #
-    #########
+    if request.method == 'POST':
+            dict = request.form.to_dict()
+            
+            # Get ingredients
+            ingredients = []
+            for k,v in list(dict.items()):
+                if ('ingredient' in k) or ('measure' in k):
+                    ingredients.append(v)
+                    dict.pop(k)
+            dict['ingredients'] = ingredients
+            
+            mongo.db.drinks.update_one(drink, {"$set": dict}) 
+            flash("UPDATE SUCCESSFUL")    
+            return redirect(url_for('drink', drink_id = drink_id))
     
     #########
     #
