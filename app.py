@@ -248,9 +248,11 @@ def add_drink():
         dict['favorites'] = []
         dict['comments'] = []
         
-        #mongo.db.drinks.insert_one(dict) 
-
-        return redirect(url_for('add_drink'))
+        mongo.db.drinks.insert_one(dict)
+        
+        new_drink_id = mongo.db.drinks.find_one({"name": dict['name']})['_id']
+        flash("DRINK ADDED SUCCESSFULLY")  
+        return redirect(url_for('drink', drink_id = new_drink_id))
     
     return render_template('add_drink.html',
         user=user,
@@ -283,6 +285,7 @@ def edit_drink(drink_id):
                 if ('ingredient' in k) or ('measure' in k):
                     ingredients.append(v)
                     dict.pop(k)
+            
             dict['ingredients'] = ingredients
             
             mongo.db.drinks.update_one(drink, {"$set": dict}) 
