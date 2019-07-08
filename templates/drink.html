@@ -11,7 +11,7 @@
     <div class="row center">
         <h2>{{drink.name}}</h2>
         <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
-        <br> {% if session['username'] == drink.userName%}
+        <br> {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
         <a class="waves-effect waves-light btn-small" href="{{ url_for('edit_drink', drink_id = drink._id) }}">
             <i class="material-icons right">edit</i>Edit Drink
         </a>

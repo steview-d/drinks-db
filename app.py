@@ -227,32 +227,42 @@ def add_drink():
     if request.method == 'POST':
         dict = request.form.to_dict()
         
-        dict['userName']=user
+        # check_existing = user_list.find_one({"userName": request.form['username']})
+        check_existing = mongo.db.drinks.find_one({"name": dict['name']})
+        if check_existing:
+            flash("DRINK NAME TAKEN, PLEASE CHOOSE ANOTHER ONE")
+            return redirect(url_for('add_drink'))
         
-        # Add date
-        act_date = datetime.strptime(
-            datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
-        dict['dateAdded']=act_date
-        
-        # Create view counter
-        dict['views']=int(0)
-        
-        # Sort and process ingredientsq
-        ingredients = []
-        for k,v in list(dict.items()):
-            if ('ingredient' in k) or ('measure' in k):
-                ingredients.append(v)
-                dict.pop(k)
-        
-        dict['ingredients'] = ingredients
-        dict['favorites'] = []
-        dict['comments'] = []
-        
-        mongo.db.drinks.insert_one(dict)
-        
-        new_drink_id = mongo.db.drinks.find_one({"name": dict['name']})['_id']
-        flash("DRINK ADDED SUCCESSFULLY")  
-        return redirect(url_for('drink', drink_id = new_drink_id))
+        else:
+            dict['userName']=user
+            
+            # Add date
+            act_date = datetime.strptime(
+                datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
+            dict['dateAdded']=act_date
+            
+            # Create view counter
+            dict['views']=int(0)
+            
+            # Sort and process ingredientsq
+            ingredients = []
+            for k,v in list(dict.items()):
+                if ('ingredient' in k) or ('measure' in k):
+                    ingredients.append(v)
+                    dict.pop(k)
+            
+            dict['ingredients'] = ingredients
+            dict['favorites'] = []
+            dict['comments'] = []
+            
+            mongo.db.drinks.insert_one(dict)
+            
+            new_drink_id = mongo.db.drinks.find_one({"name": dict['name']})['_id']
+            flash("DRINK ADDED SUCCESSFULLY")  
+            return redirect(url_for('drink', drink_id = new_drink_id))
+    
+    # Return all drink names
+    
     
     return render_template('add_drink.html',
         user=user,
@@ -263,10 +273,17 @@ def add_drink():
 
 @app.route("/edit_drink/<drink_id>", methods=['GET', 'POST'])
 def edit_drink(drink_id):
+    
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
+    
+    # Check user can edit drink - and not fudged URL
+    user = session['username']
+    if user != "Admin" and user != drink['userName']:
+        flash("CHEEKY! YOU CAN ONLY EDIT YOUR OWN DRINKS!")    
+        return redirect(url_for('drink', drink_id = drink_id))
+
     date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
     
-    # user = session['username']
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
@@ -309,7 +326,6 @@ def edit_drink(drink_id):
         all_difficulties=all_difficulties,
         class_num=class_num,
         class_name=class_name)
-
 
 
 @app.route("/search")
