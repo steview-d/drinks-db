@@ -2,11 +2,6 @@
 
 <div class="container">
 
-    <!--Flashed Messages-->
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <p>FLASHED MESSAGE (needs formatting) - {{ message }}</p>
-    {% endfor %} {% endif %} {% endwith %}
-
     <!--Drink Name-->
     <div class="row center">
         <h2>{{drink.name}}</h2>

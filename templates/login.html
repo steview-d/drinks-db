@@ -4,16 +4,6 @@
 
     <h3 class="center">Log in to your account.</h3>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    
-    <p>FLASHED MESSAGE (needs formatting) - {{ message }}</p>
-    
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    
     <div class="row">
         <div class="col offset-s1 s10 offset-m2 m8 offset-l3 l6 center">
             <form method="POST" action="{{ url_for('login') }}" class="col s12">

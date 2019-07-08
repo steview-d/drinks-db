@@ -56,7 +56,10 @@
 
     <!--Main-->
     <main>
-        {% block content %} {% endblock %}
+        {% include 'helpers/flashes.html' %}
+        
+        {% block content %}
+        {% endblock %}
     </main>
 
     <!--Footer-->

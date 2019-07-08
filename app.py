@@ -15,6 +15,11 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
 
 mongo = PyMongo(app)
 
+# Such a crappy piece of code deserves and equally crappy explanation - so get to it.
+# Also, can the nums be auto gen?
+class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+
 
 @app.context_processor
 def inject_enumerate():
@@ -222,6 +227,9 @@ def add_drink():
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
+    
+    # Number of boxes to provide for ingredients & measures
+    num_boxes=8
 
     
     if request.method == 'POST':
@@ -268,8 +276,14 @@ def add_drink():
         user=user,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
-        all_difficulties=all_difficulties)
-
+        all_difficulties=all_difficulties,
+        class_num=class_num,
+        class_name=class_name,
+        num_boxes=num_boxes,
+        category_match=all_categories,
+        glass_type_match=all_glass_types,
+        difficulty_match=all_difficulties)
+        
 
 @app.route("/edit_drink/<drink_id>", methods=['GET', 'POST'])
 def edit_drink(drink_id):
@@ -288,10 +302,13 @@ def edit_drink(drink_id):
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
     
-    # Such a crappy piece of code deserves and equally crappy explanation - so get to it.
-    # Also, can the nums be auto gen?
-    class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
-    class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+    # Number of boxes to provide for ingredients & measures
+    num_boxes = len(drink['ingredients'])
+    
+    # # Such a crappy piece of code deserves and equally crappy explanation - so get to it.
+    # # Also, can the nums be auto gen?
+    # class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    # class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
     
     if request.method == 'POST':
             dict = request.form.to_dict()
@@ -325,7 +342,11 @@ def edit_drink(drink_id):
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties,
         class_num=class_num,
-        class_name=class_name)
+        class_name=class_name,
+        num_boxes=num_boxes,
+        category_match=drink['category'],
+        glass_type_match=drink['glassType'],
+        difficulty_match=drink['difficulty'])
 
 
 @app.route("/search")
