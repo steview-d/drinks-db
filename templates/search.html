@@ -86,7 +86,19 @@
 
     <!--Pagination-->
     <ul class="pagination center">
-        <li class="disabled"><i class="material-icons">chevron_left</i></li>
+        <!--Left Arrow-->
+        {% if current_page | int > 1 %}
+        <li class=""><a href="{{ url_for('search',
+            current_page=current_page-1,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter) }}"><i class="material-icons">arrow_left</i></a></li>
+        {% else %}
+        <li class="disabled"><i class="material-icons">arrow_left</i></li>
+        {% endif %}
+        
+        <!--Page Numbers-->
         {% for page_number in pages %} {% if page_number == current_page %}
         <li class="active"><a>{{ page_number }}</a></li>
         {% else %}
@@ -97,7 +109,18 @@
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter) }}">{{ page_number }}</a></li>
         {% endif %} {% endfor %}
-        <li class="disabled"><i class="material-icons">chevron_right</i></li>
+        
+        <!--Right Arrow-->
+        {% if current_page | int < pages | count | int %}
+        <li class=""><a href="{{ url_for('search',
+            current_page=current_page+1,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter) }}"><i class="material-icons">arrow_right</i></a></li>
+        {% else %}
+        <li class="disabled"><i class="material-icons">arrow_right</i></li>
+        {% endif %}
     </ul>
     {% endif %}
 
