@@ -4,6 +4,8 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
 
+from py_helper.helper import get_suggestions
+
 app = Flask(__name__)
 
 # secret.key to be REMOVED prior to submission
@@ -15,10 +17,12 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
 
 mongo = PyMongo(app)
 
-# Such a crappy piece of code deserves and equally crappy explanation - so get to it.
-# Also, can the nums be auto gen?
+
+# Lists for help with building HTML element ID's in drink_form.html
 class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
-class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
+class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
+    'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
+    'Nine', 'Nine', 'Ten', 'Ten']
 
 
 @app.context_processor
@@ -37,6 +41,8 @@ def index():
     quoteName = x[i]
     quoteText = x[i+1]
     
+    categories=mongo.db.categories.find()
+    
     
     # Pagination
     drinks_per_page = 9
@@ -45,24 +51,14 @@ def index():
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
     drinks = mongo.db.drinks.find().sort('name', pymongo.ASCENDING).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
     
-    # Suggestions
-    try:
-        other_users_drinks = list(mongo.db.drinks.find( { "userName": { "$nin": [ session['username'] ] } } ))
-    except:
-        other_users_drinks = []
-    
-    num_suggestions = 4
-    if other_users_drinks:
-        suggestions=[]
-        for i in range(num_suggestions):
-            suggestions.append(other_users_drinks.pop(random.randint(0, len(other_users_drinks)-1)))
-        
+    # Get suggested drinks for user
+    suggestions=get_suggestions(mongo, 4)
     
     return render_template('index.html',
         drinks = drinks,
         current_page = current_page,
         pages = num_pages,
-        categories = mongo.db.categories.find(),
+        categories = categories,
         quoteName = quoteName,
         quoteText = quoteText,
         suggestions=suggestions)
@@ -78,7 +74,7 @@ def login():
         if current_user:
             if request.form['password'] == current_user['password']:
                 session['username'] = request.form['username']
-                return redirect(url_for('index'))
+                return redirect(url_for('account', account_name = session['username']))
             flash("Incorrect username and/or password. Please try again.")
             return render_template('login.html')
         flash("Username {} does not exist.".format(request.form['username']))
@@ -364,7 +360,6 @@ def edit_drink(drink_id):
 
 
 @app.route("/delete_drink/<drink_id>", methods=['GET', 'POST'])
-
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
     

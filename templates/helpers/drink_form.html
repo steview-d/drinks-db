@@ -10,8 +10,8 @@
             <div class="input-field">
                 {% if drink is defined %}
                 <input id="name" name="name" type="text" class="validate" required value="{{drink.name}}"> {% else %}
-                <input id="name" name="name" type="text" class="validate" required> {% endif %}
-                <label for="name">Drink Name</label>
+                <input id="name" name="name" type="text" class="validate" required placeholder="Drink Name"> {% endif %}
+                <label for="name">Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
         <!--Category | name="category"-->
@@ -28,6 +28,7 @@
                     {% endif %}
                     {% endfor %}
                 </select>
+                <label>Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
     </div>
@@ -39,8 +40,9 @@
             <div class="input-field">
                 {% if drink is defined %}
                 <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}"> {% else %}
-                <input id="imageUrl" name="imageUrl" type="text" class="validate" required> {% endif %}
-                <label for="imageUrl">Drink Image</label>
+                <input id="imageUrl" name="imageUrl" type="text" class="validate"
+                    required pattern=".{5,200}" data-length="200" placeholder="Image Url"> {% endif %}
+                <label for="imageUrl">Required <i class="material-icons info-btn-size">info</i></label>
             </div>
         </div>
         <!--Glass Type | name="glassType"-->
@@ -56,6 +58,7 @@
                     {% endif %}
                     {% endfor %}
                 </select>
+                <label>Required <i class="material-icons info-btn-size">info</i></label>
             </div>
         </div>
     </div>
@@ -67,8 +70,8 @@
             <div class="input-field">
                 {% if drink is defined %}
                 <textarea id="instructions" name="instructions" class="materialize-textarea">{{drink.instructions}}</textarea> {% else %}
-                <textarea id="instructions" name="instructions" class="materialize-textarea" required></textarea> {% endif %}
-                <label for="instructions">Instructions</label>
+                <textarea id="instructions" name="instructions" class="materialize-textarea" required placeholder="Instructions"></textarea> {% endif %}
+                <label for="instructions">Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
         <!--Difficulty | name="difficulty"-->
@@ -84,6 +87,7 @@
                     {% endif %}
                     {% endfor %}
                 </select>
+                <label>Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
     </div>
@@ -101,8 +105,8 @@
             <div class="input-field">
                 {% if drink is defined %}
                 <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
-                <label for="measure_{{class_num[i]}}">Measure {{class_name[i]}}</label>
+                <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required placeholder="Measure {{class_name[i]}}"> {% endif %}
+                <label for="measure_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
         {% else %}
@@ -110,8 +114,8 @@
             <div class="input-field">
                 {% if drink is defined %}
                 <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
-                <label for="ingredient_{{class_num[i]}}">Ingredient {{class_name[i]}}</label>
+                <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required placeholder="Ingredient {{class_name[i]}}"> {% endif %}
+                <label for="ingredient_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
             </div>
         </div>
         {% endif %} {% endfor %}

@@ -6,7 +6,9 @@ $(document).ready(function() {
     // Materialize Tool Tip
     $('.tooltipped').tooltip();
     // Materialize Modal
-    $('.modal').modal();
+    $('.modal').modal()
+    // Materialize Character Counter
+    $('input#imageUrl, textarea#textarea2').characterCounter();
 
 
     // Back button
