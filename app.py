@@ -54,7 +54,11 @@ def index():
     # Get suggested drinks for user
     suggestions=get_suggestions(mongo, 4)
     
+    # Page Title
+    title="Home"
+    
     return render_template('index.html',
+        # title=title,
         drinks = drinks,
         current_page = current_page,
         pages = num_pages,
@@ -76,9 +80,9 @@ def login():
                 session['username'] = request.form['username']
                 return redirect(url_for('account', account_name = session['username']))
             flash("Incorrect username and/or password. Please try again.")
-            return render_template('login.html')
+            return render_template('login.html', title="Log In")
         flash("Username {} does not exist.".format(request.form['username']))
-    return render_template('login.html')
+    return render_template('login.html', title="Log In")
     
     
 @app.route("/logout")
@@ -98,7 +102,7 @@ def register():
             return redirect(url_for('index'))
         flash("Sorry, username '{}' has been taken. Please choose another".format(request.form['username']))
         return redirect(url_for('register'))
-    return render_template('register.html')
+    return render_template('register.html', title="Register")
 
     
 @app.route("/account/<account_name>", methods=['GET', 'POST'])
@@ -142,8 +146,11 @@ def account(account_name):
         num_fv_pages = range(1, int(math.ceil(total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
         drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("dateAdded", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
 
+        # Page Title
+        title = str(user['userName']).title()+"'s Account"
 
         return render_template('account.html',
+        title=title,
         user=user,
         users_drinks=drinks_submitted_by_user,
         favorited_drinks=drinks_favorited_by_user,
@@ -162,7 +169,6 @@ def account(account_name):
     
     else:
         return redirect(url_for('account', account_name = session['username']))
-
 
 @app.route("/drink/<drink_id>", methods=['GET', 'POST'])
 def drink(drink_id):
@@ -210,9 +216,13 @@ def drink(drink_id):
     except:
         user_favorites=[]
     is_favorite = 1 if drink_id in user_favorites else 0
+    
+    # Page Title
+    title = drink['name']
 
 
     return render_template('drink.html',
+        title=title,
         drink=drink,
         date=date,
         instructions = instructions,
@@ -279,10 +289,12 @@ def add_drink():
             flash("DRINK ADDED SUCCESSFULLY")  
             return redirect(url_for('drink', drink_id = new_drink_id))
     
-    # Return all drink names
+    # Page Title
+    title="Add Drink"
     
     
     return render_template('add_drink.html',
+        title=title,
         user=user,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
@@ -336,16 +348,11 @@ def edit_drink(drink_id):
             flash("UPDATE SUCCESSFUL")    
             return redirect(url_for('drink', drink_id = drink_id))
     
-    #########
-    #
-    # Also, same for HTML for add and edit - is it feasible to somehow combine
-    # the 2 pages and have it render whats needed based on add or edit?
-    #
-    #########
-    
-    
+    # Page Title
+    title="Editing "+str(drink['name'])
     
     return render_template('edit_drink.html',
+        title=title,
         drink=drink,
         date=date,
         all_categories=all_categories,
@@ -377,6 +384,9 @@ def search():
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
+    
+    # Page Title
+    title="Search"
 
     
     if request.args:
@@ -425,6 +435,7 @@ def search():
         # If no results for search
         if num_results==0:
             return render_template('search.html',
+                title="No Results Found",
                 find=find,
                 num_results=num_results,
                 # Items for filters
@@ -448,8 +459,12 @@ def search():
         else:
             max_weight=None
             
+        # Page Title
+        title="Search Results"
+            
 
         return render_template('search.html',
+            title=title,
             find=find,
             # Results 
             results=results,
@@ -471,6 +486,7 @@ def search():
             all_difficulties=all_difficulties)
     
     return render_template('search.html',
+        title=title,
         # Items for filters
         all_categories=all_categories,
         all_glass_types=all_glass_types,
@@ -481,7 +497,9 @@ def search():
 def category(category_name):
     category = mongo.db.categories.find_one({"category": category_name})
     drinks = mongo.db.drinks.find({"category": category_name})
+    title=category['category'].title()
     return render_template('category.html',
+        title=title,
         category=category,
         drinks = drinks)
 
@@ -491,14 +509,15 @@ def category(category_name):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return redirect(url_for('errors', filename='404.html')), 404
+    # return redirect(url_for('errors', filename='404.html')), 404
+    return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
     session.clear(e)
-    return redirect(url_for('errors', filename='500.html')), 500
-
+    # return redirect(url_for('errors', filename='500.html')), 500
+    return render_template('500.html'), 500
 
 
 ## TESTING STUFF
@@ -509,4 +528,4 @@ def internal_server_error(e):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),
-        debug=False)
+        debug=True)
