@@ -486,6 +486,21 @@ def category(category_name):
         drinks = drinks)
 
 
+
+# Error Handling Pages
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect(url_for('errors', filename='404.html')), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    session.clear(e)
+    return redirect(url_for('errors', filename='500.html')), 500
+
+
+
 ## TESTING STUFF
 
 ## END TESTING
@@ -494,4 +509,4 @@ def category(category_name):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),
-        debug=True)
+        debug=False)
