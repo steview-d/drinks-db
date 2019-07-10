@@ -36,7 +36,12 @@
     <div class="row">
         <h4>Drinks Submitted By You</h4>
         <h6>** Most recent first **</h6>
-        <p>You have submitted {{total_drinks_by_user}} drinks so far.</p>
+
+        <!--Summary-->
+        <div class="row center">
+            <h6>Showing {{first_dr_result_num}} - {{last_dr_result_num}} of {{total_drinks_by_user}} results</h6>
+        </div>
+
         <div class="row">
             {% for drink in users_drinks %}
             <div class="col s3 border-outline">
@@ -50,34 +55,32 @@
         <ul class="pagination center">
             <!--Left Arrow-->
             {% if drinks_page | int > 1 %}
-                <li class=""><a href="{{ url_for('account',
+            <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page-1,
                     favorites_page=favorites_page) }}"><i class="material-icons">arrow_left</i></a></li>
             {% else %}
-                <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            <li class="disabled"><i class="material-icons">arrow_left</i></li>
             {% endif %}
             <!--Page Numbers-->
-            {% for dr_page_number in dr_pages %} 
-                {% if dr_page_number == drinks_page %}
-                    <li class="active"><a>{{ dr_page_number }}</a></li>
-                {% else %}
-                    <li class="waves-effect"><a href="{{ url_for('account',
+            {% for dr_page_number in dr_pages %} {% if dr_page_number == drinks_page %}
+            <li class="active"><a>{{ dr_page_number }}</a></li>
+            {% else %}
+            <li class="waves-effect"><a href="{{ url_for('account',
                         account_name = session.username,
                         drinks_page=dr_page_number,
                         favorites_page=favorites_page) }}">{{ dr_page_number }}</a></li>
-                {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
             <!--Right Arrow-->
-            {% if drinks_page | int < dr_pages | count | int %}
-                <li class=""><a href="{{ url_for('account',
+            {% if drinks_page | int
+            < dr_pages | count | int %} <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page+1,
                     favorites_page=favorites_page) }}"><i class="material-icons">arrow_right</i></a></li>
-            {% else %}
+                {% else %}
                 <li class="disabled"><i class="material-icons">arrow_right</i></li>
-            {% endif %}
-        
+                {% endif %}
+
         </ul>
         {% endif %}
     </div>
@@ -85,7 +88,10 @@
     <!--Users Favorite Drinks-->
     <div class="row">
         <h4>Drinks Favorited By You</h4>
-        <p>You have favorited {{total_fave_drinks_by_user}} drinks so far.</p>
+        <!--Summary-->
+        <div class="row center">
+            <h6>Showing {{first_fv_result_num}} - {{last_fv_result_num}} of {{total_fave_drinks_by_user}} results</h6>
+        </div>
         <div class="row">
             {% for drink in favorited_drinks %}
             <div class="col s3 border-outline">
@@ -99,33 +105,31 @@
         <ul class="pagination center">
             <!--Left Arrow-->
             {% if favorites_page | int > 1 %}
-                <li class=""><a href="{{ url_for('account',
+            <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page,
                     favorites_page=favorites_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
             {% else %}
-                <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            <li class="disabled"><i class="material-icons">arrow_left</i></li>
             {% endif %}
             <!--Page Numbers-->
-            {% for fv_page_number in fv_pages %}
-            {% if fv_page_number == favorites_page %}
+            {% for fv_page_number in fv_pages %} {% if fv_page_number == favorites_page %}
             <li class="active"><a>{{ fv_page_number }}</a></li>
             {% else %}
             <li class="waves-effect"><a href="{{ url_for('account',
                 account_name = session.username,
                 drinks_page=drinks_page,
                 favorites_page=fv_page_number) }}">{{ fv_page_number }}</a></li>
-            {% endif %}
-            {% endfor %}
+            {% endif %} {% endfor %}
             <!--Right Arrow-->
-            {% if favorites_page | int < fv_pages | count | int %}
-                <li class=""><a href="{{ url_for('account',
+            {% if favorites_page | int
+            < fv_pages | count | int %} <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page,
                     favorites_page=favorites_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
-            {% else %}
+                {% else %}
                 <li class="disabled"><i class="material-icons">arrow_right</i></li>
-            {% endif %}
+                {% endif %}
         </ul>
         {% endif %}
     </div>

@@ -57,6 +57,15 @@ def index():
     # Page Title
     title="Home"
     
+    # Summary - (example) 'showing 1 - 9 of 15 results'
+    x=current_page * drinks_per_page
+    first_result_num = x - drinks_per_page + 1
+    last_result_num = x if x < total_drinks else total_drinks
+    
+    
+    # Results 
+    
+    
     return render_template('index.html',
         # title=title,
         drinks = drinks,
@@ -65,7 +74,9 @@ def index():
         categories = categories,
         quoteName = quoteName,
         quoteText = quoteText,
-        suggestions=suggestions)
+        suggestions=suggestions,
+        first_result_num=first_result_num,
+        last_result_num=last_result_num)
     
     
 @app.route("/login", methods=['POST', 'GET'])
@@ -148,6 +159,19 @@ def account(account_name):
 
         # Page Title
         title = str(user['userName']).title()+"'s Account"
+        
+        # Drinks Submitted By User Summary - (ex.) 'showing 1 - 9 of 15 results'
+        x=drinks_page * drinks_per_page
+        first_dr_result_num = x - drinks_per_page + 1
+        last_dr_result_num = x if x < total_drinks_by_user else total_drinks_by_user
+        
+        # Drinks Favorited By User Summary - (ex.) 'showing 1 - 9 of 15 results'
+        x=favorites_page * favorite_drinks_per_page
+        first_fv_result_num = x - favorite_drinks_per_page + 1
+        last_fv_result_num = x if x < total_fave_drinks_by_user else total_fave_drinks_by_user
+        
+        
+        
 
         return render_template('account.html',
         title=title,
@@ -165,7 +189,12 @@ def account(account_name):
         drinks_page = drinks_page,
         dr_pages = num_dr_pages,
         favorites_page = favorites_page,
-        fv_pages = num_fv_pages)
+        fv_pages = num_fv_pages,
+        # Summaries
+        first_dr_result_num=first_dr_result_num,
+        last_dr_result_num=last_dr_result_num,
+        first_fv_result_num=first_fv_result_num,
+        last_fv_result_num=last_fv_result_num)
     
     else:
         return redirect(url_for('account', account_name = session['username']))
@@ -446,10 +475,11 @@ def search():
         # Pagination - part 2
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
         
-        # Get values for (example) 'showing 1 - 9 of 15 results' in search results
+        # Summary - (example) 'showing 1 - 9 of 15 results'
         x=current_page * results_per_page
         first_result_num = x - results_per_page + 1
         last_result_num = x if x < num_results else num_results
+        
         
         # From search results, find max value of 'score' to allow search.html
         # to calculate the results relevance as a % of highest scoring result

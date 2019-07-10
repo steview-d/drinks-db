@@ -20,6 +20,10 @@
 
     <!--Drinks-->
 
+    <!--Summary-->
+    <div class="row center">
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
+    </div>
 
     <!--Drinks Grid-->
     <div class="row">
@@ -31,6 +35,7 @@
         {% endfor %}
     </div>
 
+
     <!--Pagination-->
     <ul class="pagination center">
         <!--Left Arrow-->
@@ -39,29 +44,27 @@
         {% else %}
         <li class="disabled"><i class="material-icons">arrow_left</i></li>
         {% endif %}
-        
+
         <!--Page Numbers-->
-        {% for page_number in pages %}
-            {% if page_number == current_page %}
-                <li class="active"><a>{{ page_number }}</a></li>
-            {% else %}
-                <li class="waves-effect"><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
-            {% endif %}
-        {% endfor %}
-        
-        <!--Right Arrow-->
-        {% if current_page | int < pages | count | int %}
-        <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+        {% for page_number in pages %} {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
         {% else %}
-        <li class="disabled"><i class="material-icons">arrow_right</i></li>
-        {% endif %}
-        
+        <li class="waves-effect"><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
+        {% endif %} {% endfor %}
+
+        <!--Right Arrow-->
+        {% if current_page | int
+        < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+            {% else %}
+            <li class="disabled"><i class="material-icons">arrow_right</i></li>
+            {% endif %}
+
     </ul>
-    
+
     <!--Suggestions-->
     {% if session['username'] %}
     <h5>You may also like...</h5>
-    
+
     <div class="row">
         {% for drink in suggestions %}
         <div class="col s3 border-outline">
@@ -71,7 +74,7 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+
 </div>
 
 {% endblock %}
