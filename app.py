@@ -24,17 +24,12 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
     'Nine', 'Nine', 'Ten', 'Ten']
     
-# drinks_to_display_options = [3, 6, 9, "All"]
+
+num_drinks_list = ['6', '9', '12', "All"]
 # sort_by_options = ['name', 'date ', 'difficulty', 'views']
 # sort_order_options = ['Ascending', 'Descending']
 
-# # display options defaults: num drinks to display | sort by | sort order
-# display_options = [9, 'name', 1]
-# drinks_to_display = 3
-
-num_drinks_list = ['3', '6', '9', "All"]
-
-# display options defaults: drinks_per_page | num_drinks_display
+# display options - drinks_per_page | num_drinks_display
 display_options = [9, '9']
 
 
@@ -56,20 +51,11 @@ def index():
         except:
             num_drinks_display = 9
             
-        if num_drinks_display == 'All':
-            # Set drinks to count()
-            display_options[0] = mongo.db.drinks.count()
-            pass
-        else:
-            # Set drinks to int
-            display_options[0] = int(num_drinks_display)
-            pass
+        display_options[0]=mongo.db.drinks.count() if num_drinks_display\
+            == 'All' else int(num_drinks_display)
         
         display_options[1] = num_drinks_display
     
-        
-        # Test logging    
-        # tester = request.form.to_dict()
         print("")
         print(num_drinks_display)
         print("")
@@ -125,7 +111,7 @@ def index():
         drinks_per_page=drinks_per_page,
         # Items for Drop Downs
         num_drinks_list=num_drinks_list,
-        # Send Original Form Value Back
+        # Send Original Form Values Back
         num_drinks_display=num_drinks_display)
     
 @app.route("/login", methods=['POST', 'GET'])
