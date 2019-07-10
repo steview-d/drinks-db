@@ -28,11 +28,12 @@
     <!--Configure Drinks Display-->
     <div class="row">
         <form method="POST" action="{{ url_for('index')}}">
+            <!--Drinks Per Page - Radio Buttons-->
             <div class="col s4">
-                {% for num in num_drinks_to_display %}
+                {% for num in num_drinks_list %}
                 <span>
                     <label>
-                        {% if num == drinks_per_page %}
+                        {% if num == num_drinks_display %}
                         <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" checked/>
                         {% else %}
                         <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
@@ -43,6 +44,7 @@
                 {% endfor %}
             </div>
 
+            <!--Sort By - Dropdown-->
             <div class="col s4">
                 <div class="input-field">
                     <select id="sort_by" name="sort_by">
@@ -57,6 +59,8 @@
                     <label>Sort By</label>
                 </div>
             </div>
+            
+            <!--Sort Order - Dropdown-->
             <div class="col s4">
                 <div class="input-field">
                     <select id="sort_order" name="sort_order">

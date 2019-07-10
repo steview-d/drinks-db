@@ -24,12 +24,18 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
     'Nine', 'Nine', 'Ten', 'Ten']
     
-num_drinks_to_display = [3, 6, 9, "All"]
-sort_by_options = ['name', 'date ', 'difficulty', 'views']
-sort_order_options = [1, -1]
+# drinks_to_display_options = [3, 6, 9, "All"]
+# sort_by_options = ['name', 'date ', 'difficulty', 'views']
+# sort_order_options = ['Ascending', 'Descending']
 
-# display options defaults: num drinks to display | sort by | sort order
-display_options = [9, 'name', 1]
+# # display options defaults: num drinks to display | sort by | sort order
+# display_options = [9, 'name', 1]
+# drinks_to_display = 3
+
+num_drinks_list = ['3', '6', '9', "All"]
+
+# display options defaults: drinks_per_page | num_drinks_display
+display_options = [9, '9']
 
 
 
@@ -40,43 +46,37 @@ def inject_enumerate():
 @app.route("/", methods=['POST', 'GET'])
 def index():
 
+
     # Display Options
-    if request.form:
-        # Number of drinks to display
+    if request.method=="POST":
+            
+        # Number Of Drinks To Display
         try:
-            display_options[0]=request.form['num_drinks_display']
+            num_drinks_display = request.form['num_drinks_display']
         except:
-            # Set default
-            display_options[0] = 9
-        
-        if display_options[0]=="All":
-            display_options[0]=mongo.db.drinks.count()
+            num_drinks_display = 9
+            
+        if num_drinks_display == 'All':
+            # Set drinks to count()
+            display_options[0] = mongo.db.drinks.count()
+            pass
         else:
-            display_options[0]=int(display_options[0])
+            # Set drinks to int
+            display_options[0] = int(num_drinks_display)
+            pass
         
-        # Default Sort Order
-        try:
-            display_options[1]=request.form['sort_by']
-        except:
-            # Set default
-            display_options[1]
-            
-        # Ascending / Descending
-        try:
-            display_options[2]=int(request.form['sort_order'])
-        except:
-            # Set default
-            display_options[2] = 1
-            
+        display_options[1] = num_drinks_display
+    
+        
         # Test logging    
-        tester = request.form.to_dict()
+        # tester = request.form.to_dict()
         print("")
-        print(tester)
+        print(num_drinks_display)
         print("")
         
         return redirect (url_for('index'))
-    else:
-        pass
+
+
 
     ## Get Quotes - can be refactored - and should be!
     # Get all kv pairs
@@ -89,12 +89,14 @@ def index():
     
     categories=mongo.db.categories.find()
     
-    sort_by = display_options[1]
-    sort_order = display_options[2]
+    # Display Options
+    drinks_per_page = display_options[0]
+    num_drinks_display = display_options[1]
+    sort_by = 'name'
+    sort_order = 1
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
-    drinks_per_page = int(display_options[0])
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
@@ -119,12 +121,12 @@ def index():
         suggestions=suggestions,
         first_result_num=first_result_num,
         last_result_num=last_result_num,
-        num_drinks_to_display=num_drinks_to_display,
+        # Display Options
         drinks_per_page=drinks_per_page,
-        sort_by_options=sort_by_options,
-        sort_order_options=sort_order_options,
-        display_options=display_options)
-    
+        # Items for Drop Downs
+        num_drinks_list=num_drinks_list,
+        # Send Original Form Value Back
+        num_drinks_display=num_drinks_display)
     
 @app.route("/login", methods=['POST', 'GET'])
 def login():
