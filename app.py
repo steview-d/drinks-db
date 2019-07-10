@@ -25,7 +25,11 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Nine', 'Nine', 'Ten', 'Ten']
     
 num_drinks_to_display = [3, 6, 9, "All"]
-display_options_home = [9]
+sort_by_options = ['name', 'date ', 'difficulty', 'views']
+sort_order_options = [1, -1]
+
+# display options defaults: num drinks to display | sort by | sort order
+display_options = [9, 'name', 1]
 
 
 
@@ -36,20 +40,43 @@ def inject_enumerate():
 @app.route("/", methods=['POST', 'GET'])
 def index():
 
-    # Number Of Drinks To Display
+    # Display Options
     if request.form:
+        # Number of drinks to display
         try:
-            display_options_home[0]=request.form['num_drinks_display']
+            display_options[0]=request.form['num_drinks_display']
         except:
             # Set default
-            display_options_home[9]
+            display_options[0] = 9
         
-        if display_options_home[0]=="All":
-            display_options_home[0]=mongo.db.drinks.count()
+        if display_options[0]=="All":
+            display_options[0]=mongo.db.drinks.count()
         else:
-            display_options_home[0]=int(display_options_home[0])
+            display_options[0]=int(display_options[0])
+        
+        # Default Sort Order
+        try:
+            display_options[1]=request.form['sort_by']
+        except:
+            # Set default
+            display_options[1]
+            
+        # Ascending / Descending
+        try:
+            display_options[2]=int(request.form['sort_order'])
+        except:
+            # Set default
+            display_options[2] = 1
+            
+        # Test logging    
+        tester = request.form.to_dict()
+        print("")
+        print(tester)
+        print("")
         
         return redirect (url_for('index'))
+    else:
+        pass
 
     ## Get Quotes - can be refactored - and should be!
     # Get all kv pairs
@@ -62,14 +89,16 @@ def index():
     
     categories=mongo.db.categories.find()
     
+    sort_by = display_options[1]
+    sort_order = display_options[2]
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
-    drinks_per_page = int(display_options_home[0])
+    drinks_per_page = int(display_options[0])
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
-    drinks = mongo.db.drinks.find().sort('name', pymongo.ASCENDING).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+    drinks = mongo.db.drinks.find().sort(sort_by, sort_order).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
     
     # Get suggested drinks for user
     suggestions=get_suggestions(mongo, 4)
@@ -91,7 +120,10 @@ def index():
         first_result_num=first_result_num,
         last_result_num=last_result_num,
         num_drinks_to_display=num_drinks_to_display,
-        drinks_per_page=drinks_per_page)
+        drinks_per_page=drinks_per_page,
+        sort_by_options=sort_by_options,
+        sort_order_options=sort_order_options,
+        display_options=display_options)
     
     
 @app.route("/login", methods=['POST', 'GET'])
@@ -164,13 +196,13 @@ def account(account_name):
         drinks_per_page = 4
         drinks_page = int(request.args.get('drinks_page', 1))
         num_dr_pages = range(1, int(math.ceil(total_drinks_by_user / drinks_per_page)) +1)
-        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("dateAdded", -1).skip((drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
+        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("date", -1).skip((drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
 
         # Pagination - Users Favorite Drinks
         favorite_drinks_per_page = 4
         favorites_page = int(request.args.get('favorites_page', 1))
         num_fv_pages = range(1, int(math.ceil(total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
-        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("dateAdded", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
+        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("date", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
 
         # Page Title
         title = str(user['userName']).title()+"'s Account"
@@ -219,7 +251,7 @@ def drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
     
     # Format Date
-    date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
+    date = datetime.strftime(drink.get('date'), '%d %B %Y')
     
     # Increment view counter
     # DISABLED FOR NOW. CONFIRMED WORKS, ENABLE LATER ON
@@ -311,7 +343,7 @@ def add_drink():
             # Add date
             act_date = datetime.strptime(
                 datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
-            dict['dateAdded']=act_date
+            dict['date']=act_date
             
             # Create view counter
             dict['views']=int(0)
@@ -362,7 +394,7 @@ def edit_drink(drink_id):
         flash("CHEEKY! YOU CAN ONLY EDIT YOUR OWN DRINKS!")    
         return redirect(url_for('drink', drink_id = drink_id))
 
-    date = datetime.strftime(drink.get('dateAdded'), '%d %B %Y')
+    date = datetime.strftime(drink.get('date'), '%d %B %Y')
     
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
