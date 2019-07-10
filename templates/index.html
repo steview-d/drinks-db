@@ -25,6 +25,36 @@
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
     </div>
 
+    <!--Configure Drinks Display-->
+    <form method="POST" action="{{ url_for('index')}}">
+        <span>
+            <label>
+                <input name="num_drinks_display" type="radio" id="num_drinks_6" value="6" checked />
+                <span>6&emsp;&emsp;</span>
+            </label for="num_drinks_6">
+        </span>
+        <span>
+            <label>
+                <input name="num_drinks_display" type="radio" id="num_drinks_9" value="9"/>
+                <span>9&emsp;&emsp;</span>
+            </label for="num_drinks_9">
+        </span>
+        <span>
+            <label>
+                <input name="num_drinks_display" type="radio" id="num_drinks_12" value="12"/>
+                <span>12&emsp;&emsp;</span>
+            </label for="num_drinks_12">
+        </span>
+        <span>
+            <label>
+                <input name="num_drinks_display" type="radio" id="num_drinks_0" value="0"/>
+                <span>All</span>
+            </label for="num_drinks_0">
+        </span>
+        <button class="btn waves-effect waves-light" type="submit">Send<i class="material-icons right">send</i></button>
+    </form>
+
+
     <!--Drinks Grid-->
     <div class="row">
         {% for drink in drinks %}

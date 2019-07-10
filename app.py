@@ -23,14 +23,33 @@ class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
 class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
     'Nine', 'Nine', 'Ten', 'Ten']
+    
+display_options_home = [9]
 
 
 @app.context_processor
 def inject_enumerate():
     return dict(enumerate=enumerate)
 
-@app.route("/")
+@app.route("/", methods=['POST', 'GET'])
 def index():
+
+    # Number Of Drinks To Display
+    if request.form:
+        try:
+            display_options_home[0]=request.form['num_drinks_display']
+        except:
+            # Set default
+            display_options_home[9]
+        
+        if display_options_home[0]=="0":
+            display_options_home[0]=mongo.db.drinks.count()
+        else:
+            display_options_home[0]=int(display_options_home[0])
+            
+        
+        
+        return redirect (url_for('index'))
 
     ## Get Quotes - can be refactored - and should be!
     # Get all kv pairs
@@ -45,7 +64,9 @@ def index():
     
     
     # Pagination
-    drinks_per_page = 9
+    total_drinks = mongo.db.drinks.count()
+    print("JJKJK",display_options_home[0])
+    drinks_per_page = int(display_options_home[0])
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
@@ -54,20 +75,13 @@ def index():
     # Get suggested drinks for user
     suggestions=get_suggestions(mongo, 4)
     
-    # Page Title
-    title="Home"
-    
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x=current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1
     last_result_num = x if x < total_drinks else total_drinks
     
     
-    # Results 
-    
-    
     return render_template('index.html',
-        # title=title,
         drinks = drinks,
         current_page = current_page,
         pages = num_pages,
