@@ -24,7 +24,9 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
     'Nine', 'Nine', 'Ten', 'Ten']
     
+num_drinks_to_display = [3, 6, 9, "All"]
 display_options_home = [9]
+
 
 
 @app.context_processor
@@ -42,12 +44,10 @@ def index():
             # Set default
             display_options_home[9]
         
-        if display_options_home[0]=="0":
+        if display_options_home[0]=="All":
             display_options_home[0]=mongo.db.drinks.count()
         else:
             display_options_home[0]=int(display_options_home[0])
-            
-        
         
         return redirect (url_for('index'))
 
@@ -65,7 +65,6 @@ def index():
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
-    print("JJKJK",display_options_home[0])
     drinks_per_page = int(display_options_home[0])
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
@@ -90,7 +89,9 @@ def index():
         quoteText = quoteText,
         suggestions=suggestions,
         first_result_num=first_result_num,
-        last_result_num=last_result_num)
+        last_result_num=last_result_num,
+        num_drinks_to_display=num_drinks_to_display,
+        drinks_per_page=drinks_per_page)
     
     
 @app.route("/login", methods=['POST', 'GET'])

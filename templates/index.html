@@ -27,30 +27,18 @@
 
     <!--Configure Drinks Display-->
     <form method="POST" action="{{ url_for('index')}}">
+        {% for num in num_drinks_to_display %}
         <span>
             <label>
-                <input name="num_drinks_display" type="radio" id="num_drinks_6" value="6" checked />
-                <span>6&emsp;&emsp;</span>
-            </label for="num_drinks_6">
+                {% if num == drinks_per_page %}
+                <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" checked/>
+                {% else %}
+                <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
+                {% endif %}
+                <span>{{num}}&emsp;&emsp;</span>
+            </label for="num_drinks_{{num}}">
         </span>
-        <span>
-            <label>
-                <input name="num_drinks_display" type="radio" id="num_drinks_9" value="9"/>
-                <span>9&emsp;&emsp;</span>
-            </label for="num_drinks_9">
-        </span>
-        <span>
-            <label>
-                <input name="num_drinks_display" type="radio" id="num_drinks_12" value="12"/>
-                <span>12&emsp;&emsp;</span>
-            </label for="num_drinks_12">
-        </span>
-        <span>
-            <label>
-                <input name="num_drinks_display" type="radio" id="num_drinks_0" value="0"/>
-                <span>All</span>
-            </label for="num_drinks_0">
-        </span>
+        {% endfor %}
         <button class="btn waves-effect waves-light" type="submit">Send<i class="material-icons right">send</i></button>
     </form>
 
