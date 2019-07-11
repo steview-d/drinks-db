@@ -32,10 +32,6 @@ sort_order_list = ['Ascending', 'Descending']
 # Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by | sort_order | sort_order_txt
 sort_options = [9, '9', 'name', 1, 'Ascending']
-#Default Filter Options
-# category | glassType | difficulty
-filter_options = [0, 0, 0]
-
 
 
 @app.context_processor
@@ -305,13 +301,15 @@ def add_drink():
     if request.method == 'POST':
         dict = request.form.to_dict()
         
-        # check_existing = user_list.find_one({"userName": request.form['username']})
         check_existing = mongo.db.drinks.find_one({"name": dict['name']})
         if check_existing:
             flash("DRINK NAME TAKEN, PLEASE CHOOSE ANOTHER ONE")
             return redirect(url_for('add_drink'))
         
         else:
+            # Title-case drink name
+            dict['name']=dict['name'].title()
+            
             dict['userName']=user
             
             # Add date
@@ -377,13 +375,11 @@ def edit_drink(drink_id):
     # Number of boxes to provide for ingredients & measures
     num_boxes = len(drink['ingredients'])
     
-    # # Such a crappy piece of code deserves and equally crappy explanation - so get to it.
-    # # Also, can the nums be auto gen?
-    # class_num = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
-    # class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four', 'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight', 'Nine', 'Nine', 'Ten', 'Ten']
-    
     if request.method == 'POST':
             dict = request.form.to_dict()
+            
+            # Title-case drink name
+            dict['name']=dict['name'].title()
             
             # Get ingredients
             ingredients = []
@@ -451,6 +447,7 @@ def search():
         
         # Keep track of filter values when navigating
         # between multiple pages of results.
+        # Refactor???
         try:
             category_filter=filters['category_filter']
         except:
@@ -464,10 +461,7 @@ def search():
         except:
             difficulty_filter=[]
         
-        
-
         find=request.args['find']
-        
         
         # Sort Options
         if request.method=="POST":
@@ -487,10 +481,18 @@ def search():
         
         # Query drinks db with search string and filters
         search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
+        
+        
         results = mongo.db.drinks.find(
             {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-            ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
+            ).sort([(sort_by, sort_order), ('name', pymongo.ASCENDING)]
             ).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        
+        # ORIGINAL - Keep For Now For Reference
+        # results = mongo.db.drinks.find(
+        #     {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
+        #     ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
+        #     ).skip((current_page - 1)*results_per_page).limit(results_per_page)
         
         num_results=results.count()
             
@@ -543,7 +545,7 @@ def search():
             results_per_page=results_per_page, # Check if needed?
             current_page = current_page,
             pages = num_pages,
-            # Pagination | Selected filters
+            # Pagination | Filter Choices
             category_filter=category_filter,
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter,
@@ -551,8 +553,6 @@ def search():
             all_categories=all_categories,
             all_glass_types=all_glass_types,
             all_difficulties=all_difficulties,
-            # Filter Choices
-            #
             # Display Options
             sort_options=sort_options,
             # Items for Drop Downs
