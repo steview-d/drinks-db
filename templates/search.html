@@ -10,44 +10,49 @@
 
     <div class="row">
         <form action="{{ url_for('search') }}" class="col s12">
-            <span><i class="fas fa-search"></i></span><input placeholder="Search...." id="find" name="find" type="text">
+            <span><i class="fas fa-search"></i></span> {%if find %}
+            <input placeholder="Last Search: {{find}}" id="find" name="find" type="text"> {%else %}
+            <input placeholder="Search...." id="find" name="find" type="text"> {% endif %}
 
             <div class="row">
-                <div class="input-field col s4">
-                    <select id="category_filter" name="category_filter">
-                        <option value="" disabled selected>Filter By Category</option>
-                        <option value=""></option>
-                        {% for item in all_categories %} {% if item == all_categories %}
-                        <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
-                        {% else %}
-                        <option value="{{ item.category }}">{{ item.category.title() }}</option>
-                        {% endif %} {% endfor %}
-                    </select>
-                    <label for="category_filter">Drink Category</label>
-                </div>
+                    <div class="input-field col s4">
+                        <select id="category_filter" name="category_filter">
+                        <option value="" selected>No Filter</option>
+                        {% for item in all_categories %}
+                            {% if item.category == category_filter %}
+                            <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.category }}">{{ item.category.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                        <label for="category_filter">Filter By Category</label>
+                    </div>
                 <div class="input-field col s4">
                     <select id="glassType_filter" name="glassType_filter">
-                        <option value="" disabled selected>Filter By Glass Type</option>
-                        <option value=""></option>
-                        {% for item in all_glass_types %} {% if item == all_glass_types %}
-                        <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
-                        {% else %}
-                        <option value="{{ item.glassType }}">{{ item.glassType.title() }}</option>
-                        {% endif %} {% endfor %}
+                        <option value="" selected>No Filter</option>
+                        {% for item in all_glass_types %}
+                            {% if item.glassType == glassType_filter %}
+                            <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.glassType }}">{{ item.glassType.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
                     </select>
-                    <label for="glassType_filter">Glass Type</label>
+                    <label for="glassType_filter">Filter By Glass Type</label>
                 </div>
                 <div class="input-field col s4">
                     <select id="difficulty_filter" name="difficulty_filter">
-                        <option value="" disabled selected>Filter By Difficulty</option>
-                        <option value=""></option>
-                        {% for item in all_difficulties %} {% if item == all_difficulties %}
-                        <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
-                        {% else %}
-                        <option value="{{ item.difficulty }}">{{ item.difficulty.title() }}</option>
-                        {% endif %} {% endfor %}
+                        <option value="" selected>No Filter</option>
+                        {% for item in all_difficulties %}
+                            {% if item.difficulty == difficulty_filter %}
+                            <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.difficulty }}">{{ item.difficulty.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
                     </select>
-                    <label for="difficulty_filter">Difficulty</label>
+                    <label for="difficulty_filter">Filter By Difficulty</label>
                 </div>
             </div>
 
@@ -70,6 +75,21 @@
         <h5>Search Results</h5>
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
     </div>
+
+    <!--Sort Options-->
+    <div class="row">
+        <form method="POST" action="{{ url_for('search',
+            current_page=page_number,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter)}}">
+            {% include 'helpers/sort_options.html' %}
+        </form>
+    </div>
+
+
+
     <div class="row">
         {% for drink in results %}
         <div class="col s4 border-outline center">
@@ -97,7 +117,7 @@
         {% else %}
         <li class="disabled"><i class="material-icons">arrow_left</i></li>
         {% endif %}
-        
+
         <!--Page Numbers-->
         {% for page_number in pages %} {% if page_number == current_page %}
         <li class="active"><a>{{ page_number }}</a></li>
@@ -109,18 +129,18 @@
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter) }}">{{ page_number }}</a></li>
         {% endif %} {% endfor %}
-        
+
         <!--Right Arrow-->
-        {% if current_page | int < pages | count | int %}
-        <li class=""><a href="{{ url_for('search',
+        {% if current_page | int
+        < pages | count | int %} <li class=""><a href="{{ url_for('search',
             current_page=current_page+1,
             find=find,
             category_filter=category_filter,
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter) }}"><i class="material-icons">arrow_right</i></a></li>
-        {% else %}
-        <li class="disabled"><i class="material-icons">arrow_right</i></li>
-        {% endif %}
+            {% else %}
+            <li class="disabled"><i class="material-icons">arrow_right</i></li>
+            {% endif %}
     </ul>
     {% endif %}
 

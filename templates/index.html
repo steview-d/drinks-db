@@ -20,16 +20,16 @@
 
     <!--Drinks-->
 
-    <!--Summary-->
-    <div class="row center">
-        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
-    </div>
-
     <!--Sort Options-->
     <div class="row">
         <form method="POST" action="{{ url_for('index')}}">
             {% include 'helpers/sort_options.html' %}
         </form>
+    </div>
+    
+    <!--Summary-->
+    <div class="row center">
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
     </div>
 
 

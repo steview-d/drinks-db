@@ -32,6 +32,9 @@ sort_order_list = ['Ascending', 'Descending']
 # Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by | sort_order | sort_order_txt
 sort_options = [9, '9', 'name', 1, 'Ascending']
+#Default Filter Options
+# category | glassType | difficulty
+filter_options = [0, 0, 0]
 
 
 
@@ -424,7 +427,7 @@ def delete_drink(drink_id):
     return redirect(url_for('index'))
 
 
-@app.route("/search")
+@app.route("/search", methods=['GET', 'POST'])
 def search():
 
     # Get Categories for filter dropdowns
@@ -434,7 +437,6 @@ def search():
     
     # Page Title
     title="Search"
-
     
     if request.args:
         # Take the filters selected by the user and convert them
@@ -443,7 +445,7 @@ def search():
         filter_dict={}
         list_of_filters=['category_filter', 'glassType_filter', 'difficulty_filter']
         for k,v in filters.items():
-            if k in list_of_filters:
+            if k in list_of_filters and v!="":
                 new_k = k.split("_")[0]
                 filter_dict[new_k]=v
         
@@ -465,16 +467,29 @@ def search():
         
 
         find=request.args['find']
+        
+        
+        # Sort Options
+        if request.method=="POST":
+            sort_drinks(mongo, sort_options) 
+            return redirect (url_for('search',
+                category_filter=category_filter,
+                glassType_filter=glassType_filter,
+                difficulty_filter=difficulty_filter,
+                find=find))
+            
 
-        # Pagination - part 1
-        results_per_page = 9
+        # Display Options
+        results_per_page = sort_options[0]
+        sort_by = sort_options[2]
+        sort_order = sort_options[3]
         current_page = int(request.args.get('current_page', 1))
         
         # Query drinks db with search string and filters
         search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
         results = mongo.db.drinks.find(
             {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-            ).sort([('score', {'$meta': 'textScore'}), ('views', pymongo.DESCENDING), ('name', pymongo.ASCENDING)]
+            ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
             ).skip((current_page - 1)*results_per_page).limit(results_per_page)
         
         num_results=results.count()
@@ -490,7 +505,7 @@ def search():
                 all_glass_types=all_glass_types,
                 all_difficulties=all_difficulties)
         
-        # Pagination - part 2
+        # Pagination
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
         
         # Summary - (example) 'showing 1 - 9 of 15 results'
@@ -509,7 +524,11 @@ def search():
             
         # Page Title
         title="Search Results"
-            
+        
+        
+        print("")    
+        print(category_filter)        
+        print("")        
 
         return render_template('search.html',
             title=title,
@@ -521,7 +540,7 @@ def search():
             # Search result scores
             max_weight = max_weight,
             # Pagination | Navigation
-            results_per_page=results_per_page,
+            results_per_page=results_per_page, # Check if needed?
             current_page = current_page,
             pages = num_pages,
             # Pagination | Selected filters
@@ -531,7 +550,15 @@ def search():
             # Items for filters
             all_categories=all_categories,
             all_glass_types=all_glass_types,
-            all_difficulties=all_difficulties)
+            all_difficulties=all_difficulties,
+            # Filter Choices
+            #
+            # Display Options
+            sort_options=sort_options,
+            # Items for Drop Downs
+            num_drinks_list=num_drinks_list,
+            sort_by_list=sort_by_list,
+            sort_order_list=sort_order_list)
     
     return render_template('search.html',
         title=title,
