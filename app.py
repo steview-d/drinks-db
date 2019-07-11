@@ -26,11 +26,12 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     
 
 num_drinks_list = ['6', '9', '12', "All"]
-# sort_by_options = ['name', 'date ', 'difficulty', 'views']
-# sort_order_options = ['Ascending', 'Descending']
+sort_by_list = ['name', 'date ', 'difficulty', 'views']
+sort_order_list = ['Ascending', 'Descending']
 
-# display options - drinks_per_page | num_drinks_display
-display_options = [9, '9']
+# Default Display Options:
+# drinks_per_page | num_drinks_display | sort_by | sort_order | sort_order_txt
+display_options = [9, '9', 'name', 1, 'Ascending']
 
 
 
@@ -46,19 +47,19 @@ def index():
     if request.method=="POST":
             
         # Number Of Drinks To Display
-        try:
-            num_drinks_display = request.form['num_drinks_display']
-        except:
-            num_drinks_display = 9
-            
+        num_drinks_display = request.form['num_drinks_display']
         display_options[0]=mongo.db.drinks.count() if num_drinks_display\
             == 'All' else int(num_drinks_display)
-        
         display_options[1] = num_drinks_display
-    
-        print("")
-        print(num_drinks_display)
-        print("")
+        
+        # Drinks Sort By
+        sort_by = request.form['sort_by']
+        display_options[2] = sort_by
+        
+        # Drinks Sort Order
+        sort_order = request.form['sort_order']
+        display_options[3]=1 if sort_order=='Ascending' else -1
+        display_options[4]=sort_order
         
         return redirect (url_for('index'))
 
@@ -78,8 +79,8 @@ def index():
     # Display Options
     drinks_per_page = display_options[0]
     num_drinks_display = display_options[1]
-    sort_by = 'name'
-    sort_order = 1
+    sort_by = display_options[2]
+    sort_order = display_options[3]
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
@@ -108,11 +109,11 @@ def index():
         first_result_num=first_result_num,
         last_result_num=last_result_num,
         # Display Options
-        drinks_per_page=drinks_per_page,
+        display_options=display_options,
         # Items for Drop Downs
         num_drinks_list=num_drinks_list,
-        # Send Original Form Values Back
-        num_drinks_display=num_drinks_display)
+        sort_by_list=sort_by_list,
+        sort_order_list=sort_order_list)
     
 @app.route("/login", methods=['POST', 'GET'])
 def login():
