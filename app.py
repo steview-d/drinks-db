@@ -4,7 +4,7 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from py_helper.helper import get_suggestions
+from py_helper.helper import get_suggestions, sort_drinks
 
 app = Flask(__name__)
 
@@ -29,9 +29,9 @@ num_drinks_list = ['6', '9', '12', "All"]
 sort_by_list = ['name', 'date ', 'difficulty', 'views']
 sort_order_list = ['Ascending', 'Descending']
 
-# Default Display Options:
+# Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by | sort_order | sort_order_txt
-display_options = [9, '9', 'name', 1, 'Ascending']
+sort_options = [9, '9', 'name', 1, 'Ascending']
 
 
 
@@ -43,23 +43,27 @@ def inject_enumerate():
 def index():
 
 
-    # Display Options
+    # Sort Options
     if request.method=="POST":
-            
+        print(sort_options)
+        sort_drinks(mongo, sort_options) 
+        print(sort_options)
+        
+        
         # Number Of Drinks To Display
-        num_drinks_display = request.form['num_drinks_display']
-        display_options[0]=mongo.db.drinks.count() if num_drinks_display\
-            == 'All' else int(num_drinks_display)
-        display_options[1] = num_drinks_display
+        # num_drinks_display = request.form['num_drinks_display']
+        # sort_options[0]=mongo.db.drinks.count() if num_drinks_display\
+        #     == 'All' else int(num_drinks_display)
+        # sort_options[1] = num_drinks_display
         
-        # Drinks Sort By
-        sort_by = request.form['sort_by']
-        display_options[2] = sort_by
+        # # Drinks Sort By
+        # sort_by = request.form['sort_by']
+        # sort_options[2] = sort_by
         
-        # Drinks Sort Order
-        sort_order = request.form['sort_order']
-        display_options[3]=1 if sort_order=='Ascending' else -1
-        display_options[4]=sort_order
+        # # Drinks Sort Order
+        # sort_order = request.form['sort_order']
+        # sort_options[3]=1 if sort_order=='Ascending' else -1
+        # sort_options[4]=sort_order
         
         return redirect (url_for('index'))
 
@@ -77,10 +81,9 @@ def index():
     categories=mongo.db.categories.find()
     
     # Display Options
-    drinks_per_page = display_options[0]
-    num_drinks_display = display_options[1]
-    sort_by = display_options[2]
-    sort_order = display_options[3]
+    drinks_per_page = sort_options[0]
+    sort_by = sort_options[2]
+    sort_order = sort_options[3]
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
@@ -109,7 +112,7 @@ def index():
         first_result_num=first_result_num,
         last_result_num=last_result_num,
         # Display Options
-        display_options=display_options,
+        sort_options=sort_options,
         # Items for Drop Downs
         num_drinks_list=num_drinks_list,
         sort_by_list=sort_by_list,

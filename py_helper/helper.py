@@ -1,5 +1,5 @@
 import random
-from flask import session
+from flask import request, session
 
 def get_suggestions(mongo,num_suggestions):
     """
@@ -19,3 +19,24 @@ def get_suggestions(mongo,num_suggestions):
 
     return suggestions
        
+       
+def sort_drinks(mongo, sort_options):
+    """
+        Text Here
+    """
+    # Number Of Drinks To Display
+    num_drinks_display = request.form['num_drinks_display']
+    sort_options[0]=mongo.db.drinks.count() if num_drinks_display\
+        == 'All' else int(num_drinks_display)
+    sort_options[1] = num_drinks_display
+    
+    # Drinks Sort By
+    sort_by = request.form['sort_by']
+    sort_options[2] = sort_by
+    
+    # Drinks Sort Order
+    sort_order = request.form['sort_order']
+    sort_options[3]=1 if sort_order=='Ascending' else -1
+    sort_options[4]=sort_order
+    
+    return sort_options

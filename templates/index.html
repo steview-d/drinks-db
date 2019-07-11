@@ -25,59 +25,10 @@
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
     </div>
 
-    <!--Configure Drinks Display-->
+    <!--Sort Options-->
     <div class="row">
         <form method="POST" action="{{ url_for('index')}}">
-            <!--Drinks Per Page - Radio Buttons-->
-            <div class="col s4">
-                {% for num in num_drinks_list %}
-                <span>
-                    <label>
-                        {% if num == display_options[1] %}
-                        <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" checked/>
-                        {% else %}
-                        <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
-                        {% endif %}
-                        <span>{{num}}&emsp;&emsp;</span>
-                </label for="num_drinks_{{num}}">
-                </span>
-                {% endfor %}
-            </div>
-
-            <!--Sort By - Dropdown-->
-            <div class="col s4">
-                <div class="input-field">
-                    <select id="sort_by" name="sort_by">
-                    {% for sort_by in sort_by_list %}
-                        {% if sort_by == display_options[2] %}
-                        <option value="{{sort_by}}" selected>{{sort_by.title()}}</option>
-                        {% else %}
-                        <option value="{{sort_by}}">{{sort_by.title()}}</option>
-                        {% endif %}
-                    {% endfor %}
-                    </select>
-                    <label>Sort By</label>
-                </div>
-            </div>
-            
-            <!--Sort Order - Dropdown-->
-            <div class="col s4">
-                <div class="input-field">
-                    <select id="sort_order" name="sort_order">
-                    {% for sort_order in sort_order_list %}
-                        {% if sort_order == display_options[4] %}
-                        <option value="{{sort_order}}" selected>{{sort_order}}</option>
-                        {% else %}
-                        <option value="{{sort_order}}">{{sort_order}}</option>
-                        {% endif %}
-                    {% endfor %}
-                    </select>
-                    <label>Sort Order</label>
-                </div>
-            </div>
-
-
-            <button class="col s12 btn waves-effect waves-light" type="submit">Send<i class="material-icons right">send</i></button>
+            {% include 'helpers/sort_options.html' %}
         </form>
     </div>
 
