@@ -13,6 +13,10 @@
         </form>
     </div>
 
+    <!--Summary-->
+    <div class="row center">
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
+    </div>
 
     <!--Drinks-->
     <div class="row">
@@ -24,7 +28,6 @@
         {% endfor %}
     </div>
     
-    <!--{{ url_for('category', category_name = category.category) }}-->
     
     <!--Pagination-->
     <ul class="pagination center">
