@@ -5,6 +5,13 @@
     <div class="row center">
         <h3>{{category.category.title()}}</h3>
     </div>
+    
+    <!--Sort Options-->
+    <div class="row">
+        <form method="POST" action="{{ url_for('category', category_name = category.category)}}">
+            {% include 'helpers/sort_options.html' %}
+        </form>
+    </div>
 
 
     <!--Drinks-->

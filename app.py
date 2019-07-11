@@ -550,7 +550,7 @@ def category(category_name):
     # Sort Options
     if request.method=="POST":
         sort_drinks(mongo, sort_options) 
-        return redirect (url_for('index'))
+        return redirect (url_for('category', category_name = category_name))
     
     
     # Display Options
