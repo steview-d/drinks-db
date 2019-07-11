@@ -42,31 +42,10 @@ def inject_enumerate():
 @app.route("/", methods=['POST', 'GET'])
 def index():
 
-
     # Sort Options
     if request.method=="POST":
-        print(sort_options)
         sort_drinks(mongo, sort_options) 
-        print(sort_options)
-        
-        
-        # Number Of Drinks To Display
-        # num_drinks_display = request.form['num_drinks_display']
-        # sort_options[0]=mongo.db.drinks.count() if num_drinks_display\
-        #     == 'All' else int(num_drinks_display)
-        # sort_options[1] = num_drinks_display
-        
-        # # Drinks Sort By
-        # sort_by = request.form['sort_by']
-        # sort_options[2] = sort_by
-        
-        # # Drinks Sort Order
-        # sort_order = request.form['sort_order']
-        # sort_options[3]=1 if sort_order=='Ascending' else -1
-        # sort_options[4]=sort_order
-        
         return redirect (url_for('index'))
-
 
 
     ## Get Quotes - can be refactored - and should be!
@@ -565,12 +544,51 @@ def search():
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
 def category(category_name):
     category = mongo.db.categories.find_one({"category": category_name})
-    drinks = mongo.db.drinks.find({"category": category_name})
     title=category['category'].title()
+        
+        
+    # Sort Options
+    if request.method=="POST":
+        sort_drinks(mongo, sort_options) 
+        return redirect (url_for('index'))
+    
+    
+    # Display Options
+    drinks_per_page = sort_options[0]
+    sort_by = sort_options[2]
+    sort_order = sort_options[3]
+    
+    # Pagination
+    total_drinks = mongo.db.drinks.count()
+    current_page = int(request.args.get('current_page', 1))
+    total_drinks = mongo.db.drinks.find({"category": category_name}).count()
+    num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
+    drinks = mongo.db.drinks.find({"category": category_name}).sort(sort_by, sort_order).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+    
+    # Summary - (example) 'showing 1 - 9 of 15 results'
+    x=current_page * drinks_per_page
+    first_result_num = x - drinks_per_page + 1
+    last_result_num = x if x < total_drinks else total_drinks
+    
+    
+    
     return render_template('category.html',
         title=title,
         category=category,
-        drinks = drinks)
+        drinks = drinks,
+        # Pagination
+        current_page = current_page,
+        pages = num_pages,
+        first_result_num=first_result_num,
+        last_result_num=last_result_num,
+        # Display Options
+        sort_options=sort_options,
+        # Items for Drop Downs
+        num_drinks_list=num_drinks_list,
+        sort_by_list=sort_by_list,
+        sort_order_list=sort_order_list)
+        
+        
 
 
 

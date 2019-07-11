@@ -6,6 +6,7 @@
         <h3>{{category.category.title()}}</h3>
     </div>
 
+
     <!--Drinks-->
     <div class="row">
         {% for drink in drinks %}
@@ -14,9 +15,37 @@
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}
-        
-        
     </div>
+    
+    <!--{{ url_for('category', category_name = category.category) }}-->
+    
+    <!--Pagination-->
+    <ul class="pagination center">
+        <!--Left Arrow-->
+        {% if current_page | int > 1 %}
+        <li class=""><a href="{{ url_for('category', category_name = category.category, current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+        {% else %}
+        <li class="disabled"><i class="material-icons">arrow_left</i></li>
+        {% endif %}
+
+        <!--Page Numbers-->
+        {% for page_number in pages %} {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for('category', category_name = category.category, current_page=page_number) }}">{{ page_number }}</a></li>
+        {% endif %} {% endfor %}
+
+        <!--Right Arrow-->
+        {% if current_page | int
+        < pages | count | int %} <li class=""><a href="{{ url_for('category', category_name = category.category, current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+        {% else %}
+        <li class="disabled"><i class="material-icons">arrow_right</i></li>
+        {% endif %}
+
+    </ul>
+    
+    
+    
 
 <hr>
 <div class="row center">
