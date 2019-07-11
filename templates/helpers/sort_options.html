@@ -1,4 +1,15 @@
 <!--Drinks Per Page - Radio Buttons-->
+{% if (request.path == "/search") and (find) %}
+<div class="row">
+    <div class="col s12 center">
+        <label>
+        <input type="checkbox" id='relevance' name='relevance'/>
+        <span>Sort Results By Relevance First</span>
+        </label for="relevance">
+    </div>
+</div>
+{% endif %}
+
 <div class="col s4">
     {% for num in num_drinks_list %}
     <span>
@@ -9,7 +20,7 @@
             <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
             {% endif %}
             <span>{{num}}&emsp;&emsp;</span>
-    </label for="num_drinks_{{num}}">
+        </label>
     </span>
     {% endfor %}
 </div>
@@ -35,7 +46,7 @@
     <div class="input-field">
         <select id="sort_order" name="sort_order">
         {% for sort_order in sort_order_list %}
-            {% if sort_order == sort_options[4] %}
+            {% if sort_order == sort_options[5] %}
             <option value="{{sort_order}}" selected>{{sort_order}}</option>
             {% else %}
             <option value="{{sort_order}}">{{sort_order}}</option>
@@ -45,6 +56,7 @@
         <label>Sort Order</label>
     </div>
 </div>
+
 
 <!--Send Button-->
 <button class="col s2 offset-s5 btn waves-effect waves-light" type="submit">Sort<i class="material-icons right">send</i></button>

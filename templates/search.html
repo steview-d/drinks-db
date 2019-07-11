@@ -15,8 +15,8 @@
             <input placeholder="Search...." id="find" name="find" type="text"> {% endif %}
 
             <div class="row">
-                    <div class="input-field col s4">
-                        <select id="category_filter" name="category_filter">
+                <div class="input-field col s4">
+                    <select id="category_filter" name="category_filter">
                         <option value="" selected>No Filter</option>
                         {% for item in all_categories %}
                             {% if item.category == category_filter %}
@@ -26,8 +26,8 @@
                             {% endif %}
                         {% endfor %}
                         </select>
-                        <label for="category_filter">Filter By Category</label>
-                    </div>
+                    <label for="category_filter">Filter By Category</label>
+                </div>
                 <div class="input-field col s4">
                     <select id="glassType_filter" name="glassType_filter">
                         <option value="" selected>No Filter</option>
@@ -85,6 +85,7 @@
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter)}}">
             {% include 'helpers/sort_options.html' %}
+            
         </form>
     </div>
 
@@ -94,11 +95,11 @@
         {% for drink in results %}
         <div class="col s4 border-outline center">
             <p class="center">{{drink.name}} | {{drink.views}}</p>
-            {% if drink.score == 0 %}
-            <p class="center">Search Relevance: 100%</p>
-            {% else %}
+            {% if drink.score %}
             <p class="center">Search Relevance: {{ (drink.score / max_weight * 100) | round | int}}%</p>
             {% endif %}
+            <p class="center">{{drink.date}}</p>
+            <p class="center">{{drink.difficulty}}</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}

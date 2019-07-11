@@ -23,6 +23,9 @@
         {% for drink in drinks %}
         <div class="col s4 border-outline">
             <p class="center">{{drink.name}}</p>
+            <p class="center">{{drink.views}}</p>
+            <p class="center">{{drink.difficulty}}</p>
+            <p class="center">{{drink.date}}</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}

@@ -30,8 +30,9 @@ sort_by_list = ['name', 'date', 'difficulty', 'views']
 sort_order_list = ['Ascending', 'Descending']
 
 # Default Sort Options:
-# drinks_per_page | num_drinks_display | sort_by | sort_order | sort_order_txt
-sort_options = [9, '9', 'name', 1, 'Ascending']
+# drinks_per_page | num_drinks_display | sort_by | 
+# relevance flag | sort_order | sort_order_txt
+sort_options = [9, '9', 'name', 1, 1, 'Ascending']
 
 
 @app.context_processor
@@ -61,7 +62,7 @@ def index():
     # Display Options
     drinks_per_page = sort_options[0]
     sort_by = sort_options[2]
-    sort_order = sort_options[3]
+    sort_order = sort_options[4]
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
@@ -465,28 +466,49 @@ def search():
         
         # Sort Options
         if request.method=="POST":
-            sort_drinks(mongo, sort_options) 
+
+            sort_drinks(mongo, sort_options)
+            
+            try:
+                request.form['relevance']
+            except:
+                sort_options[3]=0
+            else:
+                sort_options[3]=1
+
             return redirect (url_for('search',
                 category_filter=category_filter,
                 glassType_filter=glassType_filter,
                 difficulty_filter=difficulty_filter,
                 find=find))
-            
-
+                
+                
+                
         # Display Options
         results_per_page = sort_options[0]
         sort_by = sort_options[2]
-        sort_order = sort_options[3]
+        sort_order = sort_options[4]
         current_page = int(request.args.get('current_page', 1))
         
         # Query drinks db with search string and filters
         search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
         
         
-        results = mongo.db.drinks.find(
-            {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-            ).sort([(sort_by, sort_order), ('name', pymongo.ASCENDING)]
-            ).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        if sort_options[3]!=1:
+            # Standard Search
+            results = mongo.db.drinks.find(
+                {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
+                ).sort(sort_by, sort_order
+                ).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        
+        else:
+            # Return search results ordered first by relevance
+            results = mongo.db.drinks.find(
+                {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
+                ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
+                ).skip((current_page - 1)*results_per_page).limit(results_per_page)
+        
+        
         
         # ORIGINAL - Keep For Now For Reference
         # results = mongo.db.drinks.find(
@@ -583,7 +605,7 @@ def category(category_name):
     # Display Options
     drinks_per_page = sort_options[0]
     sort_by = sort_options[2]
-    sort_order = sort_options[3]
+    sort_order = sort_options[4]
     
     # Pagination
     total_drinks = mongo.db.drinks.count()
