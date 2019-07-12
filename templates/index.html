@@ -41,7 +41,7 @@
             <p class="center">{{drink.views}}</p>
             <p class="center">{{drink.difficulty}}</p>
             <p class="center">{{drink.date}}</p>
-            <p class="center">{{drink.comments}} | {{drink.favorites | count}}</p>
+            <p class="center">{{drink.comments}} | {{drink.favorites}}</p>
             <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
         </div>
         {% endfor %}

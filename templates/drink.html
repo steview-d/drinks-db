@@ -51,7 +51,7 @@
         <div class="col sm12 l4">
             <h5>FAVES & VIEWS</h5>
 
-            <p>Favorites: {{drink.favorites | count}}</p>
+            <p>Favorites: {{drink.favorites}}</p>
             <p>Views: {{drink.views}}</p>
 
             <!--Add as favorite-->
@@ -70,14 +70,13 @@
 
 
             <!--Displays num favorites-->
-            {% if drink.favorites | count
-            < 1 %} <p>Not yet favorited by any users</p>
+            {% if drink.favorites < 1 %} <p>Not yet favorited by any users</p>
 
                 {% else %}
 
                 <p>Favorited By These Users</p>
 
-                {% for x in drink.favorites %}
+                {% for x in drink.favoritesTxt %}
 
                 <p>{{x}}</p>
 

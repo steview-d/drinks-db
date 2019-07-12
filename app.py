@@ -142,7 +142,7 @@ def account(account_name):
     if account_name == session['username']:
         user = mongo.db.users.find_one({"userName": account_name})
         drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name})
-        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name})
+        drinks_favorited_by_user = mongo.db.drinks.find({"favoritesTxt": account_name})
 
         # For all drinks submitted by the user, calculate their total views &
         # how many times they have been favorited
@@ -150,7 +150,7 @@ def account(account_name):
         total_favorites = 0
         for drink in drinks_submitted_by_user:
             total_views += drink['views']
-            total_favorites += len(drink['favorites'])
+            total_favorites += drink['favorites']
         
         # Get drinks which have been most viewed &
         # favorited by others, for current user
@@ -173,7 +173,7 @@ def account(account_name):
         favorite_drinks_per_page = 4
         favorites_page = int(request.args.get('favorites_page', 1))
         num_fv_pages = range(1, int(math.ceil(total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
-        drinks_favorited_by_user = mongo.db.drinks.find({"favorites": account_name}).sort("date", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
+        drinks_favorited_by_user = mongo.db.drinks.find({"favoritesTxt": account_name}).sort("date", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
 
         # Page Title
         title = str(user['userName']).title()+"'s Account"
@@ -261,7 +261,7 @@ def drink(drink_id):
 
     # Check if drink is in users favorites list
     try:
-        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favorites']
+        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favoritesTxt']
     except:
         user_favorites=[]
     is_favorite = 1 if drink_id in user_favorites else 0
@@ -282,12 +282,18 @@ def drink(drink_id):
 
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")
 def toggle_favorite(drink_id, is_favorite):
-    """Add or remove drink from favorites list for user and drink """
+    """
+        Add or remove drink from favorites list for user and drink
+    """
     action = '$pull' if is_favorite == "1" else '$push'
-    mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favorites': drink_id}})
-    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favorites': session['username']}})
+    mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favoritesTxt': drink_id}})
+    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favoritesTxt': session['username']}})
     
-    return redirect(url_for('drink', drink_id=drink_id, _anchor='fv'))
+    
+    favoritesTxt_length = len(mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})['favoritesTxt'])
+    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'favorites': favoritesTxt_length}})
+    
+    return redirect(url_for('drink', drink_id=drink_id))
 
 
 @app.route("/add_drink", methods=['GET', 'POST'])
@@ -331,8 +337,10 @@ def add_drink():
                     dict.pop(k)
             
             dict['ingredients'] = ingredients
-            dict['favorites'] = []
+            dict['favoritesTxt'] = []
+            dict['favorites'] = 0
             dict['commentsTxt'] = []
+            dict['comments'] = 0
             
             mongo.db.drinks.insert_one(dict)
             
