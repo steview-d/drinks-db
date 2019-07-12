@@ -257,7 +257,20 @@ def drink(drink_id):
             mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'commentsTxt': new_comment}})
             mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'comments': int(1)}})
             flash("Comment posted, thanks {}".format(session['username']))
+            
+            
+            # Check for duplicate comments
+            comments = mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})['comments']
+            
+            
+            print("")
+            print("TESTING:")
+            print(comments)
+            print("")
+            
             return redirect(url_for('drink', drink_id = drink_id))
+            
+        
 
     # Check if drink is in users favorites list
     try:
@@ -289,7 +302,8 @@ def toggle_favorite(drink_id, is_favorite):
     mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favoritesTxt': drink_id}})
     mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favoritesTxt': session['username']}})
     
-    
+    # Get length of favorites array for given drink and replace value
+    # in favorites for same drink.
     favoritesTxt_length = len(mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})['favoritesTxt'])
     mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'favorites': favoritesTxt_length}})
     

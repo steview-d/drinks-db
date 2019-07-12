@@ -64,9 +64,13 @@
 
             {% if is_favorite %}
             <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
-            <i class="fas fa-heart"></i> {% else %}
+            <i class="fas fa-heart"></i> 
+            {% else %}
             <i class="far fa-heart"></i>
-            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a> {% endif %} {% endif %}
+            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a> 
+            {% endif %}
+            
+            {% endif %}
 
 
             <!--Displays num favorites-->

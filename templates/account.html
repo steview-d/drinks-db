@@ -12,21 +12,37 @@
             <div class="row">
                 <div class="col s6">
                     <p>Your most viewed drink is</p>
-                    <p>{{most_viewed.name}}</p>
-                    <p>with {{most_viewed.views}} views.</p>
+                    {% if most_viewed.views %}
+                        <p>{{most_viewed.name}}</p>
+                        <p>with {{most_viewed.views}} views.</p>
+                    {% else %}
+                        <p>Either you haven't submitted any drinks yet, or they have had no views</p>
+                    {% endif %}
                 </div>
                 <div class="col s6">
-                    <p>pic: {{most_viewed.imageUrl}}</p>
+                    {% if most_viewed.views %}
+                        <p>pic: {{most_viewed.imageUrl}}</p>
+                    {% else %}
+                        <p>Something for no pic</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <p>pic: {{most_favorited.imageUrl}}</p>
+                    {% if most_favorited.favorites %}
+                        <p>pic: {{most_favorited.imageUrl}}</p>
+                    {% else %}
+                        <p>Something for no pic</p>
+                    {% endif %}
                 </div>
                 <div class="col s6">
                     <p>Your most favorited drink is</p>
-                    <p>{{most_favorited.name}}</p>
-                    <p>with {{most_favorited.views}} users adding it to their favorites.</p>
+                    {% if most_favorited.favorites %}
+                        <p>{{most_favorited.name}}</p>
+                        <p>with {{most_favorited.favorites}} users adding it to their favorites.</p>
+                    {% else %}
+                        <p>Either you haven't submitted any drinks, or they have had not been favorited by anyone yet.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -38,9 +54,13 @@
         <h6>** Most recent first **</h6>
 
         <!--Summary-->
+        {% if total_drinks_by_user > 0 %}
         <div class="row center">
             <h6>Showing {{first_dr_result_num}} - {{last_dr_result_num}} of {{total_drinks_by_user}} results</h6>
         </div>
+        {% else %}
+        <h6>No Drinks Submitted Yet. <a href="{{ url_for('add_drink') }}">Add One Now</a></h6>
+        {% endif %}
 
         <div class="row">
             {% for drink in users_drinks %}
@@ -89,9 +109,13 @@
     <div class="row">
         <h4>Drinks Favorited By You</h4>
         <!--Summary-->
+        {% if total_fave_drinks_by_user > 0 %}
         <div class="row center">
             <h6>Showing {{first_fv_result_num}} - {{last_fv_result_num}} of {{total_fave_drinks_by_user}} results</h6>
         </div>
+        {% else %}
+        <h6>No Drinks Favorited Yet</h6>
+        {% endif %}
         <div class="row">
             {% for drink in favorited_drinks %}
             <div class="col s3 border-outline">
