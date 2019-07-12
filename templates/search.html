@@ -10,9 +10,15 @@
 
     <div class="row">
         <form action="{{ url_for('search') }}" class="col s12">
-            <span><i class="fas fa-search"></i></span> {%if find %}
-            <input placeholder="Last Search: {{find}}" id="find" name="find" type="text"> {%else %}
-            <input placeholder="Search...." id="find" name="find" type="text"> {% endif %}
+            <span><i class="fas fa-search"></i></span>
+            <div class="input-field">
+            {%if find %}
+            <input placeholder="Last Search: {{find}}" id="find" name="find" type="text">
+            {%else %}
+            <input placeholder="Leave blank to return all drinks" id="find" name="find" type="text">
+            {% endif %}
+            <label for"find" >Search</label>
+            </div>
 
             <div class="row">
                 <div class="input-field col s4">

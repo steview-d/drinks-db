@@ -33,7 +33,7 @@ def sort_drinks(mongo, sort_options):
     # Drinks Sort By
     sort_by = request.form['sort_by']
     sort_options[2] = sort_by
-    sort_options[5] = 0
+    sort_options[3] = 0
     
     # Drinks Sort Order
     sort_order = request.form['sort_order']
