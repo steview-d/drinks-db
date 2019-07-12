@@ -226,8 +226,10 @@ def drink(drink_id):
     
     # Increment view counter
     # DISABLED FOR NOW. CONFIRMED WORKS, ENABLE LATER ON
+    
     # .update() is depreciated - should use update_one() or find_one_and_update()
     # mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    
     # add a redirect url_for to make sure view increase is shown when viewed?
     # or is this adding redirects for sake of it? Could just always add one via the html display
     # to show this amount before its updated for next view?
@@ -238,7 +240,7 @@ def drink(drink_id):
     # Comments
     comment_user, comment_text = [], []
     try:
-        all_comments = drink['comments']
+        all_comments = drink['commentsTxt']
     except:
         all_comments = []
     if all_comments:
@@ -252,8 +254,8 @@ def drink(drink_id):
     if request.method == 'POST':
         if len(request.form.get('comment')) > 0:
             new_comment=session['username'] + ":" + request.form.get('comment')
-            print(new_comment)
-            mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'comments': new_comment}})
+            mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'commentsTxt': new_comment}})
+            mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'comments': int(1)}})
             flash("Comment posted, thanks {}".format(session['username']))
             return redirect(url_for('drink', drink_id = drink_id))
 
@@ -330,7 +332,7 @@ def add_drink():
             
             dict['ingredients'] = ingredients
             dict['favorites'] = []
-            dict['comments'] = []
+            dict['commentsTxt'] = []
             
             mongo.db.drinks.insert_one(dict)
             
