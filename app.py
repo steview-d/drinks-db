@@ -254,25 +254,54 @@ def drink(drink_id):
     if request.method == 'POST':
         if len(request.form.get('comment')) > 0:
             new_comment=session['username'] + ":" + request.form.get('comment')
-            mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'commentsTxt': new_comment}})
-            mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'comments': int(1)}})
-            flash("Comment posted, thanks {}".format(session['username']))
             
-            
-            # Check for duplicate comments
-            comments = mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})['comments']
-            
-            
-            print("")
-            print("TESTING:")
-            print(comments)
-            print("")
+            if list(mongo.db.drinks.find({
+                '$and': [{'_id': ObjectId(drink_id)}, {
+                'commentsTxt': {'$elemMatch': {'$eq': new_comment}}}]})):
+                    flash("Duplicate comment already exists - say something different!")
+            else:
+                mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'commentsTxt': new_comment}})
+                mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$inc': {'comments': int(1)}})
+                flash("Comment posted, thanks {}".format(session['username']))
             
             return redirect(url_for('drink', drink_id = drink_id))
+            
+            # print(com)
+            # print("")
+            # for c in com:
+            #     print(c)
+            # print("")
+            
+
+            
+            # THIS BELOW WORKS - Look For Better Way
+            # # Check for duplicate comments
+            # drink = mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})
+            # for k,v in drink.items():
+            #     if k=='commentsTxt':
+            #         no_dupe = v
+            #         no_dupe = list(dict.fromkeys(no_dupe))
+            #         list_len = len(no_dupe)
+            
+            # print("START:")
+            # print(no_dupe)
+            # print(list_len)
+            
+            # mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'commentsTxt': no_dupe}})
+            # mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'comments': list_len}})
+            
+                    
+                    # for i in v:
+                    #     print(type(v))
+                    #     print(i)
+                        
+            
+            
             
         
 
     # Check if drink is in users favorites list
+    # Refactor
     try:
         user_favorites = mongo.db.users.find_one({'userName': session['username']})['favoritesTxt']
     except:
