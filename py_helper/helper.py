@@ -40,4 +40,4 @@ def sort_drinks(mongo, sort_options):
     sort_options[4]=1 if sort_order=='Ascending' else -1
     sort_options[5]=sort_order
     
-    return sort_options
+    return

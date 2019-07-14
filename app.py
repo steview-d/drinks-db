@@ -24,7 +24,7 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three','Four', 'Four',
     'Five', 'Five', 'Six', 'Six', 'Seven', 'Seven', 'Eight', 'Eight',
     'Nine', 'Nine', 'Ten', 'Ten']
     
-
+# Values for sorting options
 num_drinks_list = ['6', '9', '12', "All"]
 sort_by_list = ['name', 'views', 'comments', 'favorites', 'difficulty', 'date']
 sort_order_list = ['Ascending', 'Descending']
@@ -47,15 +47,10 @@ def index():
         sort_drinks(mongo, sort_options) 
         return redirect (url_for('index'))
 
-
-    ## Get Quotes - can be refactored - and should be!
-    # Get all kv pairs
-    allQuotes = (mongo.db.quotes.find_one ({},{ "_id": 0, "quote": 1}))
-    # Store just the value array as x
-    x = allQuotes.get("quote")
-    i = random.randrange(0, len(x),2)
-    quoteName = x[i]
-    quoteText = x[i+1]
+    # Get Quotes
+    allQuotes=mongo.db.quotes.find_one({}, { "_id": 0, "quote": 1})['quote']
+    quote=allQuotes[random.randrange(len(allQuotes))]
+    quote_name, quote_text = quote.split(':', 1)
     
     categories=mongo.db.categories.find()
     
@@ -85,8 +80,8 @@ def index():
         current_page = current_page,
         pages = num_pages,
         categories = categories,
-        quoteName = quoteName,
-        quoteText = quoteText,
+        quote_name = quote_name,
+        quote_text = quote_text,
         suggestions=suggestions,
         first_result_num=first_result_num,
         last_result_num=last_result_num,
@@ -252,9 +247,11 @@ def drink(drink_id):
             
     # Posting a comment
     if request.method == 'POST':
-        if len(request.form.get('comment')) > 0:
+        # Format string for new comment
+        if request.form.get('comment'):
             new_comment=session['username'] + ":" + request.form.get('comment')
             
+            # Check if duplicate comment exists - only post if not a duplicate.
             if list(mongo.db.drinks.find({
                 '$and': [{'_id': ObjectId(drink_id)}, {
                 'commentsTxt': {'$elemMatch': {'$eq': new_comment}}}]})):
@@ -265,48 +262,12 @@ def drink(drink_id):
                 flash("Comment posted, thanks {}".format(session['username']))
             
             return redirect(url_for('drink', drink_id = drink_id))
-            
-            # print(com)
-            # print("")
-            # for c in com:
-            #     print(c)
-            # print("")
-            
-
-            
-            # THIS BELOW WORKS - Look For Better Way
-            # # Check for duplicate comments
-            # drink = mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})
-            # for k,v in drink.items():
-            #     if k=='commentsTxt':
-            #         no_dupe = v
-            #         no_dupe = list(dict.fromkeys(no_dupe))
-            #         list_len = len(no_dupe)
-            
-            # print("START:")
-            # print(no_dupe)
-            # print(list_len)
-            
-            # mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'commentsTxt': no_dupe}})
-            # mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'comments': list_len}})
-            
-                    
-                    # for i in v:
-                    #     print(type(v))
-                    #     print(i)
-                        
-            
-            
-            
-        
 
     # Check if drink is in users favorites list
-    # Refactor
-    try:
-        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favoritesTxt']
-    except:
-        user_favorites=[]
-    is_favorite = 1 if drink_id in user_favorites else 0
+    is_favorite = 1 if drink_id in mongo.db.users.find_one(
+        {'userName': session['username']})['favoritesTxt'] else 0
+    
+    
     
     # Page Title
     title = drink['name']
