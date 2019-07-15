@@ -7,6 +7,7 @@ def get_suggestions(mongo,num_suggestions):
         These drinks are chosen at random from all drinks in the db
         aside from those creted by the user requesting the suggestions.
     """
+    
     try:
         other_users_drinks = list(mongo.db.drinks.find( { "userName": { "$nin": [ session['username'] ] } } ))
     except:
@@ -24,6 +25,7 @@ def sort_drinks(mongo, sort_options):
     """
         Text Here
     """
+    
     # Number Of Drinks To Display
     num_drinks_display = request.form['num_drinks_display']
     sort_options[0]=mongo.db.drinks.count() if num_drinks_display\
@@ -41,3 +43,15 @@ def sort_drinks(mongo, sort_options):
     sort_options[5]=sort_order
     
     return
+
+
+def get_ingredients(mongo, dict):
+    """
+        Text Here
+    """
+    ingredients = []
+    for k,v in list(dict.items()):
+        if ('ingredient' in k) or ('measure' in k):
+            ingredients.append(v)
+    
+    return ingredients

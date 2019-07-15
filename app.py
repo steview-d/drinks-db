@@ -4,7 +4,7 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
 
-from py_helper.helper import get_suggestions, sort_drinks
+from py_helper.helper import get_suggestions, sort_drinks, get_ingredients
 
 app = Flask(__name__)
 
@@ -314,8 +314,7 @@ def toggle_favorite(drink_id, is_favorite):
 
 @app.route("/add_drink", methods=['GET', 'POST'])
 def add_drink():
-    user = session['username']
-    
+
     # Page Title
     title="Add Drink"
     
@@ -331,26 +330,22 @@ def add_drink():
         dict = request.form.to_dict()
         
         # Append 'Duplicate' string to name if already exists
-        if mongo.db.drinks.find_one({"name": dict['name']}):
+        if mongo.db.drinks.find_one({"name": dict['name'].title()}):
             dict['name']=dict['name'].title()+" [DUPLICATE]"
             flash("Duplicate Name detected - Please Choose Another")
         else:
             dict['name']=dict['name'].title()
             
-        dict['userName']=user
+        dict['userName']=session['username']
         
         # Add date
         date_today = datetime.strptime(
             datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
         dict['date']=date_today
         
-        # Sort and process ingredients
-        ingredients = []
-        for k,v in list(dict.items()):
-            if ('ingredient' in k) or ('measure' in k):
-                ingredients.append(v)
+        # Process ingredients & measures
+        dict['ingredients'] = get_ingredients(mongo, dict)
         
-        dict['ingredients'] = ingredients        
         dict['views']=int(0)
         dict['favoritesTxt'] = []
         dict['favorites'] = 0
@@ -365,7 +360,6 @@ def add_drink():
     
     
     return render_template('add_drink.html',
-        user=user,
         title=title,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
@@ -393,6 +387,10 @@ def edit_drink(drink_id):
 
     date = datetime.strftime(drink.get('date'), '%d %B %Y')
     
+    # Page Title
+    title="Editing "+str(drink['name'])
+    
+    # Dropdown menu contents
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
@@ -401,34 +399,32 @@ def edit_drink(drink_id):
     num_boxes = len(drink['ingredients'])
     
     if request.method == 'POST':
-            dict = request.form.to_dict()
-            
-            # Title-case drink name
+        dict = request.form.to_dict()
+        
+        if mongo.db.drinks.find_one({'$and': [{
+                'name': dict['name'].title()}, {
+                '_id': {'$ne': ObjectId(drink_id)}}]}):
+            dict['name']=dict['name'].title()+" [DUPLICATE]"
+            flash("Duplicate Name detected - Please Choose Another")
+        else:
             dict['name']=dict['name'].title()
-            
-            # Get ingredients
-            ingredients = []
-            for k,v in list(dict.items()):
-                if ('ingredient' in k) or ('measure' in k):
-                    ingredients.append(v)
-                    dict.pop(k)
-            
-            dict['ingredients'] = ingredients
-            
-            mongo.db.drinks.update_one(drink, {"$set": dict}) 
-            flash("UPDATE SUCCESSFUL")    
-            return redirect(url_for('drink', drink_id = drink_id))
+
+        # Process ingredients & measures
+        dict['ingredients'] = get_ingredients(mongo, dict)
+        
+        mongo.db.drinks.update_one(drink, {"$set": dict}) 
+        flash("UPDATE SUCCESSFUL")    
+        return redirect(url_for('drink', drink_id = drink_id))
     
-    # Page Title
-    title="Editing "+str(drink['name'])
     
     return render_template('edit_drink.html',
-        title=title,
         drink=drink,
         date=date,
+        title=title,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties,
+        # Helpers for ingredient input
         class_num=class_num,
         class_name=class_name,
         num_boxes=num_boxes,
