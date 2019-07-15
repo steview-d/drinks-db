@@ -42,19 +42,17 @@ def inject_enumerate():
 @app.route("/", methods=['POST', 'GET'])
 def index():
 
+    categories=mongo.db.categories.find()
+        
+    # Get Suggested Drinks For User
+    suggestions=get_suggestions(mongo, 4)
+
     # Sort Options
     if request.method=="POST":
         sort_drinks(mongo, sort_options) 
         return redirect (url_for('index'))
 
-    # Get Quotes
-    allQuotes=mongo.db.quotes.find_one({}, { "_id": 0, "quote": 1})['quote']
-    quote=allQuotes[random.randrange(len(allQuotes))]
-    quote_name, quote_text = quote.split(':', 1)
-    
-    categories=mongo.db.categories.find()
-    
-    # Display Options
+    # Set Drinks Display Options
     drinks_per_page = sort_options[0]
     sort_by = sort_options[2]
     sort_order = sort_options[4]
@@ -66,25 +64,29 @@ def index():
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
     drinks = mongo.db.drinks.find().sort(sort_by, sort_order).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
     
-    # Get suggested drinks for user
-    suggestions=get_suggestions(mongo, 4)
-    
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x=current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1
     last_result_num = x if x < total_drinks else total_drinks
     
+    # Get Quotes
+    allQuotes=mongo.db.quotes.find_one({}, { "_id": 0, "quote": 1})['quote']
+    quote=allQuotes[random.randrange(len(allQuotes))]
+    quote_name, quote_text = quote.split(':', 1)
+    
     
     return render_template('index.html',
         drinks = drinks,
+        categories = categories,
+        suggestions=suggestions,
+        # Pagination & Sumarry
         current_page = current_page,
         pages = num_pages,
-        categories = categories,
-        quote_name = quote_name,
-        quote_text = quote_text,
-        suggestions=suggestions,
         first_result_num=first_result_num,
         last_result_num=last_result_num,
+        # Quotes
+        quote_name = quote_name,
+        quote_text = quote_text,
         # Display Options
         sort_options=sort_options,
         # Items for Drop Downs
