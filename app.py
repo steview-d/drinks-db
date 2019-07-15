@@ -237,8 +237,9 @@ def drink(drink_id):
     title = drink['name']
     
     # Increment view counter
-    mongo.db.drinks.update_one(
-        {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    if session['username'] != drink['userName']:
+        mongo.db.drinks.update_one(
+            {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
     
     # Instructions
     instructions = drink['instructions'].split(". ")
@@ -292,17 +293,21 @@ def drink(drink_id):
 
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")
 def toggle_favorite(drink_id, is_favorite):
-    """
-        Add or remove drink from favorites list for user and drink
-    """
+    # Add or remove drink from favorites list for users and drinks collections
     action = '$pull' if is_favorite == "1" else '$push'
-    mongo.db.users.find_one_and_update({'userName': session['username']}, {action: {'favoritesTxt': drink_id}})
-    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {action: {'favoritesTxt': session['username']}})
+    mongo.db.users.find_one_and_update({
+        'userName': session['username']}, {
+        action: {'favoritesTxt': drink_id}})
+    mongo.db.drinks.find_one_and_update({
+        '_id': ObjectId(drink_id)}, {
+        action: {'favoritesTxt': session['username']}})
     
-    # Get length of favorites array for given drink and replace value
-    # in favorites for same drink.
-    favoritesTxt_length = len(mongo.db.drinks.find_one({'_id': ObjectId(drink_id)})['favoritesTxt'])
-    mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$set': {'favorites': favoritesTxt_length}})
+    # Set value of favorites to length of favoritesTxt array
+    favoritesTxt_length = len(mongo.db.drinks.find_one({
+        '_id': ObjectId(drink_id)})['favoritesTxt'])
+    mongo.db.drinks.find_one_and_update({
+        '_id': ObjectId(drink_id)}, {
+        '$set': {'favorites': favoritesTxt_length}})
     
     return redirect(url_for('drink', drink_id=drink_id))
 
@@ -310,71 +315,69 @@ def toggle_favorite(drink_id, is_favorite):
 @app.route("/add_drink", methods=['GET', 'POST'])
 def add_drink():
     user = session['username']
-    all_categories = mongo.db.categories.find()
-    all_glass_types = mongo.db.glass.find()
-    all_difficulties = mongo.db.difficulty.find()
-    
-    # Number of boxes to provide for ingredients & measures
-    num_boxes=8
-
-    
-    if request.method == 'POST':
-        dict = request.form.to_dict()
-        
-        check_existing = mongo.db.drinks.find_one({"name": dict['name']})
-        if check_existing:
-            flash("DRINK NAME TAKEN, PLEASE CHOOSE ANOTHER ONE")
-            return redirect(url_for('add_drink'))
-        
-        else:
-            # Title-case drink name
-            dict['name']=dict['name'].title()
-            
-            dict['userName']=user
-            
-            # Add date
-            act_date = datetime.strptime(
-                datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
-            dict['date']=act_date
-            
-            # Create view counter
-            dict['views']=int(0)
-            
-            # Sort and process ingredientsq
-            ingredients = []
-            for k,v in list(dict.items()):
-                if ('ingredient' in k) or ('measure' in k):
-                    ingredients.append(v)
-                    dict.pop(k)
-            
-            dict['ingredients'] = ingredients
-            dict['favoritesTxt'] = []
-            dict['favorites'] = 0
-            dict['commentsTxt'] = []
-            dict['comments'] = 0
-            
-            mongo.db.drinks.insert_one(dict)
-            
-            new_drink_id = mongo.db.drinks.find_one({"name": dict['name']})['_id']
-            flash("DRINK ADDED SUCCESSFULLY")  
-            return redirect(url_for('drink', drink_id = new_drink_id))
     
     # Page Title
     title="Add Drink"
     
+    # Dropdown menu contents
+    all_categories = mongo.db.categories.find()
+    all_glass_types = mongo.db.glass.find()
+    all_difficulties = mongo.db.difficulty.find()
+    
+    # Default number of boxes to provide for ingredients & measures
+    num_boxes=8
+    
+    if request.method == 'POST':
+        dict = request.form.to_dict()
+        
+        # Append 'Duplicate' string to name if already exists
+        if mongo.db.drinks.find_one({"name": dict['name']}):
+            dict['name']=dict['name'].title()+" [DUPLICATE]"
+            flash("Duplicate Name detected - Please Choose Another")
+        else:
+            dict['name']=dict['name'].title()
+            
+        dict['userName']=user
+        
+        # Add date
+        date_today = datetime.strptime(
+            datetime.utcnow().isoformat(), '%Y-%m-%dT%H:%M:%S.%f')
+        dict['date']=date_today
+        
+        # Sort and process ingredients
+        ingredients = []
+        for k,v in list(dict.items()):
+            if ('ingredient' in k) or ('measure' in k):
+                ingredients.append(v)
+        
+        dict['ingredients'] = ingredients        
+        dict['views']=int(0)
+        dict['favoritesTxt'] = []
+        dict['favorites'] = 0
+        dict['commentsTxt'] = []
+        dict['comments'] = 0
+        
+        mongo.db.drinks.insert_one(dict)
+        
+        new_drink_id = mongo.db.drinks.find_one({"name": dict['name']})['_id']
+        flash("DRINK ADDED SUCCESSFULLY")
+        return redirect(url_for('drink', drink_id = new_drink_id))
+    
     
     return render_template('add_drink.html',
-        title=title,
         user=user,
+        title=title,
         all_categories=all_categories,
         all_glass_types=all_glass_types,
         all_difficulties=all_difficulties,
+        # Set to None when adding drinks as nothing to match
+        category_match=None,
+        glass_type_match=None,
+        difficulty_match=None,
+        # Helpers for ingredient input
         class_num=class_num,
         class_name=class_name,
-        num_boxes=num_boxes,
-        category_match=all_categories,
-        glass_type_match=all_glass_types,
-        difficulty_match=all_difficulties)
+        num_boxes=num_boxes)
         
 
 @app.route("/edit_drink/<drink_id>", methods=['GET', 'POST'])
@@ -429,6 +432,7 @@ def edit_drink(drink_id):
         class_num=class_num,
         class_name=class_name,
         num_boxes=num_boxes,
+        # Values to match in dropdowns
         category_match=drink['category'],
         glass_type_match=drink['glassType'],
         difficulty_match=drink['difficulty'])

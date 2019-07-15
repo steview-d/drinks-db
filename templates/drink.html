@@ -52,7 +52,11 @@
             <h5>FAVES & VIEWS</h5>
 
             <p>Favorites: {{drink.favorites}}</p>
+            {% if session['username'] == drink.userName %}
+            <p>Views: {{drink.views}}</p>
+            {% else %}
             <p>Views: {{drink.views + 1}}</p>
+            {% endif %}
 
             <!--Add as favorite-->
             {% if not session %}
