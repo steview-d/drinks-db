@@ -3,7 +3,11 @@
 <div class="row">
     <div class="col s12 center">
         <label>
+        {% if sort_options[3] == 0 %}
         <input type="checkbox" id='relevance' name='relevance'/>
+        {% else %}
+        <input type="checkbox" id='relevance' name='relevance'checked />
+        {% endif %}
         <span>Sort Results By Relevance First</span>
         </label for="relevance">
     </div>

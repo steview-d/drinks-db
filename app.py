@@ -32,7 +32,7 @@ sort_order_list = ['Ascending', 'Descending']
 # Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by | 
 # relevance flag | sort_order | sort_order_txt
-sort_options = [9, '9', 'name', 1, 1, 'Ascending']
+sort_options = [9, '9', 'name', 0, 1, 'Ascending']
 
 
 @app.context_processor
@@ -228,6 +228,7 @@ def account(account_name):
 
 @app.route("/drink/<drink_id>", methods=['GET', 'POST'])
 def drink(drink_id):
+    
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
     
     # Format Date
@@ -237,7 +238,7 @@ def drink(drink_id):
     title = drink['name']
     
     # Increment view counter
-    if session['username'] != drink['userName']:
+    if session.get('username') is None or session['username'] != drink['userName']:
         mongo.db.drinks.update_one(
             {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
     
@@ -277,10 +278,12 @@ def drink(drink_id):
         return redirect(url_for('drink', drink_id = drink_id))
 
     # Check if drink is in users favorites list
-    is_favorite = 1 if drink_id in mongo.db.users.find_one(
-        {'userName': session['username']})['favoritesTxt'] else 0
+    try:
+        user_favorites = mongo.db.users.find_one({'userName': session['username']})['favoritesTxt']
+    except KeyError:
+        user_favorites=[]
+    is_favorite = 1 if drink_id in user_favorites else 0
     
-
     return render_template('drink.html',
         title=title,
         drink=drink,
@@ -456,9 +459,9 @@ def search():
     # Page Title
     title="Search"
     
+    # Search
     if request.args:
-        # Take the filters selected by the user and convert them
-        # to a dict that can be used in the main search query 
+        # Put user selected filters into 'filter_dict' for use in search query
         filters = request.args.to_dict()
         filter_dict={}
         list_of_filters=['category_filter', 'glassType_filter', 'difficulty_filter']
@@ -467,9 +470,7 @@ def search():
                 new_k = k.split("_")[0]
                 filter_dict[new_k]=v
         
-        # Keep track of filter values when navigating
-        # between multiple pages of results.
-        # Refactor???
+        # Track filter values with pagination
         try:
             category_filter=filters['category_filter']
         except:
@@ -482,20 +483,15 @@ def search():
             difficulty_filter=filters['difficulty_filter']
         except:
             difficulty_filter=[]
-        
+            
+        # Get Search Term
         find=request.args['find']
         
-        # Sort Options
+        # Sort
         if request.method=="POST":
-
             sort_drinks(mongo, sort_options)
-            
-            try:
-                request.form['relevance']
-            except:
-                sort_options[3]=0
-            else:
-                sort_options[3]=1
+            # State if sort by relevance first
+            sort_options[3] = 1 if 'relevance' in request.form else 0
 
             return redirect (url_for('search',
                 category_filter=category_filter,
@@ -503,40 +499,25 @@ def search():
                 difficulty_filter=difficulty_filter,
                 find=find))
                 
-                
-                
         # Display Options
         results_per_page = sort_options[0]
         sort_by = sort_options[2]
         sort_order = sort_options[4]
         current_page = int(request.args.get('current_page', 1))
         
-        # Query drinks db with search string and filters
-        search_str = {'$text': {'$search': find }} if find != "" else {'name': {'$regex': ""}}
+        # Set 'sort_values' based on user input
+        sort_values = [(sort_by, sort_order), ('name', pymongo.ASCENDING)] if sort_options[3]!=1 else [('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
         
+        # Create 'search_str' for use in search
+        search_str = {'$text': {'$search': find }} if find != "" else {
+            'name': {'$regex': ""}}
         
-        if sort_options[3]!=1:
-            # Standard Search
-            results = mongo.db.drinks.find(
-                {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-                ).sort(sort_by, sort_order
-                ).skip((current_page - 1)*results_per_page).limit(results_per_page)
-        
-        else:
-            # Return search results ordered first by relevance
-            results = mongo.db.drinks.find(
-                {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-                ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
-                ).skip((current_page - 1)*results_per_page).limit(results_per_page)
-        
-        
-        
-        # ORIGINAL - Keep For Now For Reference
-        # results = mongo.db.drinks.find(
-        #     {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
-        #     ).sort([('score', {'$meta': 'textScore'}), (sort_by, sort_order), ('name', pymongo.ASCENDING)]
-        #     ).skip((current_page - 1)*results_per_page).limit(results_per_page)
-        
+        results = mongo.db.drinks.find(
+            {'$and': [search_str, filter_dict] }, {'score': {'$meta': 'textScore'}}
+            ).sort(sort_values
+            ).skip((current_page - 1)*results_per_page
+            ).limit(results_per_page)
+            
         num_results=results.count()
             
         # If no results for search
@@ -550,31 +531,23 @@ def search():
                 all_glass_types=all_glass_types,
                 all_difficulties=all_difficulties)
         
-        # Pagination
+        # Pagination & Summary
         num_pages = range(1, int(math.ceil(num_results / results_per_page)) + 1)
-        
-        # Summary - (example) 'showing 1 - 9 of 15 results'
         x=current_page * results_per_page
         first_result_num = x - results_per_page + 1
         last_result_num = x if x < num_results else num_results
         
-        
-        # From search results, find max value of 'score' to allow search.html
-        # to calculate the results relevance as a % of highest scoring result
-        if find != "":
-            max_weight = mongo.db.drinks.find_one({'$and': [{'$text': {'$search': find }}, filter_dict] },{
-                'score': {'$meta': 'textScore'}}, sort=[('score', {'$meta': 'textScore'})])['score']
-        else:
-            max_weight=None
+        # Set 'max-weight'
+        # - used to calculate score relevance as % of max score returned
+        max_weight = mongo.db.drinks.find_one({'$and': [{
+            '$text': {'$search': find }}, filter_dict] },{
+            'score': {'$meta': 'textScore'}},sort=[(
+            'score', {'$meta': 'textScore'})])['score'] if find != "" else None
             
         # Page Title
         title="Search Results"
         
         
-        print("")    
-        print(category_filter)        
-        print("")        
-
         return render_template('search.html',
             title=title,
             find=find,
@@ -613,9 +586,9 @@ def search():
 
 @app.route("/category/<category_name>", methods=['GET', 'POST'])
 def category(category_name):
+    
     category = mongo.db.categories.find_one({"category": category_name})
     title=category['category'].title()
-        
         
     # Sort Options
     if request.method=="POST":
@@ -643,37 +616,32 @@ def category(category_name):
     
     
     return render_template('category.html',
-        title=title,
         category=category,
+        title=title,
         drinks = drinks,
+        # Display Options
+        sort_options=sort_options,
         # Pagination
         current_page = current_page,
         pages = num_pages,
         first_result_num=first_result_num,
         last_result_num=last_result_num,
-        # Display Options
-        sort_options=sort_options,
         # Items for Drop Downs
         num_drinks_list=num_drinks_list,
         sort_by_list=sort_by_list,
         sort_order_list=sort_order_list)
         
-        
-
-
 
 # Error Handling Pages
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # return redirect(url_for('errors', filename='404.html')), 404
     return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
     session.clear(e)
-    # return redirect(url_for('errors', filename='500.html')), 500
     return render_template('500.html'), 500
 
 
