@@ -39,6 +39,8 @@ sort_options = [9, '9', 'name', 0, 1, 'Ascending']
 def inject_enumerate():
     return dict(enumerate=enumerate)
 
+# Routes
+
 @app.route("/", methods=['POST', 'GET'])
 def index():
 
@@ -46,6 +48,10 @@ def index():
         
     # Get Suggested Drinks For User
     suggestions=get_suggestions(mongo, 4)
+    print(type(suggestions))
+    for i in suggestions:
+        print(type(i))
+        print(i)
 
     # Sort Options
     if request.method=="POST":
@@ -471,18 +477,12 @@ def search():
                 filter_dict[new_k]=v
         
         # Track filter values with pagination
-        try:
-            category_filter=filters['category_filter']
-        except:
-            category_filter=[]
-        try:
-            glassType_filter=filters['glassType_filter']
-        except:
-            glassType_filter=[]
-        try:
-            difficulty_filter=filters['difficulty_filter']
-        except:
-            difficulty_filter=[]
+        category_filter = filters['category_filter'] if \
+            'category_filter' in filters else []
+        glassType_filter = filters['glassType_filter'] if \
+            'glassType_filter' in filters else []
+        difficulty_filter = filters['difficulty_filter'] if \
+            'difficulty_filter' in filters else []
             
         # Get Search Term
         find=request.args['find']
@@ -632,7 +632,7 @@ def category(category_name):
         sort_order_list=sort_order_list)
         
 
-# Error Handling Pages
+# Error Handlers
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -643,11 +643,6 @@ def page_not_found(e):
 def internal_server_error(e):
     session.clear(e)
     return render_template('500.html'), 500
-
-
-## TESTING STUFF
-
-## END TESTING
 
 
 if __name__ == '__main__':
