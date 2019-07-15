@@ -62,7 +62,8 @@ def index():
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) +1)
-    drinks = mongo.db.drinks.find().sort(sort_by, sort_order).skip((current_page - 1) * drinks_per_page).limit(drinks_per_page)
+    drinks = mongo.db.drinks.find().sort(sort_by, sort_order).skip(
+        (current_page - 1) * drinks_per_page).limit(drinks_per_page)
     
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x=current_page * drinks_per_page
@@ -93,14 +94,14 @@ def index():
         num_drinks_list=num_drinks_list,
         sort_by_list=sort_by_list,
         sort_order_list=sort_order_list)
-    
+  
+  
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST':
+    # User login - check user/pass and route accordingly
+    if request.method=='POST':
         user_list = mongo.db.users
-        print(user_list)
         current_user = user_list.find_one({'userName': request.form['username']})
-        print(current_user)
         if current_user:
             if request.form['password'] == current_user['password']:
                 session['username'] = request.form['username']
@@ -113,12 +114,14 @@ def login():
     
 @app.route("/logout")
 def logout():
+    # Log user out by clearing session data
     session.pop('username', None)
     return redirect(url_for('index'))
     
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
+    # User registration - check user/pass and route accordingly
     if request.method == 'POST':
         user_list = mongo.db.users
         check_existing = user_list.find_one({"userName": request.form['username']})
@@ -136,20 +139,28 @@ def account(account_name):
     # Check to make sure account being accessed through url matches
     # account stored in session.
     # This stops users accessing any account through the url bar.
-    if account_name == session['username']:
+    if account_name != session['username']:
+        return redirect(url_for('account', account_name = session['username']))
+    else:
         user = mongo.db.users.find_one({"userName": account_name})
-        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name})
-        drinks_favorited_by_user = mongo.db.drinks.find({"favoritesTxt": account_name})
+        
+        drinks_submitted_by_user = mongo.db.drinks.find(
+            {"userName": account_name})
+        drinks_favorited_by_user = mongo.db.drinks.find(
+            {"favoritesTxt": account_name})
+        
+        # Page Title
+        title = str(user['userName']).title()+"'s Account"
 
-        # For all drinks submitted by the user, calculate their total views &
-        # how many times they have been favorited
+        # For all drinks submitted by the user, get their total views &
+        # how many times they have been favorited by other users
         total_views = 0
         total_favorites = 0
         for drink in drinks_submitted_by_user:
             total_views += drink['views']
             total_favorites += drink['favorites']
         
-        # Get drinks which have been most viewed &
+        # Get drink which has been most viewed & drink which has been most
         # favorited by others, for current user
         most_viewed = mongo.db.drinks.find_one({
             "userName": account_name}, sort=[("views", -1)])
@@ -163,36 +174,39 @@ def account(account_name):
         # Pagination - User Submitted Drinks
         drinks_per_page = 4
         drinks_page = int(request.args.get('drinks_page', 1))
-        num_dr_pages = range(1, int(math.ceil(total_drinks_by_user / drinks_per_page)) +1)
-        drinks_submitted_by_user = mongo.db.drinks.find({"userName": account_name}).sort("date", -1).skip((drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
+        num_dr_pages = range(1, int(math.ceil(
+            total_drinks_by_user / drinks_per_page)) +1)
+        drinks_submitted_by_user = mongo.db.drinks.find(
+            {"userName": account_name}).sort("date", -1).skip(
+            (drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
 
         # Pagination - Users Favorite Drinks
         favorite_drinks_per_page = 4
         favorites_page = int(request.args.get('favorites_page', 1))
-        num_fv_pages = range(1, int(math.ceil(total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
-        drinks_favorited_by_user = mongo.db.drinks.find({"favoritesTxt": account_name}).sort("date", -1).skip((favorites_page - 1) * favorite_drinks_per_page).limit(favorite_drinks_per_page)
+        num_fv_pages = range(1, int(math.ceil(
+            total_fave_drinks_by_user / favorite_drinks_per_page)) +1)
+        drinks_favorited_by_user = mongo.db.drinks.find(
+            {"favoritesTxt": account_name}).sort("date", -1).skip(
+            (favorites_page - 1) * favorite_drinks_per_page).limit(
+            favorite_drinks_per_page)
 
-        # Page Title
-        title = str(user['userName']).title()+"'s Account"
-        
         # Drinks Submitted By User Summary - (ex.) 'showing 1 - 9 of 15 results'
         x=drinks_page * drinks_per_page
         first_dr_result_num = x - drinks_per_page + 1
-        last_dr_result_num = x if x < total_drinks_by_user else total_drinks_by_user
+        last_dr_result_num = x if x < total_drinks_by_user\
+            else total_drinks_by_user
         
         # Drinks Favorited By User Summary - (ex.) 'showing 1 - 9 of 15 results'
         x=favorites_page * favorite_drinks_per_page
         first_fv_result_num = x - favorite_drinks_per_page + 1
-        last_fv_result_num = x if x < total_fave_drinks_by_user else total_fave_drinks_by_user
+        last_fv_result_num = x if x < total_fave_drinks_by_user\
+            else total_fave_drinks_by_user
         
-        
-        
-
         return render_template('account.html',
-        title=title,
         user=user,
         users_drinks=drinks_submitted_by_user,
         favorited_drinks=drinks_favorited_by_user,
+        title=title,
         # User stats
         views=total_views,
         favorites=total_favorites,
@@ -210,9 +224,7 @@ def account(account_name):
         last_dr_result_num=last_dr_result_num,
         first_fv_result_num=first_fv_result_num,
         last_fv_result_num=last_fv_result_num)
-    
-    else:
-        return redirect(url_for('account', account_name = session['username']))
+
 
 @app.route("/drink/<drink_id>", methods=['GET', 'POST'])
 def drink(drink_id):
@@ -221,68 +233,61 @@ def drink(drink_id):
     # Format Date
     date = datetime.strftime(drink.get('date'), '%d %B %Y')
     
+    # Page Title
+    title = drink['name']
+    
     # Increment view counter
-    # DISABLED FOR NOW. CONFIRMED WORKS, ENABLE LATER ON
-    
-    # .update() is depreciated - should use update_one() or find_one_and_update()
-    # mongo.db.drinks.update({'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
-    
-    # add a redirect url_for to make sure view increase is shown when viewed?
-    # or is this adding redirects for sake of it? Could just always add one via the html display
-    # to show this amount before its updated for next view?
+    mongo.db.drinks.update_one(
+        {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
     
     # Instructions
     instructions = drink['instructions'].split(". ")
 
-    # Comments
+    # Comments - Split on ':' to get user & comment
     comment_user, comment_text = [], []
-    try:
-        all_comments = drink['commentsTxt']
-    except:
-        all_comments = []
-    if all_comments:
-        
-        for comment in all_comments:
+    if drink['commentsTxt']:
+        for comment in drink['commentsTxt']:
             user, text = comment.split(':', 1)
             comment_user.append(user)
             comment_text.append(text)
+        
             
     # Posting a comment
-    if request.method == 'POST':
+    if request.form.get('comment'):
         # Format string for new comment
-        if request.form.get('comment'):
-            new_comment=session['username'] + ":" + request.form.get('comment')
-            
-            # Check if duplicate comment exists - only post if not a duplicate.
-            if list(mongo.db.drinks.find({
-                '$and': [{'_id': ObjectId(drink_id)}, {
-                'commentsTxt': {'$elemMatch': {'$eq': new_comment}}}]})):
-                    flash("Duplicate comment already exists - say something different!")
-            else:
-                mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$push': {'commentsTxt': new_comment}})
-                mongo.db.drinks.find_one_and_update({'_id': ObjectId(drink_id)}, {'$inc': {'comments': int(1)}})
-                flash("Comment posted, thanks {}".format(session['username']))
-            
-            return redirect(url_for('drink', drink_id = drink_id))
+        new_comment=session['username'] + ":" + request.form.get('comment')
+        
+        if list(mongo.db.drinks.find({
+            # Check if duplicate comment exists
+            '$and': [{'_id': ObjectId(drink_id)}, {
+                    'commentsTxt': {'$elemMatch': {'$eq': new_comment}}}]})):
+                flash("Duplicate comment already exists \
+                    - say something different!")
+        else:
+            # Post only if not a duplicate
+            mongo.db.drinks.find_one_and_update({
+                '_id': ObjectId(drink_id)}, {
+                '$push': {'commentsTxt': new_comment}})
+            mongo.db.drinks.find_one_and_update({
+                '_id': ObjectId(drink_id)}, {
+                '$inc': {'comments': int(1)}})
+            flash("Comment posted, thanks {}".format(session['username']))
+        
+        return redirect(url_for('drink', drink_id = drink_id))
 
     # Check if drink is in users favorites list
     is_favorite = 1 if drink_id in mongo.db.users.find_one(
         {'userName': session['username']})['favoritesTxt'] else 0
     
-    
-    
-    # Page Title
-    title = drink['name']
-
 
     return render_template('drink.html',
         title=title,
         drink=drink,
         date=date,
         instructions = instructions,
-        is_favorite=is_favorite,
         comment_user = comment_user,
-        comment_text = comment_text)
+        comment_text = comment_text,
+        is_favorite=is_favorite)
 
 
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")
