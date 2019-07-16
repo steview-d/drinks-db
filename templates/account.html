@@ -109,9 +109,9 @@
     <div class="row">
         <h4>Drinks Favorited By You</h4>
         <!--Summary-->
-        {% if total_fave_drinks_by_user > 0 %}
+        {% if total_user_fave_drinks > 0 %}
         <div class="row center">
-            <h6>Showing {{first_fv_result_num}} - {{last_fv_result_num}} of {{total_fave_drinks_by_user}} results</h6>
+            <h6>Showing {{first_fv_result_num}} - {{last_fv_result_num}} of {{total_user_fave_drinks}} results</h6>
         </div>
         {% else %}
         <h6>No Drinks Favorited Yet</h6>
@@ -125,7 +125,7 @@
             {% endfor %}
         </div>
         <!--Pagination-->
-        {% if total_fave_drinks_by_user > 4 %}
+        {% if total_user_fave_drinks > 4 %}
         <ul class="pagination center">
             <!--Left Arrow-->
             {% if favorites_page | int > 1 %}

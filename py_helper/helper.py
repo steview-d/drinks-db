@@ -7,11 +7,11 @@ def get_suggestions(mongo, num_suggestions):
 
     This function will find all drinks not submitted by the current
     user. Of those drinks, it will then randomly select and return a
-    specifed number of them.
+    specified number of them.
 
     Args:
-        param1 : Always 'mongo'
-        param2 : The number of drinks to return (int)
+        mongo : Always 'mongo'
+        num_suggestions : The number of drinks to return (int)
 
     Returns:
         A list of drinks, with each drink stored as a dictionary
@@ -40,8 +40,8 @@ def sort_drinks(mongo, sort_options):
     global  variable and is set from within this function.
 
     Args:
-        param1 : Always 'mongo'
-        param2 : The 'sort_options' list
+        mongo : Always 'mongo'
+        sort_options : The 'sort_options' list
 
     Returns:
         None
@@ -66,7 +66,7 @@ def sort_drinks(mongo, sort_options):
     return None
 
 
-def get_ingredients(dict):
+def get_ingredients(drink_dict):
     """ Create a list of ingredients and measures
 
     Form data is passed as a dictionary. The functions iterates through
@@ -74,15 +74,14 @@ def get_ingredients(dict):
     own list called ingredients.
 
     Args:
-        param1 : Always 'mongo'
-        param2 : The dictionary containing the ingredients
+        drink_dict : The dictionary containing the ingredients
 
     Returns:
         A list of alternating measures and ingredients
     """
 
     ingredients = []
-    for k, v in list(dict.items()):
+    for k, v in list(drink_dict.items()):
         if ('ingredient' in k) or ('measure' in k):
             ingredients.append(v)
 
