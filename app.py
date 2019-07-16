@@ -181,7 +181,7 @@ def account(account_name):
         total_user_fave_drinks = drinks_favorited_by_user.count()
 
         # Pagination - User Submitted Drinks
-        drinks_per_page = 4
+        drinks_per_page = 4 if total_drinks_by_user < 21 else 8
         drinks_page = int(request.args.get('drinks_page', 1))
         num_dr_pages = range(1, int(math.ceil(
             total_drinks_by_user / drinks_per_page)) + 1)
@@ -190,7 +190,7 @@ def account(account_name):
             (drinks_page - 1) * drinks_per_page).limit(drinks_per_page)
 
         # Pagination - Users Favorite Drinks
-        favorite_drinks_per_page = 4
+        favorite_drinks_per_page = 4 if total_user_fave_drinks < 21 else 8
         favorites_page = int(request.args.get('favorites_page', 1))
         num_fv_pages = range(1, int(math.ceil(
             total_user_fave_drinks / favorite_drinks_per_page)) + 1)
