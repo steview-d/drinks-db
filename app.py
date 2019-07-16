@@ -359,7 +359,7 @@ def add_drink():
 
         # Process ingredients & measures
         drink_dict['ingredients'] = get_ingredients(drink_dict)
-
+  
         drink_dict['views'] = int(0)
         drink_dict['favoritesTxt'] = []
         drink_dict['favorites'] = 0
@@ -482,7 +482,7 @@ def search():
         # Track filter values with pagination
         category_filter = filters[
             'category_filter'] if 'category_filter' in filters else []
-        glassType_filter = filters[
+        glass_type_filter = filters[
             'glassType_filter'] if 'glassType_filter' in filters else []
         difficulty_filter = filters[
             'difficulty_filter'] if 'difficulty_filter' in filters else []
@@ -498,7 +498,7 @@ def search():
 
             return redirect(url_for('search',
                                     category_filter=category_filter,
-                                    glassType_filter=glassType_filter,
+                                    glassType_filter=glass_type_filter,
                                     difficulty_filter=difficulty_filter,
                                     find=find))
 
@@ -572,7 +572,7 @@ def search():
                                pages=num_pages,
                                # Pagination | Filter Choices
                                category_filter=category_filter,
-                               glassType_filter=glassType_filter,
+                               glassType_filter=glass_type_filter,
                                difficulty_filter=difficulty_filter,
                                # Items for filters
                                all_categories=all_categories,

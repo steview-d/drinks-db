@@ -84,5 +84,6 @@ def get_ingredients(drink_dict):
     for k, v in list(drink_dict.items()):
         if ('ingredient' in k) or ('measure' in k):
             ingredients.append(v)
+            drink_dict.pop(k)
 
     return ingredients
