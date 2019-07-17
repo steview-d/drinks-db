@@ -248,10 +248,16 @@ def drink(drink_id):
     title = drink['name']
 
     # Increment view counter
-    if session.get('username') is None or session['username'] != drink[
-            'userName']:
-        mongo.db.drinks.update_one(
-            {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    # List of path partials to exclude from view counter
+    exclude_paths = ['drink', 'toggle_favorite']
+    # Continue only if previous url is not in exclude paths
+    if not any (s in request.referrer for s in exclude_paths):
+        # Update views if drink by a different user, or no user logged in
+        if session.get('username') is None or session['username'] != drink[
+                'userName']:
+            mongo.db.drinks.update_one(
+                {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
+    views=mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})['views']
 
     # Instructions
     instructions = drink['instructions'].split(". ")
@@ -303,6 +309,7 @@ def drink(drink_id):
                            title=title,
                            drink=drink,
                            date=date,
+                           views=views,
                            instructions=instructions,
                            comment_user=comment_user,
                            comment_text=comment_text,
@@ -327,7 +334,7 @@ def toggle_favorite(drink_id, is_favorite):
     mongo.db.drinks.find_one_and_update({
         '_id': ObjectId(drink_id)}, {
         '$set': {'favorites': favorites_txt_length}})
-
+        
     return redirect(url_for('drink', drink_id=drink_id))
 
 

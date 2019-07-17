@@ -53,9 +53,9 @@
 
             <p>Favorites: {{drink.favorites}}</p>
             {% if session['username'] == drink.userName %}
-            <p>Views: {{drink.views}}</p>
+            <p>Views: {{views}}</p>
             {% else %}
-            <p>Views: {{drink.views + 1}}</p>
+            <p>Views: {{views}}</p>
             {% endif %}
 
             <!--Add as favorite-->
