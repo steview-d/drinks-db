@@ -279,10 +279,13 @@ def drink(drink_id):
             # Post only if not a duplicate
             mongo.db.drinks.find_one_and_update({
                 '_id': ObjectId(drink_id)}, {
-                '$push': {'commentsTxt': new_comment}})
+                '$addToSet': {'commentsTxt': new_comment}})
+            # Set value of comments to length of commentsTxt array
+            comments_txt_length = len(mongo.db.drinks.find_one({
+                '_id': ObjectId(drink_id)})['commentsTxt'])
             mongo.db.drinks.find_one_and_update({
                 '_id': ObjectId(drink_id)}, {
-                '$inc': {'comments': int(1)}})
+                '$set': {'comments': comments_txt_length}})
             flash("Comment posted, thanks {}".format(session['username']))
 
         return redirect(url_for('drink', drink_id=drink_id))
@@ -305,11 +308,12 @@ def drink(drink_id):
                            comment_text=comment_text,
                            is_favorite=is_favorite)
 
-
+        
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")
 def toggle_favorite(drink_id, is_favorite):
+
     # Add or remove drink from favorites list for users and drinks collections
-    action = '$pull' if is_favorite == "1" else '$push'
+    action = '$pull' if is_favorite == "1" else '$addToSet'
     mongo.db.users.find_one_and_update({
         'userName': session['username']}, {
         action: {'favoritesTxt': drink_id}})
@@ -641,7 +645,7 @@ def category(category_name):
 # Error Handlers
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(e):
     return render_template('404.html'), 404
 
 
