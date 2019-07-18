@@ -11,19 +11,57 @@ main {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.container {
-    background-color: rgba(255, 255, 255, 0.70);
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 0 30px;
+    min-height: calc(100vh - 64px - 85px);
 }
 
 
 /* ---------------------------------------------------------------- Nav Bar -*/
 
-nav .brand-logo img {
-    height: 56px;
-    margin: 4px 10px;
+nav .brand-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.3rem;
+}
+
+nav .brand-logo:hover {
+    text-shadow: 0 0 5px #ff2281,
+    0 0 10px #ff2281,
+    0 0 20px #ff2281,
+    0 0 40px #ff2281,
+    0 0 80px #ff2281,
+    0 0 90px #ff2281,
+    0 0 100px #ff2281,
+    0 0 150px #ff2281;
 }
 
 
+@media screen and (min-width: 993px) {
+    nav .brand-logo {
+        margin-left: 2rem;
+    }
+}
+
+#nav-mobile {
+    margin-right: 1.4rem;
+}
+
+nav ul a {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+}
+
+nav ul a:hover {
+    text-shadow: 0 0 5px #ff2281,
+    0 0 10px #ff2281,
+    0 0 20px #ff2281,
+    0 0 40px #ff2281,
+    0 0 80px #ff2281,
+    0 0 90px #ff2281,
+    0 0 100px #ff2281,
+    0 0 150px #ff2281;
+}
 
 
 /* -------------------------------------------------------------- Jumbotron -*/
@@ -45,6 +83,10 @@ nav .brand-logo img {
     font-size: 1rem;
 }
 
+/* Fix for Materialize valign-wrapper not working properly */
+
+/* with grid - issue #3361 */
+
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -60,6 +102,10 @@ nav .brand-logo img {
 
 /* --------------------------------------------------------- Footer Styling -*/
 
+footer .row {
+    margin-bottom: 0;
+}
+
 .social-icon-footer {
     margin: 10px;
     font-size: 1.6rem;
@@ -73,7 +119,6 @@ nav .brand-logo img {
 
 .footer {
     min-height: 50px;
-    margin-top: 30px;
     background-color: black;
     color: white;
 }
@@ -84,6 +129,11 @@ nav .brand-logo img {
     align-items: center;
     text-align: center;
     padding: 8px;
+}
+
+.footer-logo {
+    height: 56px;
+    margin: 4px 10px;
 }
 
 
@@ -124,7 +174,7 @@ hr {
 .neon {
     /*font-family: 'Londrina Outline', cursive;*/
     /*text-align: left;*/
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     /*font-size: 3rem;*/
     color: #fff;
     letter-spacing: 0.15em;
