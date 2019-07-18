@@ -1,49 +1,56 @@
 /*CSS Style Sheet*/
 
+/* ------------------------------------------------------------------- Body -*/
+
+body {
+    background-image: url('../images/bg1.jpg');
+    background-repeat: repeat;
+}
+
+main {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.70);
+}
+
+
+/* ---------------------------------------------------------------- Nav Bar -*/
+
+nav .brand-logo img {
+    height: 56px;
+    margin: 4px 10px;
+}
+
+
+
+
 /* -------------------------------------------------------------- Jumbotron -*/
 
 .jumbotron {
-    /*height: 35vh;*/
-    padding: 30px;
-    background-color: black;
+    min-height: 10vh;
+    padding: 30px 30px 30px 50px;
     color: white;
     border-radius: 5px;
-}
-
-.logo-lg {
-    /*border: 1px solid yellow;*/
-    /*width: auto;*/
-    /*display: block;*/
-    /*padding: 30px;*/
-    min-height: 200px;
-    background: url('../images/logo_lg.png') top / contain no-repeat;
-    /*background-size: 100% 100%;*/
-    /*z-index: 1000;*/
-    
-    /*background-repeat: no-repeat;*/
-    /*background-size: 100% auto;*/
-    /*background-position: center;*/
-    /*min-height: 200px;*/
-    
-    /*background: url('../images/about/tina_profile.png') top / contain no-repeat;*/
-    /*min-height: 250px;*/
-    /*margin: 50px 10px 10px 10px;*/
-    
-}
-
-.height-100pc {
-    height: 100%;
+    background: url('../images/brick_blk0.jpg');
+    background-size: cover;
 }
 
 .jumbo-quote-text {
     font-size: 2rem;
-    /*margin: auto 30px;*/
 }
 
 .jumbo-cite-text {
     font-size: 1rem;
-    /*text-align: right;*/
 }
+
+@media (max-width: 991px) {
+    .valign-wrapper {
+        display: inherit;
+    }
+}
+
 
 /* ------------------------------------------------------------- Pagination -*/
 
@@ -88,6 +95,21 @@
 
 /* ---------------------------------------------------- Testing / Temporary -*/
 
+.yellow-outline {
+    border: 1px solid yellow;
+    /*height: 60px;*/
+}
+
+.green-outline {
+    border: 1px solid green;
+    /*height: 60px;*/
+}
+
+.red-outline {
+    border: 1px solid red;
+    /*height: 60px;*/
+}
+
 .border-outline {
     border: 1px solid yellow;
     /*height: 60px;*/
@@ -102,44 +124,41 @@ hr {
 .neon {
     /*font-family: 'Londrina Outline', cursive;*/
     /*text-align: left;*/
-    /*text-transform: uppercase;*/
+    text-transform: uppercase;
     /*font-size: 3rem;*/
     color: #fff;
     letter-spacing: 0.15em;
 }
 
 .neon-yellow {
-    text-shadow: 
-        0 0 5px #fdf501,
-        0 0 10px #fdf501,
-        0 0 20px #fdf501,
-        0 0 40px #fdf501,
-        0 0 80px #fdf501,
-        0 0 90px #fdf501,
-        0 0 100px #fdf501,
-        0 0 150px #fdf501;
+    text-shadow: 0 0 5px #fdf501,
+    0 0 10px #fdf501,
+    0 0 20px #fdf501,
+    0 0 40px #fdf501,
+    0 0 80px #fdf501,
+    0 0 90px #fdf501,
+    0 0 100px #fdf501,
+    0 0 150px #fdf501;
 }
 
 .neon-pink {
-    text-shadow: 
-        0 0 5px #ff2281,
-        0 0 10px #ff2281,
-        0 0 20px #ff2281,
-        0 0 40px #ff2281,
-        0 0 80px #ff2281,
-        0 0 90px #ff2281,
-        0 0 100px #ff2281,
-        0 0 150px #ff2281;
+    text-shadow: 0 0 5px #ff2281,
+    0 0 10px #ff2281,
+    0 0 20px #ff2281,
+    0 0 40px #ff2281,
+    0 0 80px #ff2281,
+    0 0 90px #ff2281,
+    0 0 100px #ff2281,
+    0 0 150px #ff2281;
 }
 
 .neon-blue {
-    text-shadow: 
-        0 0 5px #011ffd,
-        0 0 10px #011ffd,
-        0 0 20px #011ffd,
-        0 0 40px #011ffd,
-        0 0 80px #011ffd,
-        0 0 90px #011ffd,
-        0 0 100px #011ffd,
-        0 0 150px #011ffd;
+    text-shadow: 0 0 5px #011ffd,
+    0 0 10px #011ffd,
+    0 0 20px #011ffd,
+    0 0 40px #011ffd,
+    0 0 80px #011ffd,
+    0 0 90px #011ffd,
+    0 0 100px #011ffd,
+    0 0 150px #011ffd;
 }

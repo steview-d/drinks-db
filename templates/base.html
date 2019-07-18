@@ -6,25 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
-        {% if title is defined %}
-        Cheers! | {{title}}
-        {% else %}
-        Cheers!
-        {% endif %}
-        </title>
+        {% if title is defined %} Cheers! | {{title}} {% else %} Cheers! {% endif %}
+    </title>
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!--Materialize CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Favicon-->
+    <link rel="shortcut icon" href="static/images/fv.ico" type="image/x-icon">
     <!--CSS-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
-
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
 
 
 </head>
@@ -33,11 +26,12 @@
     <!--Header-->
     <header class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
-                <a href="{{ url_for('index') }}" class="brand-logo">Cheers!</a>
+            <div class="nav-wrapper grey darken-4">
+                <a href="{{ url_for('index') }}" class="brand-logo"><img src="static/images/logo_nav.png"></a>
+                <!--<a href="{{ url_for('index') }}" class="brand-logo">Cheers!</a>-->
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('index') }}" selected>Home</a></li>
                     <li><a href="{{ url_for('search') }}">Search</a></li>
                     {% if 'username' in session %}
                     <li><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
@@ -62,10 +56,7 @@
 
     <!--Main-->
     <main>
-        {% include 'helpers/flashes.html' %}
-        
-        {% block content %}
-        {% endblock %}
+        {% include 'helpers/flashes.html' %} {% block content %} {% endblock %}
     </main>
 
     <!--Footer-->
