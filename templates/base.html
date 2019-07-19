@@ -33,6 +33,7 @@
                 <a href="{{ url_for('index') }}" class="brand-logo">Cheers!</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!--Nav Option For All - Regardless Of Logged In Or Out-->
                     {% if request.path == '/' %}
                     <li class="active"><a href="{{ url_for('index') }}"active >Home</a></li>
                     {% else %}
@@ -45,8 +46,8 @@
                     <li><a href="{{ url_for('search') }}">Search</a></li>
                     {% endif %}
                     
-                    
                     {% if 'username' in session %}
+                    <!--Nav Options For When User Logged In-->
                     {% if 'add_drink' in request.path %}
                     <li class="active"><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
                     {% else %}
@@ -61,8 +62,8 @@
                     
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                     
-                    
                     {% else %}
+                    <!--Nav Options For When No User Is Logged In-->
                     {% if 'register' in request.path %}
                     <li class="active"><a href="{{ url_for('register') }}">Register</a></li>
                     {% else %}
@@ -81,18 +82,6 @@
             </div>
         </nav>
 
-        <!--<nav>-->
-        <!--    <div class="nav-wrapper">-->
-        <!--        <a href="#" class="brand-logo left">Logo</a>-->
-        <!--        <ul id="nav-mobile" class="right">-->
-        <!--            <li><a href="sass.html">Sass</a></li>-->
-        <!--            <li><a href="badges.html">Components</a></li>-->
-        <!--            <li><a href="collapsible.html">JavaScript</a></li>-->
-        <!--        </ul>-->
-        <!--    </div>-->
-        <!--</nav>-->
-
-
     </header>
 
     <ul class="sidenav" id="mobile-demo">
@@ -104,7 +93,6 @@
 
     <!--Main-->
     <main>
-        {{ request.path }}
         {% include 'helpers/flashes.html' %} {% block content %} {% endblock %}
     </main>
 

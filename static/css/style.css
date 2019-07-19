@@ -1,5 +1,15 @@
 /*CSS Style Sheet*/
 
+/* ---------------------------------------------------------- Set Variables -*/
+
+:root {
+    /* Set neon color */
+    --neon-blue: #011ffd;
+    --neon-pink: #ff2281;
+    --neon-yellow: #fdf501;
+}
+
+
 /* ------------------------------------------------------------------- Body -*/
 
 body {
@@ -11,7 +21,7 @@ body {
 }
 
 main {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
     flex: 1 0 auto;
 }
 
@@ -26,16 +36,25 @@ main {
 
 /* ---------------------------------------------------------------- Nav Bar -*/
 
+nav {
+    border-bottom: 1px solid black;
+}
+
 nav .brand-logo {
     font-family: 'Pacifico', cursive;
     font-size: 2.3rem;
 }
 
+nav .brand-logo {
+    transition: 0.2s;
+}
+
+
 nav .brand-logo:hover {
-    text-shadow: 0 0 5px #ff2281,
-    0 0 10px #ff2281,
-    0 0 20px #ff2281,
-    0 0 40px #ff2281;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
 }
 
 @media screen and (min-width: 993px) {
@@ -53,18 +72,22 @@ nav ul a {
     font-size: 1.4rem;
 }
 
+nav ul a {
+    transition: 0.2s;
+}
+
 nav ul a:hover {
-    text-shadow: 0 0 5px #ff2281,
-    0 0 10px #ff2281,
-    0 0 20px #ff2281,
-    0 0 40px #ff2281;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
 }
 
 nav ul .active {
-    text-shadow: 0 0 5px #ff2281,
-    0 0 10px #ff2281,
-    0 0 20px #ff2281,
-    0 0 40px #ff2281;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
 }
 
 
@@ -72,9 +95,11 @@ nav ul .active {
 
 .jumbotron {
     min-height: 10vh;
+    margin: 20px 0;
     padding: 30px 30px 30px 50px;
     color: white;
-    border-radius: 5px;
+    /*border: 5px solid #444;*/
+    /*border-radius: 10px;*/
     background: url('../images/1.jpg');
     background-size: cover;
 }
@@ -166,11 +191,15 @@ footer .row {
     margin: 4px 10px;
 }
 
+footer i {
+    transition: 0.2s;
+}
+
 footer i:hover {
-    text-shadow: 0 0 5px #ff2281,
-    0 0 10px #ff2281,
-    0 0 20px #ff2281,
-    0 0 40px #ff2281;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
 }
 
 
@@ -218,34 +247,54 @@ hr {
 }
 
 .neon-yellow {
-    text-shadow: 0 0 5px #fdf501,
-    0 0 10px #fdf501,
-    0 0 20px #fdf501,
-    0 0 40px #fdf501,
-    0 0 80px #fdf501,
-    0 0 90px #fdf501,
-    0 0 100px #fdf501,
-    0 0 150px #fdf501;
+    text-shadow: 0 0 5px var(--neon-yellow),
+    0 0 10px var(--neon-yellow),
+    0 0 20px var(--neon-yellow),
+    0 0 40px var(--neon-yellow),
+    0 0 80px var(--neon-yellow),
+    0 0 90px var(--neon-yellow),
+    0 0 100px var(--neon-yellow),
+    0 0 150px var(--neon-yellow);
 }
 
 .neon-pink {
-    text-shadow: 0 0 5px #ff2281,
-    0 0 10px #ff2281,
-    0 0 20px #ff2281,
-    0 0 40px #ff2281,
-    0 0 80px #ff2281,
-    0 0 90px #ff2281,
-    0 0 100px #ff2281,
-    0 0 150px #ff2281;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink),
+    0 0 80px var(--neon-pink),
+    0 0 90px var(--neon-pink),
+    0 0 100px var(--neon-pink),
+    0 0 150px var(--neon-pink);
 }
 
 .neon-blue {
-    text-shadow: 0 0 5px #011ffd,
-    0 0 10px #011ffd,
-    0 0 20px #011ffd,
-    0 0 40px #011ffd,
-    0 0 80px #011ffd,
-    0 0 90px #011ffd,
-    0 0 100px #011ffd,
-    0 0 150px #011ffd;
+    text-shadow: 0 0 5px var(--neon-blue),
+    0 0 10px var(--neon-blue),
+    0 0 20px var(--neon-blue),
+    0 0 40px var(--neon-blue),
+    0 0 80px var(--neon-blue),
+    0 0 90px var(--neon-blue),
+    0 0 100px var(--neon-blue),
+    0 0 150px var(--neon-blue);
+}
+
+
+
+
+.neon-border {
+    border: 2px solid #fff;
+    border-radius: 10px;
+
+    /*animation: flicker 1.5s infinite alternate;     */
+    box-shadow: 0 0 .5rem #fff,
+    inset 0 0 .5rem #fff,
+    0 0 1rem var(--neon-blue),
+    inset 0 0 0.5rem var(--neon-blue),
+    0 0 2rem var(--neon-blue),
+    inset 0 0 1rem var(--neon-blue);
+}
+
+neon-border:focus {
+    outline: none;
 }
