@@ -1,0 +1,101 @@
+html, body, .glass {
+    width: 100%;
+    height: 100%;
+    /*overflow: hidden;*/
+}
+body {
+    background-image: url('http://archive.boston.com/lifestyle/food/blogs/99bottles/obamabeer1.jpg');
+    background-size: cover;
+}
+.glass::before {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url('http://archive.boston.com/lifestyle/food/blogs/99bottles/obamabeer1.jpg');
+    filter: blur(5px);
+    background-size: cover;
+    content: ' ';
+    opacity: 0.4;
+}
+.glass {
+    background-color: white;
+}
+
+.glass.down {
+    transform: translateY(100%) translateY(-7rem);
+}
+.glass.down::before {
+    transform: translateY(-100%) translateY(7rem);
+}
+.glass.up, .glass.up::before {
+    transform: translateY(0);
+}
+
+
+/*OLD VERSION*/
+
+/* ----------------------------------------------------------- Landing Page -*/
+
+/*body {*/
+/*    background: url('http://archive.boston.com/lifestyle/food/blogs/99bottles/obamabeer1.jpg') no-repeat center center fixed;*/
+/*    background-size: cover;*/
+/*}*/
+
+/*.blur {*/
+/*    background: url('http://archive.boston.com/lifestyle/food/blogs/99bottles/obamabeer1.jpg') no-repeat center center fixed;*/
+/*    background-size: cover;*/
+/*    overflow: hidden;*/
+/*    filter: blur(10px);*/
+/*    position: absolute;*/
+/*    height: 400px;*/
+/*    top: -100px;*/
+/*    left: -100px;*/
+/*    right: -100px;*/
+/*    bottom: -100px;*/
+/*}*/
+
+/*.blur_widget {*/
+    /*border-top: 2px solid rgba(255, 255, 255, .5);*/
+    /*border-bottom: 2px solid rgba(255, 255, 255, .5);*/
+/*    border: 2px solid rgba(255, 255, 255, .8);*/
+/*    height: 400px;*/
+/*    width: 80%;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.blur_center {*/
+/*    position: absolute;*/
+/*    margin: auto;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*}*/
+
+
+/*  NOT REQUIRED  */
+
+/*.text {*/
+/*    height: 200px;*/
+/*    width: 340px;*/
+/*}*/
+
+/*.text h1 {*/
+/*    text-align: center;*/
+/*    text-shadow: 1px 1px rgba(0, 0, 0, .1);*/
+/*    color: #ffffff;*/
+/*    margin-top: 57px;*/
+/*    font-family: 'Lora', serif;*/
+/*    font-weight: 700;*/
+/*    font-size: 38px;*/
+/*}*/
+
+/*.text p {*/
+/*    text-align: center;*/
+/*    color: #ffffff;*/
+/*    text-shadow: 1px 1px rgba(0, 0, 0, .1);*/
+/*    margin-top: 0px;*/
+/*    font-family: 'Lato', serif;*/
+/*    font-weight: 400;*/
+/*    font-size: 22px;*/
+/*}*/

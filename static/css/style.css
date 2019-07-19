@@ -5,17 +5,22 @@
 body {
     background-image: url('../images/bg1.jpg');
     background-repeat: repeat;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 main {
     background-color: rgba(255, 255, 255, 0.5);
+    flex: 1 0 auto;
 }
 
 .content-wrapper {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 10px 0 30px;
-    min-height: calc(100vh - 64px - 85px);
+
 }
+
 
 
 /* ---------------------------------------------------------------- Nav Bar -*/
@@ -29,13 +34,8 @@ nav .brand-logo:hover {
     text-shadow: 0 0 5px #ff2281,
     0 0 10px #ff2281,
     0 0 20px #ff2281,
-    0 0 40px #ff2281,
-    0 0 80px #ff2281,
-    0 0 90px #ff2281,
-    0 0 100px #ff2281,
-    0 0 150px #ff2281;
+    0 0 40px #ff2281;
 }
-
 
 @media screen and (min-width: 993px) {
     nav .brand-logo {
@@ -56,11 +56,7 @@ nav ul a:hover {
     text-shadow: 0 0 5px #ff2281,
     0 0 10px #ff2281,
     0 0 20px #ff2281,
-    0 0 40px #ff2281,
-    0 0 80px #ff2281,
-    0 0 90px #ff2281,
-    0 0 100px #ff2281,
-    0 0 150px #ff2281;
+    0 0 40px #ff2281;
 }
 
 
@@ -71,7 +67,7 @@ nav ul a:hover {
     padding: 30px 30px 30px 50px;
     color: white;
     border-radius: 5px;
-    background: url('../images/brick_blk0.jpg');
+    background: url('../images/1.jpg');
     background-size: cover;
 }
 
@@ -84,9 +80,7 @@ nav ul a:hover {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
-
 /* with grid - issue #3361 */
-
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -99,6 +93,22 @@ nav ul a:hover {
 .history-back {
     /*NOT CURRENTLY IN USE - JS ONLY*/
 }
+
+/* ------------------------------------------------------- Log In & Register-*/
+
+.v-center-wrapper {
+    height: calc(100vh - 64px - 85px);
+
+}
+
+.v-center-content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50vw;
+}
+
+
 
 /* --------------------------------------------------------- Footer Styling -*/
 
@@ -134,6 +144,13 @@ footer .row {
 .footer-logo {
     height: 56px;
     margin: 4px 10px;
+}
+
+footer i:hover {
+    text-shadow: 0 0 5px #ff2281,
+    0 0 10px #ff2281,
+    0 0 20px #ff2281,
+    0 0 40px #ff2281;
 }
 
 
