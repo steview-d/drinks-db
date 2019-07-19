@@ -17,7 +17,8 @@ main {
 
 .content-wrapper {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px 0 30px;
+    /*padding: 10px 0 30px;*/
+    padding-bottom: 30px;
 
 }
 
@@ -59,6 +60,13 @@ nav ul a:hover {
     0 0 40px #ff2281;
 }
 
+nav ul .active {
+    text-shadow: 0 0 5px #ff2281,
+    0 0 10px #ff2281,
+    0 0 20px #ff2281,
+    0 0 40px #ff2281;
+}
+
 
 /* -------------------------------------------------------------- Jumbotron -*/
 
@@ -80,7 +88,9 @@ nav ul a:hover {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
+
 /* with grid - issue #3361 */
+
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -105,10 +115,20 @@ nav ul a:hover {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    width: 50vw;
+    width: 80vw;
 }
 
+@media screen and (min-width: 992px) {
+    .v-center-content {
+        width: 50vw;
+    }
+}
 
+.log_reg_wrapper {
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid #555;
+}
 
 /* --------------------------------------------------------- Footer Styling -*/
 

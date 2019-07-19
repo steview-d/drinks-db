@@ -33,15 +33,48 @@
                 <a href="{{ url_for('index') }}" class="brand-logo">Cheers!</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if request.path == '/' %}
+                    <li class="active"><a href="{{ url_for('index') }}"active >Home</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
+                    {% endif %}
+                    
+                    {% if 'search' in request.path %}
+                    <li class="active"><a href="{{ url_for('search') }}">Search</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('search') }}">Search</a></li>
+                    {% endif %}
+                    
+                    
                     {% if 'username' in session %}
+                    {% if 'add_drink' in request.path %}
+                    <li class="active"><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
+                    {% endif %}
+                    
+                    {% if 'account' in request.path %}
+                    <li class="active"><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
+                    {% endif %}
+                    
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                    
+                    
+                    {% else %}
+                    {% if 'register' in request.path %}
+                    <li class="active"><a href="{{ url_for('register') }}">Register</a></li>
                     {% else %}
                     <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %}
+                    
+                    {% if 'login' in request.path %}
+                    <li class="active"><a href="{{ url_for('login') }}">Log In</a></li>
+                    {% else %}
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
+                    {% endif %}
+                    
 
                     {% endif %}
                 </ul>
@@ -71,6 +104,7 @@
 
     <!--Main-->
     <main>
+        {{ request.path }}
         {% include 'helpers/flashes.html' %} {% block content %} {% endblock %}
     </main>
 
