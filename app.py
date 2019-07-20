@@ -27,7 +27,7 @@ class_name = ['One', 'One', 'Two', 'Two', 'Three', 'Three', 'Four', 'Four',
               'Nine', 'Nine', 'Ten', 'Ten']
 
 # Values for sorting options
-num_drinks_list = ['6', '9', '12', "All"]
+num_drinks_list = ['4', '8', '12', "All"]
 sort_by_list = ['name', 'views', 'comments', 'favorites', 'difficulty', 'date']
 sort_order_list = ['Ascending', 'Descending']
 

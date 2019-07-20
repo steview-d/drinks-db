@@ -21,7 +21,7 @@ body {
 }
 
 main {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.7);
     flex: 1 0 auto;
 }
 
@@ -113,9 +113,7 @@ nav ul .active {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
-
 /* with grid - issue #3361 */
-
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -125,7 +123,6 @@ nav ul .active {
 /* ------------------------------------------------------------------ Cards -*/
 
 .card .card-action {
-    /*border-top: none;*/
     padding: 24px 12px;
     height: 95px;
 }
@@ -137,17 +134,23 @@ nav ul .active {
 
 @media screen and (min-width: 601px) {
     .card .card-action {
-        /*border-top: none;*/
         height: 70px;
     }
     
     .card-image img {
-        height: 350px;
+        height: 330px;
+    }
+}
+
+@media screen and (min-width: 993px) {
+    .card-image img {
+        height: 260px;
     }
 }
 
 .card-category {
     position: absolute;
+    font-size: 0.7rem;
     top: 8px;
     right: 16px;
     background-color: var(--neon-yellow);
@@ -160,6 +163,7 @@ nav ul .active {
 .card .card-action a {
     margin-right: 0!important;
 }
+
 
 /* ------------------------------------------------------------- Pagination -*/
 

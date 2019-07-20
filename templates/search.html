@@ -99,14 +99,15 @@
 
     <div class="row">
         {% for drink in results %}
-        <div class="col s4 border-outline center">
-            <p class="center">{{drink.name}} | {{drink.views}}</p>
-            {% if drink.score %}
-            <p class="center">Search Relevance: {{ (drink.score / max_weight * 100) | round | int}}%</p>
-            {% endif %}
-            <p class="center">{{drink.date}}</p>
-            <p class="center">{{drink.difficulty}}</p>
-            <a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>
+        <div class="col s6 l4 xl3 border-outline center">
+            {% include 'helpers/drink_card.html' %}
+            <!--<p class="center">{{drink.name}} | {{drink.views}}</p>-->
+            <!--{% if drink.score %}-->
+            <!--<p class="center">Search Relevance: {{ (drink.score / max_weight * 100) | round | int}}%</p>-->
+            <!--{% endif %}-->
+            <!--<p class="center">{{drink.date}}</p>-->
+            <!--<p class="center">{{drink.difficulty}}</p>-->
+            <!--<a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>-->
         </div>
         {% endfor %}
     </div>
