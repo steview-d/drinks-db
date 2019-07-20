@@ -122,6 +122,44 @@ nav ul .active {
     }
 }
 
+/* ------------------------------------------------------------------ Cards -*/
+
+.card .card-action {
+    /*border-top: none;*/
+    padding: 24px 12px;
+    height: 95px;
+}
+
+.card-image img {
+    object-fit: cover;
+    height: 200px;
+}
+
+@media screen and (min-width: 601px) {
+    .card .card-action {
+        /*border-top: none;*/
+        height: 70px;
+    }
+    
+    .card-image img {
+        height: 350px;
+    }
+}
+
+.card-category {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background-color: var(--neon-yellow);
+    margin-top: 7px;
+    padding: 2px 8px;
+    border: 1px solid black;
+    color: black;
+}
+
+.card .card-action a {
+    margin-right: 0!important;
+}
 
 /* ------------------------------------------------------------- Pagination -*/
 
@@ -233,6 +271,21 @@ footer i:hover {
 
 hr {
     margin: 40px 0;
+}
+
+
+.drink-bg {
+    /* Add the blur effect */
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
+
+    /* Full height */
+    height: 100vh;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* ------------------------------------------------------------ Neon -*/

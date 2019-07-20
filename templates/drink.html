@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container content-wrapper">
-
+    
+    <div class="drink-bg" style="background-image: url({{drink.imageUrl}})"></div>
+    <div class="qq">
     <!--Drink Name-->
     <div class="row center">
         <h2>{{drink.name}}</h2>
@@ -18,7 +20,7 @@
     <!--Picture & Ingredients-->
     <div class="row">
         <div class="col s12 l6">
-            PICTURE {{drink.imageUrl}}
+            <img src=" {{drink.imageUrl}}">
         </div>
         <div class="col s12 l6">
             <ul>
@@ -153,7 +155,7 @@
     <div class="row center">
         <a class="waves-effect waves-light btn-small history-back">back</a>
     </div>
-
+</div>
 </div>
 
 {% endblock %}
