@@ -9,6 +9,8 @@ $(document).ready(function() {
     $('.modal').modal()
     // Materialize Character Counter
     $('input#imageUrl, textarea#textarea2').characterCounter();
+    // MaterialBoxed
+    $('.materialboxed').materialbox();
 
 
     // Back button
