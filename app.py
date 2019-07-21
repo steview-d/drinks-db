@@ -647,6 +647,50 @@ def category(category_name):
                            num_drinks_list=num_drinks_list,
                            sort_by_list=sort_by_list,
                            sort_order_list=sort_order_list)
+                           
+@app.route("/glass_type/<glass_type>", methods=['GET', 'POST'])
+def glass_type(glass_type):
+    glass_type = mongo.db.glass.find_one({"glassType": glass_type})
+    title = glass_type['glassType'].title()
+
+    # Sort Options
+    if request.method == "POST":
+        sort_drinks(mongo, sort_options)
+        return redirect(url_for('glass_type', glass_type=glass_type))
+
+    # Display Options
+    drinks_per_page = sort_options[0]
+    sort_by = sort_options[2]
+    sort_order = sort_options[4]
+
+    # Pagination
+    current_page = int(request.args.get('current_page', 1))
+    total_drinks = mongo.db.drinks.find({"glassType": glass_type}).count()
+    num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
+    drinks = mongo.db.drinks.find({"glassType": glass_type}) \
+        .sort(sort_by, sort_order).skip(
+        (current_page - 1) * drinks_per_page).limit(drinks_per_page)
+
+    # Summary - (example) 'showing 1 - 9 of 15 results'
+    x = current_page * drinks_per_page
+    first_result_num = x - drinks_per_page + 1
+    last_result_num = x if x < total_drinks else total_drinks
+
+    return render_template('category.html',
+                           glass_type=glass_type,
+                           title=title,
+                           drinks=drinks,
+                           # Display Options
+                           sort_options=sort_options,
+                           # Pagination
+                           current_page=current_page,
+                           pages=num_pages,
+                           first_result_num=first_result_num,
+                           last_result_num=last_result_num,
+                           # Items for Drop Downs
+                           num_drinks_list=num_drinks_list,
+                           sort_by_list=sort_by_list,
+                           sort_order_list=sort_order_list)
 
 
 # Error Handlers
