@@ -7,7 +7,7 @@
         {% endif %}
     </div>
     <div class="card-action center-align">
-        <a href="{{ url_for('drink', drink_id = drink._id) }}">{{drink.name | truncate(18, True, '...', 0)}}</a>
+        <a href="{{ url_for('drink', drink_id = drink._id) }}" >{{drink.name}}</a>
     </div>
 </div>
             

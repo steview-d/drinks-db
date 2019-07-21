@@ -9,6 +9,31 @@
     --neon-yellow: #fdf501;
 }
 
+/* ------------------------------------------------------------ Landing Page-*/
+
+.landing {
+    background: url(../images/landing.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.landing-box {
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid white;
+    /*color: white;*/
+    background: rgba(0, 0, 0, 0.8);
+
+}
+
+.landing h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 5rem;
+}
 
 /* ------------------------------------------------------------------- Body -*/
 
@@ -23,6 +48,10 @@ body {
 main {
     background-color: rgba(255, 255, 255, 0.7);
     flex: 1 0 auto;
+}
+
+.container {
+    padding: 5px;
 }
 
 .content-wrapper {
@@ -113,18 +142,23 @@ nav ul .active {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
+
 /* with grid - issue #3361 */
+
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
     }
 }
 
-/* ------------------------------------------------------------------ Cards -*/
+/* ------------------------------------------------------------ Drink Cards -*/
 
 .card .card-action {
-    padding: 24px 12px;
-    height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    height: 70px;
 }
 
 .card-image img {
@@ -133,10 +167,6 @@ nav ul .active {
 }
 
 @media screen and (min-width: 601px) {
-    .card .card-action {
-        height: 70px;
-    }
-    
     .card-image img {
         height: 330px;
     }
@@ -164,6 +194,15 @@ nav ul .active {
     margin-right: 0!important;
 }
 
+/* --------------------------------------------------------- Category Cards -*/
+
+/*#category-tab .card .card-action {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    padding: 0 12px;*/
+/*    height: 70px;*/
+/*}*/
 
 /* ------------------------------------------------------------- Pagination -*/
 

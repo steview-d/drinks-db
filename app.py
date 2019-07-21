@@ -34,7 +34,7 @@ sort_order_list = ['Ascending', 'Descending']
 # Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by |
 # relevance flag | sort_order | sort_order_txt
-sort_options = [9, '9', 'name', 0, 1, 'Ascending']
+sort_options = [8, '8', 'name', 0, 1, 'Ascending']
 
 
 @app.context_processor
