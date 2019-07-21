@@ -62,6 +62,7 @@ $(document).ready(function() {
     $("select[required]").css({ display: "block", height: 0, padding: 0, width: 0 });
 
     // Show / Hide Filter Tabs
+    $('#filter-tabs').hide();
     $('#tabs-title-btn').click(function() {
         $('#filter-tabs').slideToggle(200);
     });

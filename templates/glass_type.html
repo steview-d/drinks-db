@@ -14,13 +14,12 @@
     </div>
 
     <!--Summary-->
-
     <div class="row center">
-    {% if drinks.count() > 0 %}
-        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
-    {% else %}
+    {% if drinks.count() == 0 %}
         <h6>No drinks to show.</h6>
-    {% endif %}
+    </div>
+    {% else %}
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
     </div>
 
     <!--Drinks-->
@@ -57,13 +56,14 @@
         {% endif %}
 
     </ul>
+    {% endif %}
     
     
     
 
 <hr>
 <div class="row center">
-    <a class="waves-effect waves-light btn-small history-back">back</a>
+    <a href="{{url_for('index')}}#glass-tab" class="waves-effect waves-light btn-small history-back">back</a>
 </div>
 
 </div>
