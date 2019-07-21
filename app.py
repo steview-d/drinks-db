@@ -47,6 +47,8 @@ def inject_enumerate():
 @app.route("/", methods=['POST', 'GET'])
 def index():
     categories = mongo.db.categories.find()
+    glass_types = mongo.db.glass.find()
+    difficulties = mongo.db.difficulty.find()
 
     # Get Suggested Drinks For User
     suggestions = get_suggestions(mongo, 4)
@@ -81,6 +83,8 @@ def index():
     return render_template('index.html',
                            drinks=drinks,
                            categories=categories,
+                           glass_types=glass_types,
+                           difficulties=difficulties,
                            suggestions=suggestions,
                            # Pagination & Sumarry
                            current_page=current_page,
@@ -623,10 +627,15 @@ def category(category_name):
     current_page = int(request.args.get('current_page', 1))
     total_drinks = mongo.db.drinks.find({"category": category_name}).count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
+    print("")
+    print(category)
+    print("")
     drinks = mongo.db.drinks.find({"category": category_name}) \
         .sort(sort_by, sort_order).skip(
         (current_page - 1) * drinks_per_page).limit(drinks_per_page)
-
+    print("")
+    print(category_name)
+    print("")
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x = current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1
@@ -648,15 +657,15 @@ def category(category_name):
                            sort_by_list=sort_by_list,
                            sort_order_list=sort_order_list)
                            
-@app.route("/glass_type/<glass_type>", methods=['GET', 'POST'])
-def glass_type(glass_type):
-    glass_type = mongo.db.glass.find_one({"glassType": glass_type})
+@app.route("/glass_type/<glass_type_name>", methods=['GET', 'POST'])
+def glass_type(glass_type_name):
+    glass_type = mongo.db.glass.find_one({"glassType": glass_type_name})
     title = glass_type['glassType'].title()
 
     # Sort Options
     if request.method == "POST":
         sort_drinks(mongo, sort_options)
-        return redirect(url_for('glass_type', glass_type=glass_type))
+        return redirect(url_for('glass_type', glass_type_name=glass_type_name))
 
     # Display Options
     drinks_per_page = sort_options[0]
@@ -665,18 +674,17 @@ def glass_type(glass_type):
 
     # Pagination
     current_page = int(request.args.get('current_page', 1))
-    total_drinks = mongo.db.drinks.find({"glassType": glass_type}).count()
+    total_drinks = mongo.db.drinks.find({"glassType": glass_type_name}).count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
-    drinks = mongo.db.drinks.find({"glassType": glass_type}) \
+    drinks = mongo.db.drinks.find({"glassType": glass_type_name}) \
         .sort(sort_by, sort_order).skip(
         (current_page - 1) * drinks_per_page).limit(drinks_per_page)
-
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x = current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1
     last_result_num = x if x < total_drinks else total_drinks
 
-    return render_template('category.html',
+    return render_template('glass_type.html',
                            glass_type=glass_type,
                            title=title,
                            drinks=drinks,
