@@ -9,6 +9,12 @@
     --neon-yellow: #fdf501;
 }
 
+/* ----------------------------------------------------=======-------- Misc -*/
+
+.hidden {
+    display: none;
+}
+
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
@@ -194,14 +200,33 @@ nav ul .active {
     margin-right: 0!important;
 }
 
+
+/* ------------------------------------------------------------------- Tabs -*/
+
+.tabs .indicator {
+    display: none;
+
+}
+
+.tabs .tab a.active {
+    border-bottom: 2px solid #f6b2b5;
+}
+
+
 /* --------------------------------------------------------- Category Cards -*/
 
 /*#category-tab .card .card-action {*/
+
 /*    display: flex;*/
+
 /*    align-items: center;*/
+
 /*    justify-content: center;*/
+
 /*    padding: 0 12px;*/
+
 /*    height: 70px;*/
+
 /*}*/
 
 /* ------------------------------------------------------------- Pagination -*/

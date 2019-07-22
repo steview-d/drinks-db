@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    // Materialize Framework Iniitialisations
+
     // Materialize SideNav
     $('.sidenav').sidenav();
     // Materialize Select
@@ -6,7 +9,7 @@ $(document).ready(function() {
     // Materialize Tool Tip
     $('.tooltipped').tooltip();
     // Materialize Modal
-    $('.modal').modal()
+    $('.modal').modal();
     // Materialize Character Counter
     $('input#imageUrl, textarea#textarea2').characterCounter();
     // MaterialBoxed
@@ -19,6 +22,7 @@ $(document).ready(function() {
     $('.history-back').click(function() {
         window.history.back();
     });
+
 
     // Add / Remove Ingredients
     var num_fields = $('#ingredients-container .ingredient_field').length;
@@ -51,8 +55,8 @@ $(document).ready(function() {
     // Remove
     $('#remove_ingredient').click(function() {
         if (num_fields > min_fields) {
-            $('.measure_field').filter(':last').remove()
-            $('.ingredient_field').filter(':last').remove()
+            $('.measure_field').filter(':last').remove();
+            $('.ingredient_field').filter(':last').remove();
             num_fields -= 1;
         }
     });
@@ -61,10 +65,27 @@ $(document).ready(function() {
     // Fix to make sure validation text is displayed for select boxes when required
     $("select[required]").css({ display: "block", height: 0, padding: 0, width: 0 });
 
-    // Show / Hide Filter Tabs
-    $('#filter-tabs').hide();
+
+    // Web Storage - Remembering page states on a per user basis
+    // Filter Tabs - Open / Close State
+    if (localStorage.getItem('filterTabs') == 1 && $('#filter-tabs').hasClass('hidden')) {
+        $('#filter-tabs').removeClass('hidden');
+    }
+
     $('#tabs-title-btn').click(function() {
-        $('#filter-tabs').slideToggle(200);
+        $('#filter-tabs').toggleClass('hidden');
+        if ($('#filter-tabs').hasClass('hidden')) {
+            localStorage.setItem('filterTabs', '0');
+        }
+        else {
+            localStorage.setItem('filterTabs', '1');
+        }
     });
 
+    // Filter Tabs - Select tab from stored value
+    $('.tabs').tabs('select', localStorage.getItem('currentTab'));
+    // Store value of active tab
+    $('.tabs > li').click(function() {
+        localStorage.setItem('currentTab', $(this).children('a').attr('href').substring(1));
+    });
 });
