@@ -1,0 +1,66 @@
+<div class="tabs-title">
+    <h5>Browse all the drinks at once, or just view by category, glass type, or difficulty.</h5>
+    <a id="tabs-title-btn" class="waves-effect waves-light btn-small">Filter Tabs</a>
+</div>
+
+<div id="filter-tabs" class="row hidden">
+    <div class="col s12">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#category-tab">Category</a></li>
+            <li class="tab col s3"><a href="#glass-tab">Glass Type</a></li>
+            <li class="tab col s3"><a href="#difficulty-tab">Difficulty</a></li>
+        </ul>
+    </div>
+    <div id="category-tab" class="col s12">Category
+        <div class="row">
+            {% for category in categories %}
+            <div class="col s6 m4 l4 xl3">
+                <div class="card blue-grey darken-1 center">
+                    <!--<div class="card-content white-text">-->
+                    <!--    <span class="card-title">Card Title</span>-->
+                    <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
+                    <!--</div>-->
+                    <div class="card-action">
+                        <a href="{{ url_for('view_only', option = 'category', choice = category.category) }}">{{category.category.title()}}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="glass-tab" class="col s12">Glass Type
+        <div class="row">
+            {% for glass in glass_types %}
+            <div class="col s6 m4 l3 xl2">
+                <div class="card blue-grey darken-1 center">
+                    <!--<div class="card-content white-text">-->
+                    <!--    <span class="card-title">Card Title</span>-->
+                    <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
+                    <!--</div>-->
+                    <div class="card-action">
+                        <a href="{{ url_for('view_only', option = 'glassType', choice = glass.glassType) }}">{{glass.glassType}}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="difficulty-tab" class="col s12">Difficulty
+        <div class="row">
+            {% for level_of_difficulty in difficulties %}
+            <div class="col s12 m4">
+                <div class="card blue-grey darken-1 center">
+                    <!--<div class="card-content white-text">-->
+                    <!--    <span class="card-title">Card Title</span>-->
+                    <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
+                    <!--</div>-->
+                    <div class="card-action">
+                        <a href="{{ url_for('view_only', option = 'difficulty', choice = level_of_difficulty.difficulty) }}">{{level_of_difficulty.difficulty}}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
