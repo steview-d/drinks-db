@@ -3,12 +3,12 @@
 <div class="container content-wrapper">
 
     <div class="row center">
-        <h3>{{glass_type.glassType.title()}}</h3>
+        <h3>Showing Only: {{choice.title()}}</h3>
     </div>
     
     <!--Sort Options-->
     <div class="row">
-        <form method="POST" action="{{ url_for('glass_type', glass_type_name = glass_type.glassType)}}">
+        <form method="POST" action="{{ url_for('view_only', option = option, choice = choice) }}">
             {% include 'helpers/sort_options.html' %}
         </form>
     </div>
@@ -36,7 +36,7 @@
     <ul class="pagination center">
         <!--Left Arrow-->
         {% if current_page | int > 1 %}
-        <li class=""><a href="{{ url_for('glass_type', glass_type_name = glass_type.glassType, current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+        <li class=""><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
         {% else %}
         <li class="disabled"><i class="material-icons">arrow_left</i></li>
         {% endif %}
@@ -45,22 +45,22 @@
         {% for page_number in pages %} {% if page_number == current_page %}
         <li class="active"><a>{{ page_number }}</a></li>
         {% else %}
-        <li class="waves-effect"><a href="{{ url_for('glass_type', glass_type_name = glass_type.glassType, current_page=page_number) }}">{{ page_number }}</a></li>
+        <li class="waves-effect"><a href="{{ url_for('view_only', option = option, choice = choice, current_page=page_number) }}">{{ page_number }}</a></li>
         {% endif %} {% endfor %}
 
         <!--Right Arrow-->
         {% if current_page | int
-        < pages | count | int %} <li class=""><a href="{{ url_for('glass_type', glass_type_name = glass_type.glassType, current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+        < pages | count | int %} <li class=""><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
         {% else %}
         <li class="disabled"><i class="material-icons">arrow_right</i></li>
         {% endif %}
 
     </ul>
     {% endif %}
-    
+
 <hr>
 <div class="row center">
-    <a  class="waves-effect waves-light btn-small history-back">back</a>
+    <a class="waves-effect waves-light btn-small history-back">back</a>
 </div>
 
 </div>

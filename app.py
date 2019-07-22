@@ -608,15 +608,28 @@ def search():
                            all_difficulties=all_difficulties)
 
 
-@app.route("/category/<category_name>", methods=['GET', 'POST'])
-def category(category_name):
-    category = mongo.db.categories.find_one({"category": category_name})
-    title = category['category'].title()
+@app.route("/view_only/<option>/<choice>", methods=['GET', 'POST'])
+def view_only(option, choice):
+    
+    if option == 'category':
+        view = mongo.db.categories.find_one({option: choice})
+    elif option == 'difficulty':
+        view = mongo.db.difficulty.find_one({option: choice})
+    else:
+        view = mongo.db.glass.find_one({option: choice})
+        
+    
+    # view = mongo.db.categories.find_one({option: choice}) # change category (x2) later
+    print("uiui", view[option])
+    title = view[option].title()
 
     # Sort Options
     if request.method == "POST":
         sort_drinks(mongo, sort_options)
-        return redirect(url_for('category', category_name=category_name))
+        return redirect(url_for('view_only',
+                                view=view,
+                                option=option,
+                                choice=choice))
 
     # Display Options
     drinks_per_page = sort_options[0]
@@ -625,58 +638,9 @@ def category(category_name):
 
     # Pagination
     current_page = int(request.args.get('current_page', 1))
-    total_drinks = mongo.db.drinks.find({"category": category_name}).count()
+    total_drinks = mongo.db.drinks.find({option: choice}).count()
     num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
-    print("")
-    print(category)
-    print("")
-    drinks = mongo.db.drinks.find({"category": category_name}) \
-        .sort(sort_by, sort_order).skip(
-        (current_page - 1) * drinks_per_page).limit(drinks_per_page)
-    print("")
-    print(category_name)
-    print("")
-    # Summary - (example) 'showing 1 - 9 of 15 results'
-    x = current_page * drinks_per_page
-    first_result_num = x - drinks_per_page + 1
-    last_result_num = x if x < total_drinks else total_drinks
-
-    return render_template('category.html',
-                           category=category,
-                           title=title,
-                           drinks=drinks,
-                           # Display Options
-                           sort_options=sort_options,
-                           # Pagination
-                           current_page=current_page,
-                           pages=num_pages,
-                           first_result_num=first_result_num,
-                           last_result_num=last_result_num,
-                           # Items for Drop Downs
-                           num_drinks_list=num_drinks_list,
-                           sort_by_list=sort_by_list,
-                           sort_order_list=sort_order_list)
-                           
-@app.route("/glass_type/<glass_type_name>", methods=['GET', 'POST'])
-def glass_type(glass_type_name):
-    glass_type = mongo.db.glass.find_one({"glassType": glass_type_name})
-    title = glass_type['glassType'].title()
-
-    # Sort Options
-    if request.method == "POST":
-        sort_drinks(mongo, sort_options)
-        return redirect(url_for('glass_type', glass_type_name=glass_type_name))
-
-    # Display Options
-    drinks_per_page = sort_options[0]
-    sort_by = sort_options[2]
-    sort_order = sort_options[4]
-
-    # Pagination
-    current_page = int(request.args.get('current_page', 1))
-    total_drinks = mongo.db.drinks.find({"glassType": glass_type_name}).count()
-    num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
-    drinks = mongo.db.drinks.find({"glassType": glass_type_name}) \
+    drinks = mongo.db.drinks.find({option: choice}) \
         .sort(sort_by, sort_order).skip(
         (current_page - 1) * drinks_per_page).limit(drinks_per_page)
     # Summary - (example) 'showing 1 - 9 of 15 results'
@@ -684,52 +648,10 @@ def glass_type(glass_type_name):
     first_result_num = x - drinks_per_page + 1
     last_result_num = x if x < total_drinks else total_drinks
 
-    return render_template('glass_type.html',
-                           glass_type=glass_type,
-                           title=title,
-                           drinks=drinks,
-                           # Display Options
-                           sort_options=sort_options,
-                           # Pagination
-                           current_page=current_page,
-                           pages=num_pages,
-                           first_result_num=first_result_num,
-                           last_result_num=last_result_num,
-                           # Items for Drop Downs
-                           num_drinks_list=num_drinks_list,
-                           sort_by_list=sort_by_list,
-                           sort_order_list=sort_order_list)
-                           
-
-@app.route("/difficulty/<difficulty_level>", methods=['GET', 'POST'])
-def difficulty(difficulty_level):
-    difficulty = mongo.db.difficulty.find_one({"difficulty": difficulty_level})
-    title = difficulty['difficulty'].title()
-
-    # Sort Options
-    if request.method == "POST":
-        sort_drinks(mongo, sort_options)
-        return redirect(url_for('difficulty', difficulty_level=difficulty_level))
-
-    # Display Options
-    drinks_per_page = sort_options[0]
-    sort_by = sort_options[2]
-    sort_order = sort_options[4]
-
-    # Pagination
-    current_page = int(request.args.get('current_page', 1))
-    total_drinks = mongo.db.drinks.find({"difficulty": difficulty_level}).count()
-    num_pages = range(1, int(math.ceil(total_drinks / drinks_per_page)) + 1)
-    drinks = mongo.db.drinks.find({"difficulty": difficulty_level}) \
-        .sort(sort_by, sort_order).skip(
-        (current_page - 1) * drinks_per_page).limit(drinks_per_page)
-    # Summary - (example) 'showing 1 - 9 of 15 results'
-    x = current_page * drinks_per_page
-    first_result_num = x - drinks_per_page + 1
-    last_result_num = x if x < total_drinks else total_drinks
-
-    return render_template('difficulty.html',
-                           difficulty=difficulty,
+    return render_template('view_only.html',
+                           view=view,
+                           option=option,
+                           choice=choice,
                            title=title,
                            drinks=drinks,
                            # Display Options

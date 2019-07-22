@@ -41,7 +41,7 @@
                         <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
                         <!--</div>-->
                         <div class="card-action">
-                            <a href="{{ url_for('category', category_name = category.category) }}">{{category.category.title()}}</a>
+                            <a href="{{ url_for('view_only', option = 'category', choice = category.category) }}">{{category.category.title()}}</a>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
                         <!--</div>-->
                         <div class="card-action">
-                            <a href="{{ url_for('glass_type', glass_type_name = glass.glassType) }}">{{glass.glassType}}</a>
+                            <a href="{{ url_for('view_only', option = 'glassType', choice = glass.glassType) }}">{{glass.glassType}}</a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         <!--    <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>-->
                         <!--</div>-->
                         <div class="card-action">
-                            <a href="{{ url_for('difficulty', difficulty_level = level_of_difficulty.difficulty) }}">{{level_of_difficulty.difficulty}}</a>
+                            <a href="{{ url_for('view_only', option = 'difficulty', choice = level_of_difficulty.difficulty) }}">{{level_of_difficulty.difficulty}}</a>
                         </div>
                     </div>
                 </div>
