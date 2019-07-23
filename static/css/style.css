@@ -126,6 +126,24 @@ nav ul .active {
 }
 
 
+/* ----------------------------------------------------------- Side Nav Bar -*/
+
+.sidenav .row .col {
+    padding: 0;
+}
+
+.sidenav li > a {
+    color: white;
+}
+
+sidenav ul .active {
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+
 /* -------------------------------------------------------------- Jumbotron -*/
 
 .jumbotron {

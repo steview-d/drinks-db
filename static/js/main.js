@@ -105,10 +105,5 @@ $(document).ready(function() {
         }
     });
 
-
-
-    // $('#sort-options-btn').click(function() {
-    //     $('#sort-options').toggleClass('hidden');
-    // });
-
+    $('#mobile-nav li > .active').css('background-color', 'rgba(255,255,255,0.3');
 });
