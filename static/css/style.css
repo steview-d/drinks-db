@@ -140,11 +140,41 @@ nav ul .active {
     color: white;
 }
 
+.sidenav li > a > i {
+    margin-right: 10px;
+}
+
 sidenav ul .active {
     text-shadow: 0 0 5px var(--neon-pink),
     0 0 10px var(--neon-pink),
     0 0 20px var(--neon-pink),
     0 0 40px var(--neon-pink);
+}
+
+
+/* -------------------------------------------------------- Flashed Messages-*/
+
+.flash-box {
+    position: relative;
+    max-width: 50%;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+}
+
+.close-btn a {
+    position: absolute;
+    /*font-size: 0.7rem;*/
+    top: 15px;
+    right: 22px;
+    /*background-color: var(--neon-yellow);*/
+    /*margin-top: 7px;*/
+    /*padding: 2px 8px;*/
+    /*border: 1px solid black;*/
+    color: white;
 }
 
 
@@ -266,7 +296,7 @@ sidenav ul .active {
 /* ------------------------------------------------------- Log In & Register-*/
 
 .v-center-wrapper {
-    height: calc(100vh - 64px - 85px);
+    height: calc(100vh - 64px - 95px);
 
 }
 

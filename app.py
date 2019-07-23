@@ -116,7 +116,7 @@ def login():
                     url_for('account', account_name=session['username']))
             flash("Incorrect username and/or password. Please try again.")
             return render_template('login.html', title="Log In")
-        flash("Username {} does not exist.".format(request.form['username']))
+        flash("Username '{}' does not exist.".format(request.form['username']))
     return render_template('login.html', title="Log In")
 
 
@@ -124,6 +124,7 @@ def login():
 def logout():
     # Log user out by clearing session data
     session.pop('username', None)
+    flash("Logged Out Successfully")
     return redirect(url_for('index'))
 
 
@@ -361,7 +362,7 @@ def add_drink():
         # Append 'Duplicate' string to name if already exists
         if mongo.db.drinks.find_one({"name": drink_dict['name'].title()}):
             drink_dict['name'] = drink_dict['name'].title() + " [DUPLICATE]"
-            flash("Duplicate Name detected - Please Choose Another")
+            flash("Duplicate Name Detected - Please Change To Another")
         else:
             drink_dict['name'] = drink_dict['name'].title()
 
@@ -433,7 +434,7 @@ def edit_drink(drink_id):
             'name': drink_dict['name'].title()},
                 {'_id': {'$ne': ObjectId(drink_id)}}]}):
             drink_dict['name'] = drink_dict['name'].title() + " [DUPLICATE]"
-            flash("Duplicate Name detected - Please Choose Another")
+            flash("Duplicate Name detected - Please Change To Another")
         else:
             drink_dict['name'] = drink_dict['name'].title()
 

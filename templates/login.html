@@ -8,13 +8,13 @@
                 <form method="POST" action="{{ url_for('login') }}" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Username" id="username" name="username" type="text">
+                            <input placeholder="Username" id="username" name="username" type="text" required pattern=".{1}">
                             <!--<label for="first_name">First Name</label>-->
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Password" id="password" name="password" type="password">
+                            <input placeholder="Password" id="password" name="password" type="password" required pattern=".{1}">
                             <!--<label for="password">Password</label>-->
                         </div>
                     </div>

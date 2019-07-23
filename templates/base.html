@@ -39,109 +39,91 @@
                     <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
                     {% else %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>
-                    {% endif %}
-                    
-                    {% if 'search' in request.path %}
+                    {% endif %} {% if 'search' in request.path %}
                     <li class="active"><a href="{{ url_for('search') }}">Search</a></li>
                     {% else %}
                     <li><a href="{{ url_for('search') }}">Search</a></li>
-                    {% endif %}
-                    
-                    {% if 'username' in session %}
-                        <!--Nav Options For When User Logged In-->
-                        {% if 'add_drink' in request.path %}
-                        <li class="active"><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
-                        {% else %}
-                        <li><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
-                        {% endif %}
-                        
-                        {% if 'account' in request.path %}
-                        <li class="active"><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
-                        {% else %}
-                        <li><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
-                        {% endif %}
-                        
-                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                        
+                    {% endif %} {% if 'username' in session %}
+                    <!--Nav Options For When User Logged In-->
+                    {% if 'add_drink' in request.path %}
+                    <li class="active"><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
                     {% else %}
-                        <!--Nav Options For When No User Is Logged In-->
-                        {% if 'register' in request.path %}
-                        <li class="active"><a href="{{ url_for('register') }}">Register</a></li>
-                        {% else %}
-                        <li><a href="{{ url_for('register') }}">Register</a></li>
-                        {% endif %}
-                        
-                        {% if 'login' in request.path %}
-                        <li class="active"><a href="{{ url_for('login') }}">Log In</a></li>
-                        {% else %}
-                        <li><a href="{{ url_for('login') }}">Log In</a></li>
-                        {% endif %}
-
+                    <li><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
+                    {% endif %} {% if 'account' in request.path %}
+                    <li class="active"><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
                     {% endif %}
+
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+
+                    {% else %}
+                    <!--Nav Options For When No User Is Logged In-->
+                    {% if 'register' in request.path %}
+                    <li class="active"><a href="{{ url_for('register') }}">Register</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %} {% if 'login' in request.path %}
+                    <li class="active"><a href="{{ url_for('login') }}">Log In</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Log In</a></li>
+                    {% endif %} {% endif %}
                 </ul>
             </div>
         </nav>
 
     </header>
 
+    <!--Side Nav-->
     <ul class="sidenav black white-text" id="mobile-nav">
         <div class="row">
             <div class="col s12">
                 <img class="responsive-img" src="../static/images/sidenav-bg.jpg">
             </div>
         </div>
-        
-        
-        
+
+
+
         <!--Nav Option For All - Regardless Of Logged In Or Out-->
         {% if request.path == '/' %}
-        <li><a class="active" href="{{ url_for('index') }}">Home</a></li>
+        <li><a class="active" href="{{ url_for('index') }}"><i class="fas fa-home white-text"></i>Home</a></li>
         {% else %}
-        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('index') }}"><i class="fas fa-home white-text"></i>Home</a></li>
+        {% endif %} {% if 'search' in request.path %}
+        <li><a class="active" href="{{ url_for('search') }}"><i class="fas fa-search white-text"></i>Search</a></li>
+        {% else %}
+        <li><a href="{{ url_for('search') }}"><i class="fas fa-search white-text"></i>Search</a></li>
+        {% endif %} {% if 'username' in session %}
+        <!--Nav Options For When User Logged In-->
+        {% if 'add_drink' in request.path %}
+        <li><a class="active" href="{{ url_for('add_drink') }}"><i class="fas fa-plus white-text"></i>Add Drink</a></li>
+        {% else %}
+        <li><a href="{{ url_for('add_drink') }}"><i class="fas fa-plus white-text"></i>Add Drink</a></li>
+        {% endif %} {% if 'account' in request.path %}
+        <li><a class="active" href="{{ url_for('account', account_name = session.username) }}"><i class="fas fa-user white-text"></i>My Account</a></li>
+        {% else %}
+        <li><a href="{{ url_for('account', account_name = session.username) }}"><i class="fas fa-user white-text"></i>My Account</a></li>
         {% endif %}
-        
-        {% if 'search' in request.path %}
-        <li><a class="active"href="{{ url_for('search') }}">Search</a></li>
-        {% else %}
-        <li><a href="{{ url_for('search') }}">Search</a></li>
-        {% endif %}
-        
-        {% if 'username' in session %}
-            <!--Nav Options For When User Logged In-->
-            {% if 'add_drink' in request.path %}
-            <li><a class="active" href="{{ url_for('add_drink') }}">Add Drink</a></li>
-            {% else %}
-            <li><a href="{{ url_for('add_drink') }}">Add Drink</a></li>
-            {% endif %}
-            
-            {% if 'account' in request.path %}
-            <li><a class="active" href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
-            {% else %}
-            <li><a href="{{ url_for('account', account_name = session.username) }}">My Account</a></li>
-            {% endif %}
-            
-            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-            
-        {% else %}
-            <!--Nav Options For When No User Is Logged In-->
-            {% if 'register' in request.path %}
-            <li><a class="active" href="{{ url_for('register') }}">Register</a></li>
-            {% else %}
-            <li><a href="{{ url_for('register') }}">Register</a></li>
-            {% endif %}
-            
-            {% if 'login' in request.path %}
-            <li><a class="active" href="{{ url_for('login') }}">Log In</a></li>
-            {% else %}
-            <li><a href="{{ url_for('login') }}">Log In</a></li>
-            {% endif %}
 
-        {% endif %}
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt white-text"></i>Log Out</a></li>
+
+        {% else %}
+        <!--Nav Options For When No User Is Logged In-->
+        {% if 'register' in request.path %}
+        <li><a class="active" href="{{ url_for('register') }}"><i class="fas fa-user-plus white-text"></i>Register</a></li>
+        {% else %}
+        <li><a href="{{ url_for('register') }}"><i class="fas fa-user-plus white-text"></i>Register</a></li>
+        {% endif %} {% if 'login' in request.path %}
+        <li><a class="active" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt white-text"></i>Log In</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt white-text"></i>Log In</a></li>
+        {% endif %} {% endif %}
     </ul>
 
     <!--Main-->
     <main>
-        {% include 'helpers/flashes.html' %} {% block content %} {% endblock %}
+        {% include 'helpers/flashes.html' %}
+        {% block content %} {% endblock %}
     </main>
 
     <!--Footer-->

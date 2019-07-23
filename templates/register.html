@@ -9,13 +9,13 @@
                 <form method="POST" action="{{ url_for('register') }}" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Username" id="username" name="username" type="text" class="validate">
+                            <input placeholder="Username" id="username" name="username" type="text" class="validate" required pattern=".{5,15}">
                             <!--<label for="first_name">First Name</label>-->
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Password" id="password" name="password" type="password" class="validate">
+                            <input placeholder="Password" id="password" name="password" type="password" class="validate" required pattern=".{5,15}">
                             <!--<label for="password">Password</label>-->
                         </div>
                     </div>
