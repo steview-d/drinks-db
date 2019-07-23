@@ -620,7 +620,6 @@ def view_only(option, choice):
         
     
     # view = mongo.db.categories.find_one({option: choice}) # change category (x2) later
-    print("uiui", view[option])
     title = view[option].title()
 
     # Sort Options

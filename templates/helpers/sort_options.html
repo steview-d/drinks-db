@@ -1,66 +1,74 @@
-<!--Drinks Per Page - Radio Buttons-->
-{% if (request.path == "/search") and (find) %}
-<div class="row">
-    <div class="col s12 center">
-        <label>
-        {% if sort_options[3] == 0 %}
-        <input type="checkbox" id='relevance' name='relevance'/>
-        {% else %}
-        <input type="checkbox" id='relevance' name='relevance'checked />
+<div class="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+    <div class="row">
+        <!--Sort By - Dropdown-->
+        <div class="col s6">
+            <div class="input-field">
+                <select id="sort_by" name="sort_by">
+                {% for sort_by in sort_by_list %}
+                    {% if sort_by == sort_options[2] %}
+                    <option value="{{sort_by}}" selected>{{sort_by.title()}}</option>
+                    {% else %}
+                    <option value="{{sort_by}}">{{sort_by.title()}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <label>Sort By</label>
+            </div>
+        </div>
+        
+        <!--Sort Order - Dropdown-->
+        <div class="col s6">
+            <div class="input-field">
+                <select id="sort_order" name="sort_order">
+                {% for sort_order in sort_order_list %}
+                    {% if sort_order == sort_options[5] %}
+                    <option value="{{sort_order}}" selected>{{sort_order}}</option>
+                    {% else %}
+                    <option value="{{sort_order}}">{{sort_order}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <label>Sort Order</label>
+            </div>
+        </div>
+        
+        <!--Drinks Per Page - Radio Buttons-->
+        <div class="col s12 center">
+            <label>Results Per Page</label>
+        </div>
+        <div class="col s12 center results-per-page">
+            {% for num in num_drinks_list %}
+            <span>
+            <label>
+                {% if num == sort_options[1] %}
+                <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" checked/>
+                {% else %}
+                <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
+                {% endif %}
+                <span>{{num}}&emsp;&emsp;</span>
+            </label>
+            </span>
+            {% endfor %}
+        </div>
+        
+        {% if (request.path == "/search") and (find) %}
+        <div class="row">
+            <div class="col s12 center">
+                <label>
+                {% if sort_options[3] == 0 %}
+                <input type="checkbox" id='relevance' name='relevance'/>
+                {% else %}
+                <input type="checkbox" id='relevance' name='relevance'checked />
+                {% endif %}
+                <span>Sort Results By Relevance First</span>
+                </label for="relevance">
+            </div>
+        </div>
         {% endif %}
-        <span>Sort Results By Relevance First</span>
-        </label for="relevance">
+        
+        <!--Sort Button-->
+        <div class="col s12 center">
+            <button class="btn waves-effect waves-light sort-btn" type="submit">Sort<i class="material-icons right">send</i></button>
+        </div>
     </div>
 </div>
-{% endif %}
-
-<div class="col s4">
-    {% for num in num_drinks_list %}
-    <span>
-        <label>
-            {% if num == sort_options[1] %}
-            <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" checked/>
-            {% else %}
-            <input name="num_drinks_display" type="radio" id="num_drinks_{{num}}" value="{{num}}" />
-            {% endif %}
-            <span>{{num}}&emsp;&emsp;</span>
-        </label>
-    </span>
-    {% endfor %}
-</div>
-
-<!--Sort By - Dropdown-->
-<div class="col s4">
-    <div class="input-field">
-        <select id="sort_by" name="sort_by">
-        {% for sort_by in sort_by_list %}
-            {% if sort_by == sort_options[2] %}
-            <option value="{{sort_by}}" selected>{{sort_by.title()}}</option>
-            {% else %}
-            <option value="{{sort_by}}">{{sort_by.title()}}</option>
-            {% endif %}
-        {% endfor %}
-        </select>
-        <label>Sort By</label>
-    </div>
-</div>
-
-<!--Sort Order - Dropdown-->
-<div class="col s4">
-    <div class="input-field">
-        <select id="sort_order" name="sort_order">
-        {% for sort_order in sort_order_list %}
-            {% if sort_order == sort_options[5] %}
-            <option value="{{sort_order}}" selected>{{sort_order}}</option>
-            {% else %}
-            <option value="{{sort_order}}">{{sort_order}}</option>
-            {% endif %}
-        {% endfor %}
-        </select>
-        <label>Sort Order</label>
-    </div>
-</div>
-
-
-<!--Send Button-->
-<button class="col s2 offset-s5 btn waves-effect waves-light" type="submit">Sort<i class="material-icons right">send</i></button>

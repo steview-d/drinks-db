@@ -2,24 +2,25 @@
 
 <div class="container content-wrapper">
 
+    <!--Page Title-->
     <div class="row center">
         <h4>Search</h4>
         <hr>
     </div>
 
-
     <div class="row">
         <form action="{{ url_for('search') }}" class="col s12">
             <span><i class="fas fa-search"></i></span>
+            <!--Search-->
             <div class="input-field">
-            {%if find %}
-            <input placeholder="Last Search: {{find}}" id="find" name="find" type="text">
-            {%else %}
-            <input placeholder="Leave blank to return all drinks" id="find" name="find" type="text">
-            {% endif %}
-            <label for"find" >Search</label>
+                {%if find %}
+                <input placeholder="Last Search: {{find}}" id="find" name="find" type="text">
+                {%else %}
+                <input placeholder="Leave blank to return all drinks" id="find" name="find" type="text">
+                {% endif %}
+                <label for "find">Search</label>
             </div>
-
+            <!--Filters-->
             <div class="row">
                 <div class="input-field col s4">
                     <select id="category_filter" name="category_filter">
@@ -61,11 +62,10 @@
                     <label for="difficulty_filter">Filter By Difficulty</label>
                 </div>
             </div>
-
+            <!--Send / Cancel Buttons-->
             <div class="center">
                 <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
                 <a class="waves-effect waves-light btn" href="{{ url_for('search') }}"><i class="material-icons right">cancel</i>reset</a>
-
             </div>
         </form>
     </div>
@@ -74,16 +74,17 @@
     <!--No results from search-->
     {% if num_results == 0 %}
     <h5 class="center">No drinks found for '{{find}}'. Please try another search.</h5>
-    {% endif %} {% if results %}
+    {% endif %}
+    
     <!--Display Results-->
-
-    <div class="row center">
-        <h5>Search Results</h5>
-        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
-    </div>
-
+    {% if results %}
     <!--Sort Options-->
-    <div class="row">
+    <div class="sort-options-title center">
+        <h5>Browse Sorting Options.</h5>
+        <a id="sort-options-btn" class="waves-effect waves-light btn-small">Sort Options</a>
+    </div>
+    <br>
+    <div id="sort-options" class="row hidden">
         <form method="POST" action="{{ url_for('search',
             current_page=page_number,
             find=find,
@@ -91,23 +92,18 @@
             glassType_filter=glassType_filter,
             difficulty_filter=difficulty_filter)}}">
             {% include 'helpers/sort_options.html' %}
-            
         </form>
     </div>
 
-
+    <div class="row center">
+        <h5>Search Results</h5>
+        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
+    </div>
 
     <div class="row">
         {% for drink in results %}
         <div class="col s6 l4 xl3 border-outline center">
             {% include 'helpers/drink_card.html' %}
-            <!--<p class="center">{{drink.name}} | {{drink.views}}</p>-->
-            <!--{% if drink.score %}-->
-            <!--<p class="center">Search Relevance: {{ (drink.score / max_weight * 100) | round | int}}%</p>-->
-            <!--{% endif %}-->
-            <!--<p class="center">{{drink.date}}</p>-->
-            <!--<p class="center">{{drink.difficulty}}</p>-->
-            <!--<a href="{{ url_for('drink', drink_id = drink._id) }}">Click To View</a>-->
         </div>
         {% endfor %}
     </div>

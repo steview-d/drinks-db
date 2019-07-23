@@ -68,17 +68,17 @@ $(document).ready(function() {
 
     // Web Storage - Remembering page states on a per user basis
     // Filter Tabs - Open / Close State
-    if (localStorage.getItem('filterTabs') == 1 && $('#filter-tabs').hasClass('hidden')) {
+    if (localStorage.getItem('filterTabsState') == 1 && $('#filter-tabs').hasClass('hidden')) {
         $('#filter-tabs').removeClass('hidden');
     }
 
     $('#tabs-title-btn').click(function() {
         $('#filter-tabs').toggleClass('hidden');
         if ($('#filter-tabs').hasClass('hidden')) {
-            localStorage.setItem('filterTabs', '0');
+            localStorage.setItem('filterTabsState', '0');
         }
         else {
-            localStorage.setItem('filterTabs', '1');
+            localStorage.setItem('filterTabsState', '1');
         }
     });
 
@@ -88,4 +88,27 @@ $(document).ready(function() {
     $('.tabs > li').click(function() {
         localStorage.setItem('currentTab', $(this).children('a').attr('href').substring(1));
     });
+
+
+    // Sort Options
+    if (localStorage.getItem('sortOptionsState') == 1 && $('#sort-options').hasClass('hidden')) {
+        $('#sort-options').removeClass('hidden');
+    }
+
+    $('#sort-options-btn').click(function() {
+        $('#sort-options').toggleClass('hidden');
+        if ($('#sort-options').hasClass('hidden')) {
+            localStorage.setItem('sortOptionsState', '0');
+        }
+        else {
+            localStorage.setItem('sortOptionsState', '1');
+        }
+    });
+
+
+
+    // $('#sort-options-btn').click(function() {
+    //     $('#sort-options').toggleClass('hidden');
+    // });
+
 });

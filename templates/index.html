@@ -1,9 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
+<!--Jumbotron-->
 <div class="container ">
-
-    <!--Jumbotron-->
-    <div class="row jumbotron valign-wrapper">
+    <div class="row jumbotron valign-wrapper hidden">
         <div class="col s12 l9">
             <p class="neon neon-pink jumbo-quote-text">{{quote_text}}</p>
             <p class="neon neon-blue jumbo-cite-text right-align">- {{quote_name}}
@@ -23,19 +22,55 @@
     <hr>
     <br>
 
-    <!--Drinks-->
-
     <!--Sort Options-->
-    <div class="row">
+    <div class="sort-options-title center">
+        <h5>Browse Sorting Options.</h5>
+        <a id="sort-options-btn" class="waves-effect waves-light btn-small">Sort Options</a>
+    </div>
+    <br>
+    <div id="sort-options" class="row hidden">
         <form method="POST" action="{{ url_for('index')}}">
             {% include 'helpers/sort_options.html' %}
         </form>
     </div>
 
+    <hr>
+    <br>
+
     <!--Summary-->
-    <div class="row center">
-        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
+    <div class="col s12">
+        <div class="row center display-summary">
+            <h5>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h5>
+        </div>
+
+        <hr style="width:50%; margin: auto">
+
+        <!--Pagination Top-->
+        <ul class="pagination .pagination-lg center pagination-top">
+            <!--Left Arrow-->
+            {% if current_page | int > 1 %}
+            <li class=""><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+            {% else %}
+            <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            {% endif %}
+
+            <!--Page Numbers-->
+            {% for page_number in pages %} {% if page_number == current_page %}
+            <li class="active"><a>{{ page_number }}</a></li>
+            {% else %}
+            <li class="waves-effect"><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
+            {% endif %} {% endfor %}
+
+            <!--Right Arrow-->
+            {% if current_page | int
+            < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+                {% else %}
+                <li class="disabled"><i class="material-icons">arrow_right</i></li>
+                {% endif %}
+
+        </ul>
     </div>
+    <br>
 
 
     <!--Drinks Grid-->
@@ -48,7 +83,7 @@
     </div>
 
 
-    <!--Pagination-->
+    <!--Pagination Bottom-->
     <ul class="pagination center">
         <!--Left Arrow-->
         {% if current_page | int > 1 %}
@@ -72,6 +107,8 @@
             {% endif %}
 
     </ul>
+    <hr>
+    <br>
 
     <!--Suggestions-->
     {% if session['username'] %}
