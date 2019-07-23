@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <form action="{{ url_for('search') }}" class="col s12">
+        <form action="{{ url_for('search') }}" class="col s12 xl10 offset-xl1">
             <span><i class="fas fa-search"></i></span>
             <!--Search-->
             <div class="input-field">
@@ -69,7 +69,8 @@
             </div>
         </form>
     </div>
-    <hr>
+    <br>
+    <br>
 
     <!--No results from search-->
     {% if num_results == 0 %}

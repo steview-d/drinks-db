@@ -1,23 +1,24 @@
 <div class="row">
-    <div class="center">
-        <h5>Details</h5>
-    </div>
-
-    <!--Name & Category-->
-    <div class="col s12 center">
-        <!--Drink Name | name="name"-->
-        <div class="col s12 l8">
-            <div class="input-field">
-                {% if drink is defined %}
-                <input id="name" name="name" type="text" class="validate" required value="{{drink.name}}"> {% else %}
-                <input id="name" name="name" type="text" class="validate" required placeholder="Drink Name"> {% endif %}
-                <label for="name">Required <i class="material-icons tiny">info</i></label>
-            </div>
+    <div class="col s12 xl10 offset-xl1">
+        <div class="center">
+            <h5>Details</h5>
         </div>
-        <!--Category | name="category"-->
-        <div class="col s12 l4">
-            <div class="input-field">
-                <select id="category" name="category" class="validate" required>
+        <div class="row">
+            <!--Name & Category-->
+            <div class="col s12 center">
+                <!--Drink Name | name="name"-->
+                <div class="col s12 l8">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="name" name="name" type="text" class="validate" required value="{{drink.name}}"> {% else %}
+                        <input id="name" name="name" type="text" class="validate" required placeholder="Drink Name"> {% endif %}
+                        <label for="name">Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
+                <!--Category | name="category"-->
+                <div class="col s12 l4">
+                    <div class="input-field">
+                        <select id="category" name="category" class="validate" required>
                     <option value="" disabled selected>Category</option>
                     
                     {% for item in all_categories %}
@@ -28,27 +29,26 @@
                     {% endif %}
                     {% endfor %}
                 </select>
-                <label>Required <i class="material-icons tiny">info</i></label>
+                        <label>Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!--Image & Glass Type-->
-    <div class="col s12 center">
-        <!--Drink Image | name="imageUrl"-->
-        <div class="col s12 l8">
-            <div class="input-field">
-                {% if drink is defined %}
-                <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}"> {% else %}
-                <input id="imageUrl" name="imageUrl" type="text" class="validate"
-                    required pattern=".{5,200}" data-length="200" placeholder="Image Url"> {% endif %}
-                <label for="imageUrl">Required <i class="material-icons info-btn-size">info</i></label>
-            </div>
-        </div>
-        <!--Glass Type | name="glassType"-->
-        <div class="col s12 l4">
-            <div class="input-field">
-                <select id="glassType" name="glassType" class="validate" required>
+            <!--Image & Glass Type-->
+            <div class="col s12 center">
+                <!--Drink Image | name="imageUrl"-->
+                <div class="col s12 l8">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}"> {% else %}
+                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required pattern=".{5,200}" data-length="200" placeholder="Image Url"> {% endif %}
+                        <label for="imageUrl">Required <i class="material-icons info-btn-size">info</i></label>
+                    </div>
+                </div>
+                <!--Glass Type | name="glassType"-->
+                <div class="col s12 l4">
+                    <div class="input-field">
+                        <select id="glassType" name="glassType" class="validate" required>
                     <option value="" disabled selected>Glass Type</option>
                     {% for item in all_glass_types %}
                     {% if item.glassType == glass_type_match %}
@@ -58,26 +58,26 @@
                     {% endif %}
                     {% endfor %}
                 </select>
-                <label>Required <i class="material-icons info-btn-size">info</i></label>
+                        <label>Required <i class="material-icons info-btn-size">info</i></label>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!--Instructions & Difficulty-->
-    <div class="col s12 center">
-        <!--Instructions | name="instructions"-->
-        <div class="col s12 l8">
-            <div class="input-field">
-                {% if drink is defined %}
-                <textarea id="instructions" name="instructions" class="materialize-textarea">{{drink.instructions}}</textarea> {% else %}
-                <textarea id="instructions" name="instructions" class="materialize-textarea" required placeholder="Instructions"></textarea> {% endif %}
-                <label for="instructions">Required <i class="material-icons tiny">info</i></label>
-            </div>
-        </div>
-        <!--Difficulty | name="difficulty"-->
-        <div class="col s12 l4">
-            <div class="input-field">
-                <select id="difficulty" name="difficulty" class="validate" required>
+            <!--Instructions & Difficulty-->
+            <div class="col s12 center">
+                <!--Instructions | name="instructions"-->
+                <div class="col s12 l8">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea">{{drink.instructions}}</textarea> {% else %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea" required placeholder="Instructions"></textarea> {% endif %}
+                        <label for="instructions">Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
+                <!--Difficulty | name="difficulty"-->
+                <div class="col s12 l4">
+                    <div class="input-field">
+                        <select id="difficulty" name="difficulty" class="validate" required>
                     <option value="" disabled selected>Difficulty</option>
                     {% for item in all_difficulties %}
                     {% if item.difficulty == difficulty_match %}
@@ -87,45 +87,47 @@
                     {% endif %}
                     {% endfor %}
                 </select>
-                <label>Required <i class="material-icons tiny">info</i></label>
+                        <label>Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!--Ingredients-->
-<div class="row">
-    <div class="center">
-        <h5>Ingredients</h5>
-    </div>
-
-    <div class="col s12 center" id="ingredients-container">
-        {% for i in range(num_boxes) %} {% if loop.index % 2 != 0 %}
-        <div class="col s4 l2 measure_field">
-            <div class="input-field">
-                {% if drink is defined %}
-                <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required placeholder="Measure {{class_name[i]}}"> {% endif %}
-                <label for="measure_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
+        <!--Ingredients-->
+        <div class="row">
+            <div class="center">
+                <h5>Ingredients</h5>
             </div>
-        </div>
-        {% else %}
-        <div class="col s8 l4 ingredient_field">
-            <div class="input-field">
-                {% if drink is defined %}
-                <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required placeholder="Ingredient {{class_name[i]}}"> {% endif %}
-                <label for="ingredient_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
-            </div>
-        </div>
-        {% endif %} {% endfor %}
-    </div>
 
-    <!--Add / Remove Ingredient Buttons-->
-    <div class="row">
-        <div class="col s12 center">
-            <a id="add_ingredient" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add An Ingredient</a>
-            <a id="remove_ingredient" class="waves-effect waves-light btn"><i class="material-icons right">remove_circle_outline</i>Remove Ingredient</a>
+            <div class="col s12 center" id="ingredients-container">
+                {% for i in range(num_boxes) %} {% if loop.index % 2 != 0 %}
+                <div class="col s4 l2 measure_field">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
+                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required placeholder="Measure {{class_name[i]}}"> {% endif %}
+                        <label for="measure_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col s8 l4 ingredient_field">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
+                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required placeholder="Ingredient {{class_name[i]}}"> {% endif %}
+                        <label for="ingredient_{{class_num[i]}}">Required <i class="material-icons tiny">info</i></label>
+                    </div>
+                </div>
+                {% endif %} {% endfor %}
+            </div>
+
+            <!--Add / Remove Ingredient Buttons-->
+            <div class="row">
+                <div class="col s12 center">
+                    <a id="add_ingredient" class="waves-effect waves-light btn"><i class="material-icons right">add_circle_outline</i>Add An Ingredient</a>
+                    <a id="remove_ingredient" class="waves-effect waves-light btn"><i class="material-icons right">remove_circle_outline</i>Remove Ingredient</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
