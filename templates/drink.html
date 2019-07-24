@@ -18,7 +18,7 @@
 
     <!--Picture | Ingredients-->
     <div class="row eq-height-columns">
-        <div class="col s12 l4 drink-pic">
+        <div class="col s12 l4 sq-pic">
             <img width="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
         </div>
         <div class="col s12 l8 ingredients">
@@ -49,7 +49,8 @@
     <div class="row eq-height-columns">
         <!--Category & Difficulty - Medium Only-->
         <div class="col s12 show-on-medium-and-down hide-on-large-only">
-            MEDIUM ONLY
+            <h6>Serve in a {{drink.glassType|title()}} glass.</h6>
+            <h6>Difficulty: {{drink.difficulty}}</h6>
         </div>
         <!--Instructions-->
         <div class="col s12 m8 l6 xl5 instructions yellow-outline">
@@ -58,7 +59,6 @@
                 {% for i in instructions %}
                 <li>{{i}}</li>
                 {% endfor %}
-                <li>Serve in a {{drink.glassType|title()}} glass.</li>
             </ul>
 
         </div>
@@ -70,13 +70,14 @@
                 </div>
                 <div class="col s12 yellow-outline">
                     <h6>Difficulty: {{drink.difficulty}}</h6>
+                    <img src="{{ url_for('static', filename='images/difficulty/'+drink.difficulty+'.png') }}">
                 </div>
             </div>
         </div>
         <!--Glass Image-->
-        <div class="col s12 m4 l2 xl3 glass-pic center yellow-outline">
-            <img width="375" src="../static/images/glass/g_cocktail.jpg" class="responsive-img materialboxed" data-caption="Glass Name">
-            <h5>Serve in a {{drink.glassType|title()}} glass.</h5>
+        <div class="col s12 m4 l2 xl3 sq-pic center yellow-outline">
+            <img width="375" src="{{ url_for('static', filename='images/glass/g_'+drink.glassType+'.jpg') }}" class="responsive-img materialboxed" data-caption="Glass Name">
+            <h5 class="hide-on-med-and-down">Serve in a {{drink.glassType|title()}} glass.</h5>
         </div>
     </div>
 
@@ -120,8 +121,13 @@
                 {% endfor %} {% endif %}
         </div>
         <!--Quote-->
-        <div class="col s12 l6 yellow-outline">
-            QUOTE TEXT HERE
+        <div class="col s12 l6 quote-box center yellow-outline">
+            <img src="{{ url_for('static', filename='images/quotes/quote_swirl.png') }}" class="swirl-top">
+            <div class="quote-text-wrapper">
+                <p>{{quote_text}}</p>
+                <p>{{quote_name}}</p>
+            </div>
+            <img src="{{ url_for('static', filename='images/quotes/quote_swirl.png') }}" class="swirl-bottom">
         </div>
     </div>
 

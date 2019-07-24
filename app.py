@@ -312,6 +312,11 @@ def drink(drink_id):
     except KeyError:
         user_favorites = []
     is_favorite = 1 if drink_id in user_favorites else 0
+    
+    # Get Quotes
+    all_quotes = mongo.db.quotes.find_one({}, {"_id": 0, "quote": 1})['quote']
+    quote = all_quotes[random.randrange(len(all_quotes))]
+    quote_name, quote_text = quote.split(':', 1)
 
     return render_template('drink.html',
                            title=title,
@@ -321,7 +326,9 @@ def drink(drink_id):
                            instructions=instructions,
                            comment_user=comment_user,
                            comment_text=comment_text,
-                           is_favorite=is_favorite)
+                           is_favorite=is_favorite,
+                           quote_name=quote_name,
+                           quote_text=quote_text)
 
         
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")

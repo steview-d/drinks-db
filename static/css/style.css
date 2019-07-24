@@ -338,14 +338,8 @@ sidenav ul .active {
     padding: 40px;
 }
 
-.drink-pic img {
+.sq-pic img {
     margin: auto;
-}
-
-.glass-pic img {
-    margin: auto;
-    /*width: 100%;*/
-    /*height: 100%;*/
 }
 
 .row .ingredients {
@@ -359,6 +353,32 @@ sidenav ul .active {
 .instructions ul>li {
     list-style-type: disc;
 
+}
+
+.row .quote-box {
+    width: 100%;
+    padding: 20px;
+}
+
+.quote-box p {
+    color: red;
+    font-size: 1rem;
+}
+
+.quote-box .quote-text-wrapper {
+    /*width: 50%;*/
+    margin: 0;
+    border-top: 2px solid #888;
+    border-bottom: 2px solid #888;
+}
+
+.quote-box .swirl-top {
+    width: 30%;
+}
+
+.quote-box .swirl-bottom{
+    width: 30%;
+    transform: scaleY(-1);
 }
 
 .comment-user {
