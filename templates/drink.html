@@ -49,11 +49,20 @@
     <div class="row eq-height-columns">
         <!--Category & Difficulty - Medium Only-->
         <div class="col s12 show-on-medium-and-down hide-on-large-only">
-            <h6>Serve in a {{drink.glassType|title()}} glass.</h6>
-            <h6>Difficulty: {{drink.difficulty}}</h6>
+            <div class="row center">
+                <div class="col s4">
+                    <h6>{{drink.views}} views.</h6>
+                </div>
+                <div class="col s4">
+                    <h6>Difficulty: {{drink.difficulty}}</h6>
+                </div>
+                <div class="col s4">
+                    <h6>Serve in a {{drink.glassType|title()}} glass.</h6>
+                </div>
+            </div>
         </div>
         <!--Instructions-->
-        <div class="col s12 m8 l6 xl5 instructions yellow-outline">
+        <div class="col s12 m7 l6 xl5 instructions yellow-outline">
             <h4>Instructions</h4>
             <ul>
                 {% for i in instructions %}
@@ -62,11 +71,18 @@
             </ul>
 
         </div>
-        <!--Category & Difficulty-->
+        <!--Category | Views | Difficulty-->
         <div class="col hide-on-med-and-down l4 xl4">
             <div class="row">
                 <div class="col s12 yellow-outline">
                     <h6>Category: {{drink.category}}</h6>
+                </div>
+                <div class="col s12 yellow-outline">
+                    <i class="far fa-eye"></i> {% if views == 1 %}
+                    <p>Viewed {{views}} time.</p>
+                    {% else %}
+                    <p>Viewed {{views}} times.</p>
+                    {% endif %}
                 </div>
                 <div class="col s12 yellow-outline">
                     <h6>Difficulty: {{drink.difficulty}}</h6>
@@ -75,7 +91,7 @@
             </div>
         </div>
         <!--Glass Image-->
-        <div class="col s12 m4 l2 xl3 sq-pic center yellow-outline">
+        <div class="col s12 m5 l2 xl3 sq-pic center yellow-outline">
             <img width="375" src="{{ url_for('static', filename='images/glass/g_'+drink.glassType+'.jpg') }}" class="responsive-img materialboxed" data-caption="Glass Name">
             <h5 class="hide-on-med-and-down">Serve in a {{drink.glassType|title()}} glass.</h5>
         </div>
@@ -83,14 +99,8 @@
 
     <!--Favorites | Views | Quote-->
     <div class="row eq-height-columns" id="qfv">
-        <!--Faves & Views-->
+        <!--Favorites-->
         <div class="col s12 l6 yellow-outline">
-            <i class="far fa-eye"></i> {% if views == 1 %}
-            <p>Viewed {{views}} time.</p>
-            {% else %}
-            <p>Viewed {{views}} times.</p>
-            {% endif %}
-
             <p>Favorites: {{drink.favorites}}</p>
             <!--Add as favorite-->
             {% if not session %}
@@ -121,13 +131,13 @@
                 {% endfor %} {% endif %}
         </div>
         <!--Quote-->
-        <div class="col s12 l6 quote-box center yellow-outline">
-            <img src="{{ url_for('static', filename='images/quotes/quote_swirl.png') }}" class="swirl-top">
+        <div class="col s12 l6 quote-box center z-depth-3">
+            <img src="{{ url_for('static', filename='images/quotes/quote_swirl2.png') }}" class="swirl-top">
             <div class="quote-text-wrapper">
-                <p>{{quote_text}}</p>
-                <p>{{quote_name}}</p>
+                <p class="quote-text">{{quote_text}}</p>
+                <p class="quote-name right-align">- {{quote_name}}</p>
             </div>
-            <img src="{{ url_for('static', filename='images/quotes/quote_swirl.png') }}" class="swirl-bottom">
+            <img src="{{ url_for('static', filename='images/quotes/quote_swirl2.png') }}" class="swirl-bottom">
         </div>
     </div>
 
@@ -137,7 +147,7 @@
         <h4>Comments</h4>
         <p>Tell us what you think!</p>
 
-        <div class="comments-box">
+        <div class="comments-box z-depth-2">
             {% if comment_user | length > 0 %} {% for x in range(0, comment_user | length) %}
 
             <p class="comment-user">{{comment_user[x]}}</p>
