@@ -15,6 +15,11 @@
     display: none;
 }
 
+.eq-height-columns {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
@@ -128,7 +133,7 @@ nav ul .active {
 
 /* ----------------------------------------------------------- Side Nav Bar -*/
 
-.sidenav > .row {
+.sidenav>.row {
     margin-bottom: 0;
 }
 
@@ -136,11 +141,11 @@ nav ul .active {
     padding: 0;
 }
 
-.sidenav li > a {
+.sidenav li>a {
     color: white;
 }
 
-.sidenav li > a > i {
+.sidenav li>a>i {
     margin-right: 10px;
 }
 
@@ -291,6 +296,54 @@ sidenav ul .active {
 
 .history-back {
     /*NOT CURRENTLY IN USE - JS ONLY*/
+}
+
+
+/* -------------------------------------------------------- Drink Information*/
+
+.drink-wrapper {
+    width: 95%;
+    margin: auto;
+}
+
+.drink-pic {
+    /*max-height: 400px;*/
+    width: 100%;
+}
+
+.row .ingredients {
+    min-height: 400px;
+}
+
+.instructions ul>li {
+    list-style-type: disc;
+
+}
+
+.comment-user {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #888;
+    margin: 20px 0 0;
+}
+
+.comment-text {
+    font-size: 1.4rem;
+    margin: 0
+}
+
+.comments-box {
+    margin: 30px 0 50px;
+    padding: 15px 25px 30px;
+    background-color: #f5f5f5;
+    /*border-radius: 8px;*/
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+}
+
+.comment-send-btn {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 /* ------------------------------------------------------- Log In & Register-*/

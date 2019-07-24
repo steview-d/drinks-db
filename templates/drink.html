@@ -1,161 +1,170 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container content-wrapper">
-    
-    <!--<div class="drink-bg" style="background-image: url({{drink.imageUrl}})"></div>-->
-    <!--<div class="qq">-->
-    <!--Drink Name-->
-    <div class="row center">
-        <h2>{{drink.name}}</h2>
-        <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
-        <br> {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
-        <a class="waves-effect waves-light btn-small" href="{{ url_for('edit_drink', drink_id = drink._id) }}">
+    <div class="drink-wrapper">
+        <!--Drink Name-->
+        <div class="row center">
+            <h2>{{drink.name}}</h2>
+            <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
+            <br> {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
+            <a class="waves-effect waves-light btn-small" href="{{ url_for('edit_drink', drink_id = drink._id) }}">
             <i class="material-icons right">edit</i>Edit Drink
         </a> {% else %}
-        <a class="waves-effect waves-light btn-small tooltipped" data-position="bottom" data-tooltip="You can only edit your own drinks">
+            <a class="waves-effect waves-light btn-small tooltipped" data-position="bottom" data-tooltip="You can only edit your own drinks">
             <i class="material-icons right">edit</i>Edit Drink
         </a> {% endif %}
-    </div>
-
-    <!--Picture & Ingredients-->
-    <div class="row">
-        <div class="col s12 l6">
-            <img src="{{drink.imageUrl}}" class="materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">>
         </div>
-        <div class="col s12 l6">
-            <ul>
-                {% for i in range(0, drink.ingredients | length) %}
-                <div class="col s6">
-                    {{drink.ingredients[i]}}<br>
-                </div>
-                {% endfor %}
-            </ul>
+
+        <!--Picture & Ingredients-->
+        <div class="row eq-height-columns">
+            <div class="col s12 m4 yellow-outline">
+                <img src="{{drink.imageUrl}}" class="responsive-image drink-pic materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
+            </div>
+            <!--<div class="col s4 m2 yellow-outline" style="width 100%">-->
+            <!--    <h6>Glass</h6>-->
+            <!--</div>-->
+            <div class="col s12 m8 ingredients yellow-outline">
+                <h4>Ingredients</h4>
+                <ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Measure</th>
+                                <th>Ingredient</th>
+                            </tr>
+                        </thead>
+                        {% for i in range(0, drink.ingredients | length, 2) %}
+                        <tbody>
+                            <tr>
+                                <td>{{drink.ingredients[i]}}</td>
+                                <td>{{drink.ingredients[i+1]}}</td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <!--Instructions & Category Image-->
-    <div class="row">
-        <div class="col s12 l6">
-            <h5>INSTRUCTIONS</h5><br> {% for i, j in enumerate(instructions) %} {{i+1}} {{j}}
-            <br> {% endfor %}
-            <h6>Serve in a {{drink.glassType}} glass.</h6>
-            <h6>Difficulty: {{drink.difficulty}}</h6>
+        <!--Instructions & Category Image-->
+        <div class="row instructions">
+            <div class="col s12 l6">
+                <h4>Instructions</h4>
+                <ul>
+                    {% for i in instructions %}
+                    <li>{{i}}</li>
 
+
+                    {% endfor %}
+                    <li>Serve in a {{drink.glassType|title()}} glass.</li>
+                </ul>
+
+                <h6>Difficulty: {{drink.difficulty}}</h6>
+
+            </div>
+            <div class="col s12 l6">
+                CATEGORY IMAGE
+                <h5>Category: {{drink.category}}</h5>
+            </div>
         </div>
-        <div class="col s12 l6">
-            CATEGORY IMAGE
-            <h5>Category: {{drink.category}}</h5>
-        </div>
-    </div>
 
-    <!--Favorites, Views & Comments-->
-    <div class="row" id="fv">
-        <div class="col sm12 l4">
-            <h5>FAVES & VIEWS</h5>
+        <!--Favorites, Views & Comments-->
+        <div class="row" id="qfv">
+            <div class="col sm12 l4 yellow-outline">
+                <h5>FAVES & VIEWS</h5>
 
-            <p>Favorites: {{drink.favorites}}</p>
-            {% if session['username'] == drink.userName %}
-            <p>Views: {{views}}</p>
-            {% else %}
-            <p>Views: {{views}}</p>
-            {% endif %}
-
-            <!--Add as favorite-->
-            {% if not session %}
-            <h5>You must be logged in to add as a favorite</h5>
-            {% elif session['username'] == drink.userName %}
-            <h5>You cannot add your own drinks to your favorites</h5>
-            {% else %}
-            <h5>Can add as fave!</h5>
-
-            {% if is_favorite %}
-            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
-            <i class="fas fa-heart"></i> 
-            {% else %}
-            <i class="far fa-heart"></i>
-            <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a> 
-            {% endif %}
-            
-            {% endif %}
-
-
-            <!--Displays num favorites-->
-            {% if drink.favorites < 1 %} <p>Not yet favorited by any users</p>
-
+                <p>Favorites: {{drink.favorites}}</p>
+                {% if session['username'] == drink.userName %}
+                <p>Views: {{views}}</p>
                 {% else %}
+                <p>Views: {{views}}</p>
+                {% endif %}
 
-                <p>Favorited By These Users</p>
+                <!--Add as favorite-->
+                {% if not session %}
+                <h5>You must be logged in to add as a favorite</h5>
+                {% elif session['username'] == drink.userName %}
+                <h5>You cannot add your own drinks to your favorites</h5>
+                {% else %}
+                <h5>Can add as fave!</h5>
 
-                {% for x in drink.favoritesTxt %}
+                {% if is_favorite %}
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Remove Favorite</a>
+                <i class="fas fa-heart"></i> {% else %}
+                <i class="far fa-heart"></i>
+                <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}">Add Favorite</a> {% endif %} {% endif %}
 
-                <p>{{x}}</p>
 
-                {% endfor %} {% endif %}
+                <!--Displays num favorites-->
+                {% if drink.favorites
+                < 1 %} <p>Not yet favorited by any users</p>
+
+                    {% else %}
+
+                    <p>Favorited By These Users</p>
+
+                    {% for x in drink.favoritesTxt %}
+
+                    <p>{{x}}</p>
+
+                    {% endfor %} {% endif %}
 
 
-        </div>
-        <!--Comments-->
-        <div class="col sm12 l8">
-            COMMENTS<br> {% if comment_user | length > 0 %} {% for x in range(0, comment_user | length) %}
-
-            <p>{{comment_user[x]}}</p>
-            <p>{{comment_text[x]}}</p>
-
-            {% endfor %} {% else %}
-
-            <h6>There are no comments for this drink yet.</h6>
-
-            {% endif %}
-
-            <h5>Leave a comment</h5>
-            {% if session %}
-
-            <div class="row">
-                <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
-                    </i>
-                    </span><input placeholder="Type your comment here" id="comment" name="comment" type="text">
-                    <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
-                </form>
             </div>
+            <!--Comments-->
+            <div class="col sm12 l8">
+                <h4>Comments</h4>
+                <p>Tell us what you think!</p>
 
-            {% else %}
-            <div class="row">
-                <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
-                    </i>
-                    </span><input disabled placeholder="You must be logged in to leave a comment" id="comment" name="comment" type="text">
-                    <button disabled class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
-                </form>
+                <div class="comments-box">
+                    {% if comment_user | length > 0 %} {% for x in range(0, comment_user | length) %}
+
+                    <p class="comment-user">{{comment_user[x]}}</p>
+                    <p class="comment-text">{{comment_text[x]}}</p>
+
+                    {% endfor %} {% else %}
+
+                    <h6>There are no comments for this drink yet.</h6>
+                    <h6>Why don't you be the first?</h6>
+
+                    {% endif %}
+                </div>
+
+                <h5>Leave a comment</h5>
+                <div class="row">
+                    <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
+                        {% if session %}
+                        </span><input placeholder="Type your comment here" id="comment" name="comment" type="text">
+                        <button class="waves-effect waves-light btn right comment-send-btn" type="submit">Send</button> {% else %}
+                        </span><input disabled placeholder="You must be logged in to leave a comment" id="comment" name="comment" type="text">
+                        <button disabled class="waves-effect waves-light btn right comment-send-btn" type="submit">Send</button> {% endif %}
+                    </form>
+                </div>
             </div>
+        </div>
+
+        <!--Delete Drink-->
+        {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
+        <div class="row">
+            <div class="col s12 center">
+                <h5>Delete drink?</h5>
+                {% include 'helpers/delete_modal.html' %}
+
+            </div>
+        </div>
+        {% endif %}
+        <br>
 
 
 
-            {% endif %}
+        <!-- Modal Structure -->
 
+
+
+        <div class="row center">
+            <a class="waves-effect waves-light btn-small history-back">back</a>
         </div>
     </div>
-
-    <!--Delete Drink-->
-    {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
-    <div class="row">
-        <div class="col s12 center">
-            <h5>Delete drink?</h5>
-    {% include 'helpers/delete_modal.html' %}
-            
-        </div>
-    </div>
-    {% endif %}
-    <br>
-
-
-
-    <!-- Modal Structure -->
-
-
-
-    <div class="row center">
-        <a class="waves-effect waves-light btn-small history-back">back</a>
-    </div>
-</div>
 </div>
 
 {% endblock %}
