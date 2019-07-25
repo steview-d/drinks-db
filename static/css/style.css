@@ -365,10 +365,6 @@ sidenav ul .active {
 
 /* -------------------------------------------------------- Drink Information*/
 
-#edit-btn-wrapper {
-    position: relative;
-}
-
 .row .edit-del-sq {
     font-family: 'Muli', sans-serif;
     height: 1.8rem;
@@ -376,7 +372,7 @@ sidenav ul .active {
     font-size: 0.8rem;
     background-color: black;
     color: white;
-    
+
 }
 
 .drink-name h2 {
@@ -388,7 +384,7 @@ sidenav ul .active {
     display: inline-block;
     border: 1px solid black;
     padding: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .sq-pic img {
@@ -398,17 +394,43 @@ sidenav ul .active {
 }
 
 .row .ingredients {
-    min-height: 400px;
+    background-color: #eee;
+    padding: 2rem;
 }
 
 .ingredients .measure-width {
     width: 33%;
 }
 
+.ingredients h4 {
+    margin-top: 0;
+}
+
+.row .instructions {
+    background-color: #ddd;
+    padding: 2rem;
+}
+
+
+.instructions ul {
+    padding-left: 2rem;
+}
+
 .instructions ul>li {
     list-style-type: disc;
-
 }
+
+
+.instructions .swirl-divider {
+    width: 70%;
+}
+
+.instructions-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 
 .row .quote-box {
     background: url('../images/background/red.jpg');
