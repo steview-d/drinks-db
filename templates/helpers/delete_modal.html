@@ -1,13 +1,13 @@
-<a class="waves-effect waves-light btn modal-trigger" href="#delete_drink">Delete Drink</a>
+<a class="modal-trigger btn-small edit-del-sq" href="#delete_drink">DELETE DRINK</a>
 
 <div id="delete_drink" class="modal">
-    <div class="modal-content center">
+    <div class="modal-content center-align">
         <h4>Confirm Delete</h4>
         <p>You cannot undo this action</p>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer center">
         <a href="#" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-        <a href="{{ url_for('delete_drink', drink_id = drink._id) }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+        <a href="{{ url_for('delete_drink', drink_id = drink._id) }}" class="modal-close">Delete</a>
     </div>
 
 </div>

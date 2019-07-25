@@ -52,6 +52,29 @@
     flex-wrap: wrap;
 }
 
+.f-playfair-sc {
+    font-family: 'Playfair Display SC', serif;
+}
+
+.f-playfair {
+    font-family: 'Playfair Display', serif;
+}
+
+.f-merriweather {
+    font-family: 'Merriweather', serif;
+}
+
+.f-muli {
+    font-family: 'Muli', sans-serif;
+}
+
+
+
+
+
+
+
+
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
@@ -342,9 +365,30 @@ sidenav ul .active {
 
 /* -------------------------------------------------------- Drink Information*/
 
+#edit-btn-wrapper {
+    position: relative;
+}
+
+.row .edit-del-sq {
+    font-family: 'Muli', sans-serif;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    font-size: 0.8rem;
+    background-color: black;
+    color: white;
+    
+}
+
 .drink-name h2 {
     margin-top: 0;
-    padding: 40px;
+    padding-top: 40px;
+}
+
+.drink-author h6 {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 1rem;
+    margin-bottom: 3rem;
 }
 
 .sq-pic img {
@@ -443,8 +487,7 @@ sidenav ul .active {
 }
 
 @media screen and (min-width: 992px) {
-    .v-center-content {
-    }
+    .v-center-content {}
 }
 
 .log_reg_wrapper {
