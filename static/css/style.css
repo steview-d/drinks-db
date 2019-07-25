@@ -113,8 +113,8 @@ nav {
 }
 
 nav .brand-logo {
-    font-family: 'Pacifico', cursive;
-    font-size: 2.3rem;
+    font-family: 'Grand Hotel', cursive;
+    font-size: 3rem;
 }
 
 nav .brand-logo {
@@ -140,8 +140,8 @@ nav .brand-logo:hover {
 }
 
 nav ul a {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.4rem;
+    font-family: 'Grand Hotel', cursive;
+    font-size: 2rem;
 }
 
 nav ul a {
@@ -373,17 +373,15 @@ sidenav ul .active {
     background-repeat: no-repeat;
     margin: 0;
     width: 100%;
-    padding: 20px;
+    padding: 40px;
 }
 
-
-.quote-box .quote-text-wrapper {
-    /*padding: 20px;*/
-}
 
 .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
     margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: white;
 }
 

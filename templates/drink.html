@@ -172,29 +172,28 @@
             </form>
         </div>
     </div>
-</div>
 
-<!--Delete Drink-->
-{% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
-<div class="row">
-    <div class="col s12 center">
-        <h5>Delete drink?</h5>
-        {% include 'helpers/delete_modal.html' %}
 
+    <!--Delete Drink-->
+    {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
+    <div class="row">
+        <div class="col s12 center">
+            <h5>Delete drink?</h5>
+            {% include 'helpers/delete_modal.html' %}
+
+        </div>
+    </div>
+    {% endif %}
+    <br>
+
+
+
+    <!-- Modal Structure -->
+    <div class="row center">
+        <a class="waves-effect waves-light btn-small history-back">back</a>
     </div>
 </div>
-{% endif %}
-<br>
 
-
-
-<!-- Modal Structure -->
-
-
-
-<div class="row center">
-    <a class="waves-effect waves-light btn-small history-back">back</a>
-</div>
 </div>
 
 {% endblock %}

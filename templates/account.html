@@ -79,9 +79,9 @@
             <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page-1,
-                    favorites_page=favorites_page) }}"><i class="material-icons">arrow_left</i></a></li>
+                    favorites_page=favorites_page) }}"><i class="fas fa-angle-left"></i></a></li>
             {% else %}
-            <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            <li class="disabled"><i class="fas fa-angle-left"></i></li>
             {% endif %}
             <!--Page Numbers-->
             {% for dr_page_number in dr_pages %} {% if dr_page_number == drinks_page %}
@@ -97,9 +97,9 @@
             < dr_pages | count | int %} <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page+1,
-                    favorites_page=favorites_page) }}"><i class="material-icons">arrow_right</i></a></li>
+                    favorites_page=favorites_page) }}"><i class="fas fa-angle-right"></i></a></li>
                 {% else %}
-                <li class="disabled"><i class="material-icons">arrow_right</i></li>
+                <li class="disabled"><i class="fas fa-angle-right"></i></li>
                 {% endif %}
 
         </ul>
@@ -132,9 +132,9 @@
             <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page,
-                    favorites_page=favorites_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+                    favorites_page=favorites_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
             {% else %}
-            <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            <li class="disabled"><i class="fas fa-angle-left"></i></li>
             {% endif %}
             <!--Page Numbers-->
             {% for fv_page_number in fv_pages %} {% if fv_page_number == favorites_page %}
@@ -150,9 +150,9 @@
             < fv_pages | count | int %} <li class=""><a href="{{ url_for('account',
                     account_name = session.username,
                     drinks_page=drinks_page,
-                    favorites_page=favorites_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+                    favorites_page=favorites_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
                 {% else %}
-                <li class="disabled"><i class="material-icons">arrow_right</i></li>
+                <li class="disabled"><i class="fas fa-angle-right"></i></li>
                 {% endif %}
         </ul>
         {% endif %}

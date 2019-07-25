@@ -54,9 +54,9 @@
         <ul class="pagination .pagination-lg center pagination-top">
             <!--Left Arrow-->
             {% if current_page | int > 1 %}
-            <li class=""><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+            <li class=""><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
             {% else %}
-            <li class="disabled"><i class="material-icons">arrow_left</i></li>
+            <li class="disabled"><i class="fas fa-angle-left"></i></li>
             {% endif %}
 
             <!--Page Numbers-->
@@ -68,9 +68,9 @@
 
             <!--Right Arrow-->
             {% if current_page | int
-            < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+            < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
                 {% else %}
-                <li class="disabled"><i class="material-icons">arrow_right</i></li>
+                <li class="disabled"><i class="fas fa-angle-right"></i></li>
                 {% endif %}
 
         </ul>
@@ -92,9 +92,9 @@
     <ul class="pagination center">
         <!--Left Arrow-->
         {% if current_page | int > 1 %}
-        <li class=""><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="material-icons">arrow_left</i></a></li>
+        <li class=""><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
         {% else %}
-        <li class="disabled"><i class="material-icons">arrow_left</i></li>
+        <li class="disabled"><i class="fas fa-angle-left"></i></li>
         {% endif %}
 
         <!--Page Numbers-->
@@ -106,9 +106,9 @@
 
         <!--Right Arrow-->
         {% if current_page | int
-        < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="material-icons">arrow_right</i></a></li>
+        < pages | count | int %} <li class=""><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
             {% else %}
-            <li class="disabled"><i class="material-icons">arrow_right</i></li>
+            <li class="disabled"><i class="fas fa-angle-right"></i></li>
             {% endif %}
 
     </ul>
