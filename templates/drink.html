@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="drink-container content-wrapper">
+<div class="page-container content-wrapper">
     <!--Drink Name-->
     <div class="row center">
         <div class="drink-name">
@@ -19,7 +19,7 @@
     <!--Picture | Ingredients-->
     <div class="row eq-height-columns">
         <div class="col s12 l4 sq-pic">
-            <img width="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
+            <img width="375" height="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
         </div>
         <div class="col s12 l8 ingredients">
             <h4>Ingredients</h4>

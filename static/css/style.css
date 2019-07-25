@@ -11,7 +11,7 @@
 
 /* ----------------------------------------------------=======-------- Misc -*/
 
-.drink-container {
+.page-container {
     box-sizing: content-box;
     max-width: 1200px;
     margin-left: auto;
@@ -22,21 +22,21 @@
 }
 
 @media only screen and (min-width: 601px) {
-    .drink-container {
+    .page-container {
         padding-left: 30px;
         padding-right: 30px;
     }
 }
 
 @media only screen and (min-width: 993px) {
-    .drink-container {
+    .page-container {
         padding-left: 40px;
         padding-right: 40px;
     }
 }
 
 @media only screen and (min-width: 1200px) {
-    .drink-container {
+    .page-container {
         border-left: 2px solid #aaa;
         border-right: 2px solid #aaa;
     }
@@ -348,6 +348,8 @@ sidenav ul .active {
 }
 
 .sq-pic img {
+    object-fit: cover;
+    max-height: 375px;
     margin: auto;
 }
 
@@ -380,29 +382,26 @@ sidenav ul .active {
 }
 
 .quote-text {
+    margin-bottom: 20px;
     font-size: 2rem;
-    color:white;
+    color: white;
 }
 
 .quote-name {
+    margin-top: 0;
     font-size: 1.3rem;
-    color:#bbb;
+    color: #bbb;
 }
 
-
-.quote-box cite {
-    /*width: 50%;*/
-    /*margin: 0;*/
-}
 
 .quote-box .swirl-top {
     width: 60%;
     border-bottom: 1px solid #eee;
 }
 
-.quote-box .swirl-bottom{
-    width: 60%;
+.quote-box .swirl-bottom {
     transform: scaleY(-1);
+    width: 60%;
     border-bottom: 1px solid #eee;
 }
 
@@ -443,12 +442,10 @@ sidenav ul .active {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    width: 80vw;
 }
 
 @media screen and (min-width: 992px) {
     .v-center-content {
-        width: 50vw;
     }
 }
 
