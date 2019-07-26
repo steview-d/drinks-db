@@ -58,16 +58,22 @@ h2 {
     font-family: 'Playfair Display SC', serif;
 }
 
-h4, h5 {
+h4,
+h5 {
     font-family: 'Merriweather', serif;
 }
 
 
-h6, p {
+h6,
+p {
     font-family: 'Muli', sans-serif;
 }
 
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
     font-family: 'Muli', sans-serif;
 }
 
@@ -221,7 +227,7 @@ nav ul .active {
 
 /* ----------------------------------------------------------- Side Nav Bar -*/
 
-.sidenav > .row {
+.sidenav>.row {
     margin-bottom: 0;
 }
 
@@ -229,7 +235,7 @@ nav ul .active {
     padding: 0;
 }
 
-.sidenav li > a {
+.sidenav li>a {
     color: white;
 }
 
@@ -253,13 +259,13 @@ nav ul .active {
 
 @media screen and (min-width: 601px) {
     .flash-box {
-    max-width: 70%;
+        max-width: 70%;
     }
 }
 
 @media screen and (min-width: 1201px) {
     .flash-box {
-    max-width: 50%;
+        max-width: 50%;
     }
 }
 
@@ -295,7 +301,9 @@ nav ul .active {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
+
 /* with grid - issue #3361 */
+
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -398,10 +406,6 @@ nav ul .active {
 
 /* -------------------------------------------------------- Drink Information*/
 
-#dtest .col{
-    margin-bottom: 20px;
-}
-
 .drink-author {
     display: inline-block;
     border: 1px solid black;
@@ -457,10 +461,22 @@ nav ul .active {
     transform: translateY(-50%);
 }
 
+#glass-img {
+    padding: 30px;
+}
+
+#glass-img img {
+    margin: auto;
+}
+
 #info-box {
-    padding: 1rem 2rem;
+    padding: 1rem 1.25rem;
     font-size: 2rem;
     /*line-height: 2rem;*/
+}
+
+#info-box .col {
+    margin-bottom: 0;
 }
 
 #info-box h6 {
@@ -472,10 +488,13 @@ nav ul .active {
     padding: .2rem;
     border: 1px solid black;
     color: black;
+    white-space: nowrap
 }
 
-#favorites {
-    padding-right: 40px;
+@media screen and (min-width: 993px) {
+    #favorites {
+        padding-right: 54px;
+    }
 }
 
 #favorites i {
@@ -551,6 +570,15 @@ nav ul .active {
 .comment-text {
     font-size: 1.4rem;
     margin: 0
+}
+
+#drink-wrapper .col {
+    margin-bottom: 20px;
+}
+
+#drink-wrapper .pd-fix {
+    padding-left: .75rem;
+    padding-right: .75rem;
 }
 
 
