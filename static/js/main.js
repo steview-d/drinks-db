@@ -105,7 +105,7 @@ $(document).ready(function() {
         }
     });
 
-    // Set menu active highlight on side nan
+    // Set menu active highlight on side nav
     $('#mobile-nav li > .active').css('background-color', 'rgba(255,255,255,0.3');
 
     // Close displayed flash message

@@ -2,6 +2,8 @@
 
 /* ---------------------------------------------------------- Set Variables -*/
 
+/*STILL USED????*/
+
 :root {
     /* Set neon color */
     --neon-blue: #011ffd;
@@ -9,7 +11,8 @@
     --neon-yellow: #fdf501;
 }
 
-/* ----------------------------------------------------=======-------- Misc -*/
+
+/* ------------------------------------------------------------- Page Setup -*/
 
 .page-container {
     box-sizing: content-box;
@@ -42,7 +45,6 @@
     }
 }
 
-
 .hidden {
     display: none;
 }
@@ -51,6 +53,38 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+
+/* ------------------------------------------------------------------- Body -*/
+
+body {
+    background-image: url('../images/bg1.jpg');
+    background-repeat: repeat;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    background-color: rgba(255, 255, 255, 0.7);
+    flex: 1 0 auto;
+}
+
+/*CHECK - DONT BELIEVE USED ANYMORE*/
+
+.container {
+    padding: 5px;
+}
+
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9);
+    /*padding: 10px 0 30px;*/
+    padding-bottom: 30px;
+
+}
+
+
+/* ------------------------------------------------------------------ Fonts -*/
 
 .f-playfair-sc {
     font-family: 'Playfair Display SC', serif;
@@ -67,12 +101,6 @@
 .f-muli {
     font-family: 'Muli', sans-serif;
 }
-
-
-
-
-
-
 
 
 /* ------------------------------------------------------------ Landing Page-*/
@@ -101,33 +129,6 @@
     font-size: 5rem;
 }
 
-/* ------------------------------------------------------------------- Body -*/
-
-body {
-    background-image: url('../images/bg1.jpg');
-    background-repeat: repeat;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-main {
-    background-color: rgba(255, 255, 255, 0.7);
-    flex: 1 0 auto;
-}
-
-.container {
-    padding: 5px;
-}
-
-.content-wrapper {
-    background-color: rgba(255, 255, 255, 0.9);
-    /*padding: 10px 0 30px;*/
-    padding-bottom: 30px;
-
-}
-
-
 
 /* ---------------------------------------------------------------- Nav Bar -*/
 
@@ -138,12 +139,8 @@ nav {
 nav .brand-logo {
     font-family: 'Grand Hotel', cursive;
     font-size: 3rem;
-}
-
-nav .brand-logo {
     transition: 0.2s;
 }
-
 
 nav .brand-logo:hover {
     text-shadow: 0 0 5px var(--neon-pink),
@@ -165,9 +162,6 @@ nav .brand-logo:hover {
 nav ul a {
     font-family: 'Grand Hotel', cursive;
     font-size: 2rem;
-}
-
-nav ul a {
     transition: 0.2s;
 }
 
@@ -188,7 +182,7 @@ nav ul .active {
 
 /* ----------------------------------------------------------- Side Nav Bar -*/
 
-.sidenav>.row {
+.sidenav > .row {
     margin-bottom: 0;
 }
 
@@ -196,21 +190,13 @@ nav ul .active {
     padding: 0;
 }
 
-.sidenav li>a {
+.sidenav li > a {
     color: white;
 }
 
 .sidenav li>a>i {
     margin-right: 10px;
 }
-
-sidenav ul .active {
-    text-shadow: 0 0 5px var(--neon-pink),
-    0 0 10px var(--neon-pink),
-    0 0 20px var(--neon-pink),
-    0 0 40px var(--neon-pink);
-}
-
 
 /* -------------------------------------------------------- Flashed Messages-*/
 
@@ -390,7 +376,15 @@ sidenav ul .active {
 .sq-pic img {
     object-fit: cover;
     max-height: 375px;
-    margin: auto;
+    margin: 0 auto 20px;
+}
+
+@media screen and (min-width: 993px) {
+    .sq-pic img {
+        object-fit: cover;
+        max-height: 375px;
+        margin: auto;
+    }
 }
 
 .row .ingredients {
@@ -407,10 +401,12 @@ sidenav ul .active {
 }
 
 .row .instructions {
-    background-color: #ddd;
-    padding: 2rem;
+    padding: 2rem 2rem;
 }
 
+.instructions h4 {
+    margin: 1rem auto 2rem;
+}
 
 .instructions ul {
     padding-left: 2rem;
@@ -418,10 +414,12 @@ sidenav ul .active {
 
 .instructions ul>li {
     list-style-type: disc;
+    line-height: 2rem;
 }
 
 
 .instructions .swirl-divider {
+    margin: 1rem auto;
     width: 70%;
 }
 
@@ -429,6 +427,32 @@ sidenav ul .active {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+#favorites {
+    padding-right: 40px;
+    font-family: 'Muli', sans-serif;
+}
+
+#favorites i {
+    font-size: 4rem;
+    margin: 1rem;
+}
+
+.white-border {
+    border: 1px solid black;
+    padding: 1rem;
+    margin-bottom: 2rem;
+
+}
+
+.fave-label {
+    display: inline-block;
+    font-size: 1.0rem;
+    padding: .6rem;
+    border: 1px solid black;
+    color: black;
+    margin: 0.5rem;
 }
 
 
@@ -452,6 +476,7 @@ sidenav ul .active {
 }
 
 .quote-name {
+    font-family: 'Playfair Display SC', serif;
     margin-top: 0;
     font-size: 1.3rem;
     color: #bbb;
@@ -490,10 +515,43 @@ sidenav ul .active {
     border-bottom: 1px solid #aaa;
 }
 
-.comment-send-btn {
-    padding-left: 2rem;
-    padding-right: 2rem;
+.btn--black {
+    font-family: 'Muli', sans-serif;
+    height: 1.8rem;
+    line-height: 1.7rem;
+    font-size: 0.8rem;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    transition: 0.5s;
 }
+
+.btn--black:hover,
+.btn--black:focus,
+.btn--black:active {
+    background-color: white;
+    color: black;
+    /*box-shadow: none;*/
+}
+
+.row .info-box {
+    padding: 1rem 2rem;
+    font-size: 2rem;
+}
+
+.row .info-box h6 {
+    line-height: 2rem;
+}
+
+.info-label {
+    font-size: 1.0rem;
+    padding: .2rem;
+    border: 1px solid black;
+    color: black;
+}
+
+
+
 
 /* ------------------------------------------------------- Log In & Register-*/
 
