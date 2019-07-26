@@ -1,38 +1,40 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="page-container content-wrapper">
-    <!--Drink Header-->
-    <div class="row center ">
-        <div class="drink-name f-playfair-sc">
-            <h2>{{drink.name}}</h2>
-        </div>
-        {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
-        <a href="{{ url_for('edit_drink', drink_id = drink._id) }}" class="btn btn--black">EDIT</a> {% include 'helpers/delete_modal.html' %} {% endif %}
+    <!--Drink Title & Info-->
+    <div class="row center">
+        <h2>{{drink.name}}</h2>
 
-        <div class="drink-author f-muli-600">
+        {% if (session['username'] == drink.userName) or (session['username'] == "Admin") %}
+        <div>
+            <a href="{{ url_for('edit_drink', drink_id = drink._id) }}" class="btn btn--black">EDIT</a> {% include 'helpers/delete_modal.html' %}
+        </div>
+        {% endif %}
+
+        <div class="drink-author">
             <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
         </div>
-        <br>
     </div>
 
     <!--Picture | Ingredients-->
-    <div class="row qeq-height-columns">
-        <div id="drink-img" class="col s12 l4 sq-pic">
+    <div class="row">
+        <div id="drink-img" class="col s12 l4">
             <img width="375" height="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
         </div>
-        <div id="ingredients" class="col s12 l8 ingredients z-depth-2 f-merriweather">
+
+        <div id="ingredients" class="col s12 l8 z-depth-2">
             <h4>Ingredients</h4>
             <ul>
                 <table>
                     <thead>
-                        <tr>
+                        <tr class="f-merriweather">
                             <th>Measure</th>
                             <th>Ingredient</th>
                         </tr>
                     </thead>
                     {% for i in range(0, drink.ingredients | length, 2) %}
                     <tbody>
-                        <tr class="f-muli">
+                        <tr>
                             <td class="measure-width">{{drink.ingredients[i]}}</td>
                             <td>{{drink.ingredients[i+1]}}</td>
                         </tr>
@@ -46,31 +48,37 @@
     <!--Instructions | Category | Difficultly | Glass-->
     <div class="row eq-height-columns">
         <!--Category & Difficulty - Medium Only-->
-        <div class="col s12 show-on-medium-and-down hide-on-large-only f-merriweather">
+        <div class="col s12 show-on-medium-and-down hide-on-large-only">
             <div class="row center">
-                <div class="col s6 m4">
-                    <h6>Category <span class="info-label f-muli white">{{drink.category|upper()}}</span></h6>
+                <div class="col s12 m6">
+                    <h6>Category <span class="info-label white">{{drink.category|upper()}}</span></h6>
                 </div>
-                <div class="col m4 hide-on-small-only">
+                <div class="col s12 m6">
                     {% if views == 1 %}
-                    <h6>Viewed <span class="info-label f-muli white">{{views}}</span> time.</h6>
+                    <h6>Viewed <span class="info-label white">{{views}}</span> time.</h6>
                     {% else %}
-                    <h6>Viewed <span class="info-label f-muli white">{{views}}</span> times.</h6>
+                    <h6>Viewed <span class="info-label white">{{views}}</span> times.</h6>
                     {% endif %}
                 </div>
-                <div class="col s6 m4">
-                    <h6>Difficulty <span class="info-label f-muli white">{{drink.difficulty|upper()}}</span></h6>
+                <div class="col s12 m4">
+                    <h6>Favorite Lists <span class="info-label white">{{drink.favorites}}</span></h6>
+                </div>
+                <div class="col s12 m4">
+                    <h6>Difficulty <span class="info-label white">{{drink.difficulty|upper()}}</span></h6>
+                </div>
+                <div class="col s12 m4">
+                    <h6>Comments <span class="info-label white">{{comment_user|count()}}</span></h6>
                 </div>
             </div>
         </div>
 
         <!--Instructions-->
-        <div id="instructions" class="col s12 m7 l5 xl5 instructions z-depth-2 grey lighten-2 f-merriweather">
+        <div id="instructions" class="col s12 m7 l5 xl5 z-depth-2 grey lighten-2">
             <div class="instructions-wrapper center ">
                 <img src="{{ url_for('static', filename='images/swirls/divider1.png') }}" class="swirl-divider">
                 <h4>Instructions</h4>
 
-                <ul class="f-muli left-align">
+                <ul class="left-align">
                     {% for i in instructions %}
                     <li>{{i}}</li>
                     {% endfor %}
@@ -80,51 +88,49 @@
         </div>
 
         <!--Glass Image-->
-        <div id="glass-img" class="col s12 m5 l3 xl3 sq-pic center">
+        <div id="glass-img" class="col s12 m5 l3 xl3 center">
             <img width="375" src="{{ url_for('static', filename='images/glass/g_'+drink.glassType+'.jpg') }}" class="responsive-img materialboxed" data-caption="Glass Name">
-            <h5 class="f-merriweather">Serve in a {{drink.glassType|title()}} glass.</h5>
+            <h5>Serve in a {{drink.glassType|title()}} glass.</h5>
         </div>
 
         <!--Category | Views | Difficulty-->
-        <div id="info-box" class="col hide-on-med-and-down info-box l4 xl4 z-depth-2 grey lighten-2 f-merriweather">
+        <div id="info-box" class="col hide-on-med-and-down l4 xl4 z-depth-2 grey lighten-2">
             <div class="row">
                 <h4 class="center-align">Extra Info</h4>
                 <div class="col s12">
                     {% if views == 1 %}
-                    <h6>Viewed <span class="info-label f-muli white">{{views}}</span> time.</h6>
+                    <h6>Viewed <span class="info-label white">{{views}}</span> time.</h6>
                     {% else %}
-                    <h6>Viewed <span class="info-label f-muli white">{{views}}</span> times.</h6>
+                    <h6>Viewed <span class="info-label white">{{views}}</span> times.</h6>
                     {% endif %}
                 </div>
                 <div class="col s12">
-                    <h6>Category <span class="info-label f-muli white">{{drink.category|upper()}}</span></h6>
+                    <h6>Category <span class="info-label white">{{drink.category|upper()}}</span></h6>
                 </div>
                 <div class="col s12">
-                    <h6>Comments <span class="info-label f-muli white">{{comment_user|count()}}</span></h6>
+                    <h6>Comments <span class="info-label white">{{comment_user|count()}}</span></h6>
                 </div>
                 <div class="col s12">
-                    <h6>Difficulty: <span class="info-label f-muli white">{{drink.difficulty|upper()}}</span></h6>
+                    <h6>Difficulty: <span class="info-label white">{{drink.difficulty|upper()}}</span></h6>
                 </div>
                 <div class="col s12">
-                    <h6>Favorite Lists <span class="info-label f-muli white">{{drink.favorites}}</span></h6>
+                    <h6>Favorite Lists <span class="info-label white">{{drink.favorites}}</span></h6>
                 </div>
             </div>
         </div>
-
     </div>
 
     <!--Favorites | Views | Quote-->
     <div class="row">
         <!--Favorites-->
         <div id="favorites" class="col s12 l6 center">
-            <h4 class="f-merriweather">Favorites</h4>
+            <h4>Favorites</h4>
             <!--Add as favorite-->
             {% if not session %}
             <p class="white-border">You must be logged in to add as a favorite</p>
             {% elif session['username'] == drink.userName %}
             <p class="white-border">You cannot add your own drinks to your favorites</p>
             {% else %}
-            <!--<h5>Can add as fave!</h5>-->
 
             {% if is_favorite %}
             <div>
@@ -146,44 +152,42 @@
             <div>
                 <a href="{{ url_for('toggle_favorite', drink_id = drink._id, is_favorite=is_favorite) }}" class="btn btn--black">Add Favorite</a>
             </div>
-            {% endif %} {% endif %}
+            {% endif %}
+            {% endif %}
             <!--Displays num favorites-->
-            {% if drink.favorites
-            < 1 %} <h5 class='f-muli'>Not yet favorited by any users</h5>
+            {% if drink.favorites < 1 %}
+            <h5>Not yet favorited by any users</h5>
 
-                {% else %}
+            {% else %}
 
-                <h5 class='f-muli'>Favorited By These Users</h5>
+            <h5>Favorited By These Users</h5>
 
-                {% for x in drink.favoritesTxt %}
+            {% for x in drink.favoritesTxt %}
 
-                <div class="fave-label">{{x}}</div>
+            <div class="fave-label">{{x}}</div>
 
-                {% endfor %} {% endif %}
+            {% endfor %} {% endif %}
         </div>
         <!--Quote-->
-
-        <div id="quotes" class="col s12 l6 quote-box center z-depth-3">
+        <div id="quote-box" class="col s12 l6 center z-depth-3">
             <img src="{{ url_for('static', filename='images/swirls/quote_swirl2.png') }}" class="swirl-top">
-            <div class="quote-text-wrapper">
                 <p class="quote-text">{{quote_text}}</p>
                 <p class="quote-name right-align">- {{quote_name}}</p>
-            </div>
             <img src="{{ url_for('static', filename='images/swirls/quote_swirl2.png') }}" class="swirl-bottom">
         </div>
     </div>
 
     <!--Comments-->
     <div class="row">
-        <div id="comments" class="col s12 f-merriweather">
+        <div id="comments" class="col s12">
             <h4>Comments</h4>
-            <p class="f-muli">Tell us what you think!</p>
+            <p>Tell us what you think!</p>
 
             <div class="comments-box z-depth-2">
                 {% if comment_user | length > 0 %} {% for x in range(0, comment_user | length) %}
 
-                <p class="f-muli comment-user">{{comment_user[x]}}</p>
-                <p class="f-muli comment-text">{{comment_text[x]}}</p>
+                <p class="comment-user">{{comment_user[x]}}</p>
+                <p class="comment-text">{{comment_text[x]}}</p>
 
                 {% endfor %} {% else %}
 

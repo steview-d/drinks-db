@@ -54,6 +54,19 @@
     flex-wrap: wrap;
 }
 
+h2 {
+    font-family: 'Playfair Display SC', serif;
+}
+
+h4, h5 {
+    font-family: 'Merriweather', serif;
+}
+
+
+h6, p {
+    font-family: 'Muli', sans-serif;
+}
+
 
 /* ------------------------------------------------------------------- Body -*/
 
@@ -63,6 +76,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: 'Muli', sans-serif;
 }
 
 main {
@@ -80,9 +94,11 @@ main {
     background-color: rgba(255, 255, 255, 0.9);
     /*padding: 10px 0 30px;*/
     padding-bottom: 30px;
-
 }
 
+button, input, optgroup, select, textarea {
+    font-family: 'Muli', sans-serif;
+}
 
 /* ------------------------------------------------------------------ Fonts -*/
 
@@ -234,6 +250,8 @@ nav ul .active {
 
 /* -------------------------------------------------------------- Jumbotron -*/
 
+/*NO LONGER SURE IF KEEPING OR USING ANY OF THIS*/
+
 .jumbotron {
     min-height: 10vh;
     margin: 20px 0;
@@ -254,9 +272,7 @@ nav ul .active {
 }
 
 /* Fix for Materialize valign-wrapper not working properly */
-
 /* with grid - issue #3361 */
-
 @media (max-width: 991px) {
     .valign-wrapper {
         display: inherit;
@@ -359,75 +375,52 @@ nav ul .active {
 
 /* -------------------------------------------------------- Drink Information*/
 
-.row .edit-del-sq {
-    font-family: 'Muli', sans-serif;
-    height: 1.8rem;
-    line-height: 1.8rem;
-    font-size: 0.8rem;
-    background-color: black;
-    color: white;
-
-}
-
-.drink-name h2 {
-    margin-top: 0;
-    padding-top: 40px;
-}
-
-.drink-author h6 {
+.drink-author {
     display: inline-block;
     border: 1px solid black;
     padding: 1rem;
     margin-bottom: 2rem;
 }
 
-.sq-pic img {
+#drink-img img {
     object-fit: cover;
     max-height: 375px;
     margin: 0 auto 20px;
 }
 
 @media screen and (min-width: 993px) {
-    .sq-pic img {
+    #drink-img img {
         object-fit: cover;
         max-height: 375px;
         margin: auto;
     }
 }
 
-.row .ingredients {
+#ingredients {
     background-color: #eee;
-    padding: 2rem;
+    padding: 0.5rem 2rem 2rem;
 }
 
-.ingredients .measure-width {
+.measure-width {
     width: 33%;
 }
 
-.ingredients h4 {
-    margin-top: 0;
-}
-
-.row .instructions {
+#instructions {
     padding: 2rem 2rem;
 }
 
-.instructions h4 {
-    margin: 1rem auto 2rem;
-}
-
-.instructions ul {
+#instructions ul {
+    padding-top: 1rem;
     padding-left: 2rem;
 }
 
-.instructions ul>li {
+#instructions ul>li {
     list-style-type: disc;
     line-height: 2rem;
 }
 
-
-.instructions .swirl-divider {
-    margin: 1rem auto;
+.swirl-divider {
+    margin: 1rem auto 0.5rem;
     width: 70%;
 }
 
@@ -437,9 +430,25 @@ nav ul .active {
     transform: translateY(-50%);
 }
 
+#info-box {
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    /*line-height: 2rem;*/
+}
+
+#info-box h6 {
+    line-height: 2rem;
+}
+
+.info-label {
+    font-size: 1.0rem;
+    padding: .2rem;
+    border: 1px solid black;
+    color: black;
+}
+
 #favorites {
     padding-right: 40px;
-    font-family: 'Muli', sans-serif;
 }
 
 #favorites i {
@@ -451,7 +460,6 @@ nav ul .active {
     border: 1px solid black;
     padding: 1rem;
     margin-bottom: 2rem;
-
 }
 
 .fave-label {
@@ -463,17 +471,14 @@ nav ul .active {
     margin: 0.5rem;
 }
 
-
-.row .quote-box {
+#quote-box {
     background: url('../images/background/red.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
-    width: 100%;
     padding: 40px;
 }
-
 
 .quote-text {
     font-family: 'Playfair Display', serif;
@@ -490,16 +495,23 @@ nav ul .active {
     color: #bbb;
 }
 
-
-.quote-box .swirl-top {
+#quote-box .swirl-top {
     width: 60%;
     border-bottom: 1px solid #eee;
 }
 
-.quote-box .swirl-bottom {
+#quote-box .swirl-bottom {
     transform: scaleY(-1);
     width: 60%;
     border-bottom: 1px solid #eee;
+}
+
+.comments-box {
+    margin: 30px 0 50px;
+    padding: 15px 25px 30px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
 }
 
 .comment-user {
@@ -514,49 +526,27 @@ nav ul .active {
     margin: 0
 }
 
-.comments-box {
-    margin: 30px 0 50px;
-    padding: 15px 25px 30px;
-    background-color: #f5f5f5;
-    /*border-radius: 8px;*/
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-}
-
 .btn--black {
     font-family: 'Muli', sans-serif;
     height: 1.8rem;
     line-height: 1.7rem;
     font-size: 0.8rem;
-    border: 1px solid black;
     background-color: black;
     color: white;
     transition: 0.5s;
+    margin-bottom: 1rem;
 }
 
 .btn--black:hover,
 .btn--black:focus,
 .btn--black:active {
     background-color: white;
+    border: 1px solid black;
     color: black;
     /*box-shadow: none;*/
 }
 
-.row .info-box {
-    padding: 1rem 2rem;
-    font-size: 2rem;
-}
 
-.row .info-box h6 {
-    line-height: 2rem;
-}
-
-.info-label {
-    font-size: 1.0rem;
-    padding: .2rem;
-    border: 1px solid black;
-    color: black;
-}
 
 
 
@@ -574,10 +564,6 @@ nav ul .active {
     transform: translateY(-50%);
 }
 
-@media screen and (min-width: 992px) {
-    .v-center-content {}
-}
-
 .log_reg_wrapper {
     padding: 20px;
     border-radius: 5px;
@@ -588,17 +574,6 @@ nav ul .active {
 
 footer .row {
     margin-bottom: 0;
-}
-
-.social-icon-footer {
-    margin: 10px;
-    font-size: 1.6rem;
-    color: white;
-}
-
-.cocktail-icon-footer {
-    font-size: 2.4rem;
-    color: white;
 }
 
 .footer {
@@ -629,6 +604,17 @@ footer i:hover {
     0 0 10px var(--neon-pink),
     0 0 20px var(--neon-pink),
     0 0 40px var(--neon-pink);
+}
+
+.social-icon-footer {
+    margin: 10px;
+    font-size: 1.6rem;
+    color: white;
+}
+
+.cocktail-icon-footer {
+    font-size: 2.4rem;
+    color: white;
 }
 
 
