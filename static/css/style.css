@@ -21,7 +21,7 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
-    border: 0;
+    border-top: 2px solid #aaa;
 }
 
 @media only screen and (min-width: 601px) {
@@ -201,8 +201,9 @@ nav ul .active {
 /* -------------------------------------------------------- Flashed Messages-*/
 
 .flash-box {
+    font-family: 'Muli', sans-serif;
     position: relative;
-    max-width: 50%;
+    max-width: 90%;
     margin: 20px auto;
     padding: 15px 30px;
     font-size: 1.5rem;
@@ -211,15 +212,22 @@ nav ul .active {
     color: white;
 }
 
+@media screen and (min-width: 601px) {
+    .flash-box {
+    max-width: 70%;
+    }
+}
+
+@media screen and (min-width: 1201px) {
+    .flash-box {
+    max-width: 50%;
+    }
+}
+
 .close-btn a {
     position: absolute;
-    /*font-size: 0.7rem;*/
     top: 15px;
     right: 22px;
-    /*background-color: var(--neon-yellow);*/
-    /*margin-top: 7px;*/
-    /*padding: 2px 8px;*/
-    /*border: 1px solid black;*/
     color: white;
 }
 
