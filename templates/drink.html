@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="page-container content-wrapper">
+    <div id="dtest">
     <!--Drink Title & Info-->
     <div class="row center">
         <h2>{{drink.name}}</h2>
@@ -15,7 +16,7 @@
             <h6>Drink submitted by {{drink.userName}} on {{date}}</h6>
         </div>
     </div>
-
+    
     <!--Picture | Ingredients-->
     <div class="row">
         <div id="drink-img" class="col s12 l4">
@@ -93,7 +94,7 @@
             <h5>Serve in a {{drink.glassType|title()}} glass.</h5>
         </div>
 
-        <!--Category | Views | Difficulty-->
+        <!--Info Box - Category | Views | Difficulty-->
         <div id="info-box" class="col hide-on-med-and-down l4 xl4 z-depth-2 grey lighten-2">
             <div class="row">
                 <h4 class="center-align">Extra Info</h4>
@@ -120,7 +121,7 @@
         </div>
     </div>
 
-    <!--Favorites | Views | Quote-->
+    <!--Favorites | Quote-->
     <div class="row">
         <!--Favorites-->
         <div id="favorites" class="col s12 l6 center">
@@ -223,7 +224,7 @@
             <a class="waves-effect waves-light btn history-back">back</a>
         </div>
     </div>
-
+</div>
 </div>
 
 {% endblock %}
