@@ -180,6 +180,9 @@ def account(account_name):
             "userName": account_name}, sort=[("views", -1)])
         most_favorited = mongo.db.drinks.find_one({
             "userName": account_name}, sort=[("favorites", -1)])
+        most_commented = mongo.db.drinks.find_one({
+            "userName": account_name}, sort=[("comments", -1)])
+        
 
         # Get totals for drinks submitted and favorited for the user
         total_drinks_by_user = drinks_submitted_by_user.count()
@@ -228,6 +231,7 @@ def account(account_name):
                                favorites=total_favorites,
                                most_viewed=most_viewed,
                                most_favorited=most_favorited,
+                               most_commented=most_commented,
                                total_drinks_by_user=total_drinks_by_user,
                                total_user_fave_drinks=total_user_fave_drinks,
                                # Pagination
