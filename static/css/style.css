@@ -462,7 +462,7 @@ nav ul .active {
 }
 
 #glass-img {
-    padding: 30px;
+    padding: 0 60px;
 }
 
 #glass-img img {
@@ -473,14 +473,6 @@ nav ul .active {
 #info-box {
     padding: 1rem 1.25rem;
     font-size: 2rem;
-    /*line-height: 2rem;*/
-}
-
-#info-box .col {
-    margin-bottom: 0;
-}
-
-#info-box h6 {
     line-height: 2rem;
 }
 
@@ -581,6 +573,19 @@ nav ul .active {
     padding-left: .75rem;
     padding-right: .75rem;
 }
+
+
+/* ------------------------------------------------------- Log In & Register-*/
+
+#account .card-content {
+    min-height: 140px;
+}
+
+#account hr {
+    margin: 10px 0;
+}
+
+
 
 
 /* ------------------------------------------------------- Log In & Register-*/
@@ -760,3 +765,10 @@ hr {
 neon-border:focus {
     outline: none;
 }
+
+
+
+/*MAYBE - FOR FONT ISSUE*/
+/*.wf-loading body {*/
+/*visibility: hidden;*/
+/*}*/

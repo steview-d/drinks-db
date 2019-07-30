@@ -1,53 +1,54 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="page-container content-wrapper">
+<div id="account" class="page-container content-wrapper">
 
     <div class="row">
         <!--Intro Text-->
         <div class="col s12 l6">
-            <h4>Hi {{user.userName}}</h4>
+            <h2>Hi {{user.userName}}</h2>
             <p>Your drinks have had a total of {{views}} views</p>
             <p>Drinks submitted by you have been favorited a total of {{favorites}} times</p>
+            <p>There are currently x drinks in the database</p>
+            <p>Spread over a total of x categories, x different types of glass, and x levels of difficulty.</p>
         </div>
         <!--Most Viewed / Favorited-->
         <div class="col s12 l6">
             <div class="row">
                 <div class="col s6">
-                    <p>Your most viewed drink is</p>
-                    {% if most_viewed.views %}
-                        <p>{{most_viewed.name}}</p>
-                        <p>with {{most_viewed.views}} views.</p>
-                    {% else %}
-                        <p>Either you haven't submitted any drinks yet, or they have had no views</p>
-                    {% endif %}
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-category">{{most_viewed.category.title()}}</a>
+                        </div>
+                        <div class="card-content">
+                            <h6>Most Viewed</h6>
+                            <hr>
+                            <p>Your drink with the most views is {{most_viewed.name}} with {{most_viewed.views}} views.</p>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col s6">
-                    {% if most_viewed.views %}
-                        <p>pic: {{most_viewed.imageUrl}}</p>
-                    {% else %}
-                        <p>Something for no pic / Add Drink Button</p>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6">
-                    {% if most_favorited.favorites %}
-                        <p>pic: {{most_favorited.imageUrl}}</p>
-                    {% else %}
-                        <p>Something for no pic / Add Drink Button</p>
-                    {% endif %}
-                </div>
-                <div class="col s6">
-                    <p>Your most favorited drink is</p>
-                    {% if most_favorited.favorites %}
-                        <p>{{most_favorited.name}}</p>
-                        <p>with {{most_favorited.favorites}} users adding it to their favorites.</p>
-                    {% else %}
-                        <p>Either you haven't submitted any drinks, or they have had not been favorited by anyone yet.</p>
-                    {% endif %}
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{most_favorited.imageUrl}}">
+                            <a href="{{ url_for('view_only', option = 'category', choice = most_favorited.category) }}" class="card-category">{{most_favorited.category.title()}}</a>
+                        </div>
+                        <div class="card-content">
+                            <h6>Most Favorited</h6>
+                            <hr>
+                            <p>Your drink with the most favorites is {{most_favorited.name}} with {{most_favorited.views}} views.</p>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="{{ url_for('drink', drink_id = most_favorited._id) }}">{{most_favorited.name}}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <!--Users Submitted Drinks-->
