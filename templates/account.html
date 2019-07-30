@@ -4,18 +4,19 @@
 
     <div class="row">
         <!--Intro Text-->
-        <div class="col s12 l3">
+        <div class="col s12 xl3">
             <h2>Hi {{user.userName}}</h2>
             <p>Your drinks have had a total of <span class="info-label">{{views}}</span> views</p>
             <p>Drinks submitted by you have been favorited a total of <span class="info-label">{{favorites}}</span> times</p>
             <p>A total of <span class="info-label">{{comments}}</span> comments have been left across all of your drinks</p>
 
-            <p>There are currently <span class="info-label">{{total_drinks}}</span> drinks in the database, spread over a total of <span class="info-label">{{total_categories}}</span> categories, <span class="info-label">{{total_glass_types}}</span> different types of drinking glasses, and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
+            <p>There are currently <span class="info-label">{{total_drinks}}</span> drinks in the database, spread over a total of <span class="info-label">{{total_categories}}</span> categories, <span class="info-label">{{total_glass_types}}</span> different
+                types of drinking glasses, and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
         </div>
         <!--Most Viewed / Favorited-->
-        <div class="col s12 l9">
+        <div class="col s12 xl9">
             <div class="row">
-                <div class="col s4">
+                <div class="col s6 m4">
                     <div class="card">
                         <div class="card-image">
                             <img class="responsive-img" src="{{most_viewed.imageUrl}}">
@@ -31,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s4">
+                <div class="col s6 m4">
                     <div class="card">
                         <div class="card-image">
                             <img class="responsive-img" src="{{most_favorited.imageUrl}}">
@@ -47,7 +48,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s4">
+                <!--Medium & Above Screens-->
+                <div class="col m4 hide-on-small-only">
                     <div class="card">
                         <div class="card-image">
                             <img class="responsive-img" src="{{most_commented.imageUrl}}">
@@ -60,6 +62,25 @@
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>
+                        </div>
+                    </div>
+                </div>
+                <!--Small Screens-->
+                <div class="col s12 hide-on-med-and-up">
+                    <div class="card horizontal">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{most_commented.imageUrl}}">
+                            <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-category">{{most_commented.category.title()}}</a>
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h6>Most Commented</h6>
+                                <hr>
+                                <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.views}} views.</p>
+                            </div>
+                            <div class="card-action center-align">
+                                <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
