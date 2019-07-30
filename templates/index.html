@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
+<!--Intro Box-->
 <div class="page-container content-wrapper intro-wrapper">
     <img src="{{ url_for('static', filename='images/background/index_top.jpg') }}">
     <div class="intro">
@@ -18,9 +19,8 @@
     </div>
 </div>
 
-
 <div class="page-container content-wrapper">
-
+    <div class="spacer-2r"></div>
     <!--View By-->
     {% include 'helpers/view_by.html' %}
 

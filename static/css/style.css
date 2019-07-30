@@ -118,6 +118,10 @@ main {
     padding-bottom: 30px;
 }
 
+.spacer-2r {
+    min-height: 2rem;
+}
+
 
 /* ------------------------------------------------------------------ Fonts -*/
 
@@ -376,6 +380,10 @@ nav ul .active {
     font-size: 4rem;
 }
 
+.intro .row {
+    margin-bottom: 0;
+}
+
 .intro h6 {
     min-height: 1px;
     margin-bottom: 1rem;
@@ -455,6 +463,10 @@ nav ul .active {
 
 .tabs .tab a.active {
     border-bottom: 2px solid #f6b2b5;
+}
+
+#difficulty-tab img {
+    object-fit:cover
 }
 
 /* -------------------------------------------------------- Display Summary -*/
