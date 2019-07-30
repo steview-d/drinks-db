@@ -1,23 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 
-<!--Jumbotron-->
-<!--<div class="page-container ">-->
-<!--    <div class="row jumbotron valign-wrapper">-->
-<!--        <div class="col s12 l9">-->
-<!--            <p class="neon neon-pink quote-text">{{quote_text}}</p>-->
-<!--            <p class="neon neon-blue jumbo-cite-text right-align f-playfair">- {{quote_name}}-->
-<!--                <p>-->
-<!--        </div>-->
-<!--        <div class="col hide-on-med-and-down l3 center-align">-->
-<!--            <img class="responsive-img" src="../static/images/neon_glass.png">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<div class="page-container content-wrapper no-padding" style="box-sizing: content-box">
-    <div class="index-image-top">
+<div class="page-container content-wrapper intro-wrapper">
+    <img src="{{ url_for('static', filename='images/background/index_top.jpg') }}">
+    <div class="intro">
+        <h5 class="f-playfair"><span class="intro-number">{{drinks.count()}} </span> drinks and counting!</h5>
     </div>
 </div>
+
 
 <div class="page-container content-wrapper">
 
