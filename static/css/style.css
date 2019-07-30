@@ -462,11 +462,32 @@ nav ul .active {
 }
 
 .tabs .tab a.active {
-    border-bottom: 2px solid #f6b2b5;
+    border-bottom: 2px solid #555;
+}
+
+.tabs .tab a{
+    color:#000;
+}
+
+.tabs .tab a:focus,
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#000;
+}
+
+.tabs .tab a.active {
+    background-color:#212121;
+    color:#fff;
+}
+
+
+.tabs .tab a:focus.active {
+    background-color:#212121;
+    color:#fff;
 }
 
 #difficulty-tab img {
-    object-fit:cover
+    object-fit: cover;
 }
 
 /* -------------------------------------------------------- Display Summary -*/
