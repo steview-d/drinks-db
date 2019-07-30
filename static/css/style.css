@@ -46,8 +46,11 @@
 }
 
 /*.no-padding {*/
+
 /*    max-width: 1280px;*/
+
 /*    padding: 0;*/
+
 /*}*/
 
 .hidden {
@@ -157,7 +160,6 @@ main {
     color: black;
     /*box-shadow: none;*/
 }
-
 
 /* ------------------------------------------------------------ Landing Page-*/
 
@@ -338,9 +340,9 @@ nav ul .active {
 .intro {
     position: absolute;
     top: 50%;
-    left: 30%;
-    transform: translate( -50%, -50% );
-    width: 40%;
+    left: 50%;
+    transform: translate( -50%, -50%);
+    width: 70%;
     border-radius: 15px;
     text-align: center;
     font-weight: bold;
@@ -349,19 +351,42 @@ nav ul .active {
     padding: 1.2rem;
 }
 
+@media screen and (min-width: 601px) {
+    .intro {
+        left: 50%;
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 993px) {
+    .intro {
+        left: 30%;
+        width: 40%;
+    }
+}
+
+.intro hr {
+    margin: 1rem auto;
+    width: 35%;
+}
+
 .intro-number {
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 4rem;
-    
-    /*padding: .2rem;*/
-    /*margin: .3rem;*/
-    /*border: 1px solid black;*/
-    /*color: black;*/
 }
 
+.intro h6 {
+    min-height: 1px;
+    margin-bottom: 1rem;
+}
 
-
+@media screen and (min-width: 601px) {
+    .intro h6 {
+        min-height: 60px;
+        margin-bottom: .3rem;
+    }
+}
 
 
 /* ------------------------------------------------------------ Drink Cards -*/
@@ -433,6 +458,10 @@ nav ul .active {
 }
 
 /* -------------------------------------------------------- Display Summary -*/
+
+.display-summary {
+    margin-top: 3rem;
+}
 
 .pagination li.active {
     background-color: initial;
@@ -637,7 +666,7 @@ nav ul .active {
 /* ------------------------------------------------------- Log In & Register-*/
 
 #account {
-    padding-top:2rem;
+    padding-top: 2rem;
 }
 
 #account .card-content {
@@ -834,6 +863,9 @@ neon-border:focus {
 
 
 /*MAYBE - FOR FONT ISSUE*/
+
 /*.wf-loading body {*/
+
 /*visibility: hidden;*/
+
 /*}*/
