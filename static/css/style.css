@@ -45,6 +45,11 @@
     }
 }
 
+.no-padding {
+    max-width: 1280px;
+    padding: 0;
+}
+
 .hidden {
     display: none;
 }
@@ -311,13 +316,20 @@ nav ul .active {
     }
 }
 
-.full-width-image {
-    background: url(../images/background/full-width.jpeg);
+.index-image-top {
+    background: url(../images/background/index_top.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+
     width: 100%;
     height: 40vh;
+}
+
+.intro {
+    padding: 5rem;
+    background-color: white;
 }
 
 /* ------------------------------------------------------------ Drink Cards -*/
