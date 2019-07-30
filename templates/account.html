@@ -3,7 +3,7 @@
 <div id="account" class="page-container content-wrapper">
 
     <div class="row">
-        <!--Intro Text-->
+        <!--User & Stats-->
         <div class="col s12 xl3">
             <h2>Hi {{user.userName}}</h2>
             <p>Your drinks have had a total of <span class="info-label">{{views}}</span> views</p>
@@ -13,11 +13,45 @@
             <p>There are currently <span class="info-label">{{total_drinks}}</span> drinks in the database, spread over a total of <span class="info-label">{{total_categories}}</span> categories, <span class="info-label">{{total_glass_types}}</span> different
                 types of drinking glasses, and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
         </div>
-        <!--Most Viewed / Favorited-->
+        <!--User Drinks & Stats-->
         <div class="col s12 xl9">
             <div class="row">
-                <div class="col s6 m4">
+                <!--Most Viewed | Small Screen Only-->
+                <div class="col s12 hide-on-med-and-up">
+                    <div class="card horizontal">
+                        {% if most_viewed %}
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-category">{{most_viewed.category.title()}}</a>
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h6>Most Viewed</h6>
+                                <hr>
+                                <p>Your drink with the most views is {{most_viewed.name}} with {{most_viewed.views}} views.</p>
+                            </div>
+                            <div class="card-action center-align">
+                                <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card-image">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h6>Most Viewed</h6>
+                                <hr>
+                                <p>None of your drinks have been viewed yet.</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!--Most Viewed | Medium & Up-->
+                <div class="col m4 hide-on-small-only">
                     <div class="card">
+                        {% if most_viewed %}
                         <div class="card-image">
                             <img class="responsive-img" src="{{most_viewed.imageUrl}}">
                             <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-category">{{most_viewed.category.title()}}</a>
@@ -30,60 +64,75 @@
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
                         </div>
+                        {% else %}
+                        <div class="card-image">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                        </div>
+                        <div class="card-content">
+                                <h6>Most Viewed</h6>
+                                <hr>
+                                <p>None of your drinks have been viewed yet.</p>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
+                <!--Most Favorited-->
                 <div class="col s6 m4">
                     <div class="card">
+                        {% if most_favorited %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_favorited.imageUrl}}">
+                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
                             <a href="{{ url_for('view_only', option = 'category', choice = most_favorited.category) }}" class="card-category">{{most_favorited.category.title()}}</a>
                         </div>
                         <div class="card-content">
                             <h6>Most Favorited</h6>
                             <hr>
-                            <p>Your drink with the most favorites is {{most_favorited.name}} with {{most_favorited.views}} views.</p>
+                            <p>Your drink with the most views is {{most_favorited.name}} with {{most_favorited.views}} views.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_favorited._id) }}">{{most_favorited.name}}</a>
                         </div>
+                        {% else %}
+                        <div class="card-image">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                        </div>
+                        <div class="card-content">
+                                <h6>Most Favorites</h6>
+                                <hr>
+                                <p>Your drinks have not been added to anyones favorites yet.</p>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                <!--Medium & Above Screens-->
-                <div class="col m4 hide-on-small-only">
+                <!--Most Commented-->
+                <div class="col s6 m4">
                     <div class="card">
+                        {% if most_commented %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_commented.imageUrl}}">
+                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
                             <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-category">{{most_commented.category.title()}}</a>
                         </div>
                         <div class="card-content">
                             <h6>Most Commented</h6>
                             <hr>
-                            <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.views}} views.</p>
+                            <p>Your drink with the most views is {{most_commented.name}} with {{most_commented.views}} views.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>
                         </div>
-                    </div>
-                </div>
-                <!--Small Screens-->
-                <div class="col s12 hide-on-med-and-up">
-                    <div class="card horizontal">
+                        {% else %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_commented.imageUrl}}">
-                            <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-category">{{most_commented.category.title()}}</a>
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
                         </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
+                        <div class="card-content">
                                 <h6>Most Commented</h6>
                                 <hr>
-                                <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.views}} views.</p>
-                            </div>
-                            <div class="card-action center-align">
-                                <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>
-                            </div>
+                                <p>No one has left a comment on any of your drinks yet.</p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -92,20 +141,21 @@
     <!--Users Submitted Drinks-->
     <div class="row">
         <h4>Drinks Submitted By You</h4>
-        <h6>** Most recent first **</h6>
 
         <!--Summary-->
         {% if total_drinks_by_user > 0 %}
+        <h6>Showing most recent first</h6>
         <div class="row center wid">
             <h6>Showing {{first_dr_result_num}} - {{last_dr_result_num}} of {{total_drinks_by_user}} results</h6>
         </div>
         {% else %}
-        <h6>No Drinks Submitted Yet. <a href="{{ url_for('add_drink') }}">Add One Now</a></h6>
+        <h6>No Drinks Submitted Yet.</h6>
+        <a href="{{ url_for('add_drink') }}" class="btn btn--black">Add One Now</a>
         {% endif %}
 
         <div class="row">
             {% for drink in users_drinks %}
-            <div class="col s6 l4 xl3 border-outline">
+            <div class="col s6 l4 xl3">
                 {% include 'helpers/drink_card.html' %}
             </div>
             {% endfor %}
@@ -158,7 +208,7 @@
         {% endif %}
         <div class="row">
             {% for drink in favorited_drinks %}
-            <div class="col s6 l4 xl3 border-outline">
+            <div class="col s6 l4 xl3">
                 {% include 'helpers/drink_card.html' %}
             </div>
             {% endfor %}

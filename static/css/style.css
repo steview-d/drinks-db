@@ -133,6 +133,7 @@ main {
     line-height: 1.7rem;
     font-size: 0.8rem;
     background-color: black;
+    border: 1px solid black;
     color: white;
     transition: 0.5s;
     margin-bottom: 1rem;
@@ -325,8 +326,21 @@ nav ul .active {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #212121;
     padding: 0 12px;
     height: 70px;
+}
+
+.card .card-action a {
+    color: white !important;
+    transition: 0.8s ease-in;
+}
+
+.card .card-action a:hover {
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
 }
 
 .card-image img {
@@ -578,8 +592,12 @@ nav ul .active {
 
 /* ------------------------------------------------------- Log In & Register-*/
 
+#account {
+    padding-top:2rem;
+}
+
 #account .card-content {
-    min-height: 180px;
+    min-height: 200px;
 }
 
 #account hr {
