@@ -20,7 +20,7 @@
         <!--Picture | Ingredients-->
         <div class="row">
             <div id="drink-img" class="col s12 l4">
-                <img width="375" height="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category}}">
+                <img width="375" height="375" src="{{drink.imageUrl}}" class="responsive-img materialboxed" data-caption="{{drink.name}} in category {{drink.category|title()}}">
             </div>
 
             <div class="col s12 l8">
@@ -76,7 +76,7 @@
             </div>
 
             <!--Instructions-->
-            <div id="instructions" class="col s12 m7 l5 z-depth-2 grey lighten-2">
+            <div id="instructions" class="col s12 m7 l4 z-depth-2 grey lighten-2">
                 <div class="instructions-wrapper center ">
                     <img src="{{ url_for('static', filename='images/swirls/divider1.png') }}" class="swirl-divider">
                     <h4>Instructions</h4>
@@ -91,8 +91,8 @@
             </div>
 
             <!--Glass Image-->
-            <div id="glass-img" class="col s12 m5 l4 center">
-                <img width="375" src="{{ url_for('static', filename='images/glass/g_'+drink.glassType+'.jpg') }}" class="responsive-img materialboxed" data-caption="Glass Name">
+            <div id="glass-img" class="col s12 m5 l5 center">
+                <img width="375" src="{{ url_for('static', filename='images/glass/g_'+drink.glassType+'.jpg') }}" class="responsive-img materialboxed" data-caption="{{drink.glassType|title()}} glass">
                 <h5>Serve in a {{drink.glassType|title()}} glass.</h5>
             </div>
 

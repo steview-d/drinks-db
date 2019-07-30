@@ -467,6 +467,7 @@ nav ul .active {
 
 #glass-img img {
     margin: auto;
+    border-bottom: 1px solid #888;
 }
 
 #info-box {

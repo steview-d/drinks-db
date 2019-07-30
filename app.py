@@ -256,9 +256,7 @@ def drink(drink_id):
     # List of path partials to exclude from view counter
     exclude_paths = ['drink', 'toggle_favorite']
     # Continue only if previous url is not in exclude paths
-    print("")
-    print(request.referrer)
-    print("")
+
     if request.referrer and not any (s in request.referrer for s in exclude_paths):
         # Update views if drink by a different user, or no user logged in
         if session.get('username') is None or session['username'] != drink[
