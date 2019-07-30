@@ -170,19 +170,25 @@ def account(account_name):
         # how many times they have been favorited by other users
         total_views = 0
         total_favorites = 0
+        total_comments = 0
         for drink in drinks_submitted_by_user:
             total_views += drink['views']
             total_favorites += drink['favorites']
+            total_comments += drink['comments']
 
-        # Get drink which has been most viewed & drink which has been most
-        # favorited by others, for current user
+        # Get drinks with most views, comments, favoriyes, for current user
         most_viewed = mongo.db.drinks.find_one({
             "userName": account_name}, sort=[("views", -1)])
         most_favorited = mongo.db.drinks.find_one({
             "userName": account_name}, sort=[("favorites", -1)])
         most_commented = mongo.db.drinks.find_one({
             "userName": account_name}, sort=[("comments", -1)])
-        
+
+        # Get general db stats
+        total_drinks = mongo.db.drinks.count()
+        total_categories = mongo.db.categories.count()
+        total_glass_types = mongo.db.glass.count()
+        total_difficulties = mongo.db.difficulty.count()
 
         # Get totals for drinks submitted and favorited for the user
         total_drinks_by_user = drinks_submitted_by_user.count()
@@ -229,11 +235,17 @@ def account(account_name):
                                # User stats
                                views=total_views,
                                favorites=total_favorites,
+                               comments=total_comments,
                                most_viewed=most_viewed,
                                most_favorited=most_favorited,
                                most_commented=most_commented,
                                total_drinks_by_user=total_drinks_by_user,
                                total_user_fave_drinks=total_user_fave_drinks,
+                               # DB Stats
+                               total_drinks=total_drinks,
+                               total_categories=total_categories,
+                               total_glass_types=total_glass_types,
+                               total_difficulties=total_difficulties,
                                # Pagination
                                drinks_page=drinks_page,
                                dr_pages=num_dr_pages,
