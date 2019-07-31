@@ -4,8 +4,7 @@
 
     <!--Page Title-->
     <div class="row center">
-        <h4>Search</h4>
-        <hr>
+        <h2>Search</h2>
     </div>
 
     <div class="row">
@@ -64,25 +63,22 @@
             </div>
             <!--Send / Cancel Buttons-->
             <div class="center">
-                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Send</button>
-                <a class="waves-effect waves-light btn" href="{{ url_for('search') }}"><i class="material-icons right">cancel</i>reset</a>
+                <button class="btn btn--black" type="submit">Search</button>
+                <a class="btn btn--black" href="{{ url_for('search') }}">Reset</a>
             </div>
         </form>
     </div>
-    <br>
-    <br>
 
     <!--No results from search-->
     {% if num_results == 0 %}
-    <h5 class="center">No drinks found for '{{find}}'. Please try another search.</h5>
+    <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
     {% endif %}
     
     <!--Display Results-->
     {% if results %}
     <!--Sort Options-->
     <div class="sort-options-title center">
-        <h5>Browse Sorting Options.</h5>
-        <a id="sort-options-btn" class="waves-effect waves-light btn-small">Sort Options</a>
+        <a id="sort-options-btn" class="btn btn--black">Sort Options</a>
     </div>
     <br>
     <div id="sort-options" class="row hidden">
@@ -103,7 +99,7 @@
 
     <div class="row">
         {% for drink in results %}
-        <div class="col s6 l4 xl3 border-outline center">
+        <div class="col s6 l4 xl3 center">
             {% include 'helpers/drink_card.html' %}
         </div>
         {% endfor %}

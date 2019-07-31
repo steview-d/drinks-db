@@ -114,6 +114,7 @@ main {
 }
 
 .content-wrapper {
+    min-height: calc(100vh - 64px - 96px - 32px);
     background-color: rgba(255, 255, 255, 0.9);
     padding-bottom: 30px;
 }
@@ -414,14 +415,12 @@ nav ul .active {
 /* ---------------------------------------------------------------- View By -*/
 
 /*#category-tab .card.small {*/
+
 /*    height:200px;*/
+
 /*    position: relative;*/
+
 /*}*/
-
-
-
-
-
 
 /* ------------------------------------------------------------ Drink Cards -*/
 
@@ -538,6 +537,35 @@ nav ul .active {
 
 .results-per-page {
     margin-bottom: 1rem;
+}
+
+
+/* ----------------------------------------------------- Materialize Inputs -*/
+
+[type="radio"]:checked+span:after {
+    border: 2px solid black;
+}
+
+[type="radio"]:checked+span:after {
+    background-color: black;
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span {
+    color: #212121;
+}
+
+.select-dropdown:focus {
+    border-bottom: 1px solid #9e9e9e;
+}
+
+.row .input-field input[type=text]:focus {
+    border-bottom: 1px solid #9e9e9e;
+    box-shadow: 0 1px 0 0 #9e9e9e;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label {
+    color: #212121;
 }
 
 
@@ -740,7 +768,7 @@ nav ul .active {
 /* ------------------------------------------------------- Log In & Register-*/
 
 .v-center-wrapper {
-    height: calc(100vh - 64px - 95px);
+    height: calc(100vh - 64px - 96px);
 
 }
 
@@ -750,9 +778,10 @@ nav ul .active {
     transform: translateY(-50%);
 }
 
-.log_reg_wrapper {
+.log-reg-wrapper {
     padding: 20px;
     border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid #555;
 }
 
