@@ -17,11 +17,11 @@
                             <!--<label for="password">Password</label>-->
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" type="submit">Log In<i class="material-icons right">send</i></button>
+                    <button class="btn btn--black" type="submit">Log In</button>
                 </form>
             </div>
         </div>
-        <p class="center">Not got an account? Register <a href="{{ url_for('register') }}">here</a>.</p>
+        <p class="center">Not got an account? Register <span class="info-label"><a href="{{ url_for('register') }}">here</a></span></p>
     </div>
 </div>
 {% endblock %}
