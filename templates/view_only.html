@@ -4,6 +4,9 @@
 
     <div class="row center">
         <h3>Showing Only: {{choice.title()}}</h3>
+        {% if 'category' in request.path %}
+            <p class="subheader-label">{{view.categoryDescription}}</p>
+        {% endif %}
     </div>
     
     <!--Sort Options-->
