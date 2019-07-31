@@ -94,7 +94,6 @@ textarea {
     font-family: 'Muli', sans-serif;
 }
 
-
 /* ------------------------------------------------------------------- Body -*/
 
 body {
@@ -176,6 +175,48 @@ main {
     padding: 1rem;
     margin-bottom: 2rem;
     width: 60%;
+}
+
+.btn--add-ingredient {
+    font-family: 'Muli', sans-serif;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+    transition: 0.5s;
+    margin: 2rem 0;
+}
+
+.btn--add-ingredient:hover,
+.btn--add-ingredient:focus,
+.btn--add-ingredient:active {
+    background-color: white;
+    border: 1px solid #388E3C;
+    color: #388E3C;
+}
+
+
+
+.btn--remove-ingredient {
+    font-family: 'Muli', sans-serif;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    font-size: 1rem;
+    background-color: #FF9800;
+    border: 1px solid #FF9800;
+    color: white;
+    transition: 0.5s;
+    margin: 2rem 0;
+}
+
+.btn--remove-ingredient:hover,
+.btn--remove-ingredient:focus,
+.btn--remove-ingredient:active {
+    background-color: white;
+    border: 1px solid #F57C00;
+    color: #F57C00;
 }
 
 /* ------------------------------------------------------------ Landing Page-*/
@@ -572,7 +613,8 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label {
     color: #212121;
 }
 
-input[type=password]:not(.browser-default):focus:not([readonly]) {
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #9e9e9e;
     box-shadow: 0 1px 0 0 #9e9e9e
 }
@@ -583,6 +625,8 @@ input.invalid[type=password]:not(.browser-default) {
     box-shadow: 0 1px 0 0 #b30c0c;
 }
 
+
+textarea.materialize-textarea:focus:not([readonly])
 
 
 /* --------------------------------------------------------- Category Cards -*/
@@ -626,16 +670,16 @@ input.invalid[type=password]:not(.browser-default) {
     width: 33%;
 }
 
-#instructions {
+#instructions-box {
     padding: 2rem 2rem;
 }
 
-#instructions ul {
+#instructions-box ul {
     padding-top: 1rem;
     padding-left: 2rem;
 }
 
-#instructions ul>li {
+#instructions-box ul>li {
     list-style-type: disc;
     line-height: 2rem;
 }
@@ -764,6 +808,22 @@ input.invalid[type=password]:not(.browser-default) {
     padding-left: .75rem;
     padding-right: .75rem;
 }
+
+
+/* ------------------------------------------------------- Add | Edit Drink -*/
+
+#add-edit i {
+    font-size: .8rem;
+    color: #b30c0c;
+}
+
+.required-label {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 1rem;
+    width: 60%;
+}
+
 
 
 /* ---------------------------------------------------------------- Account -*/
