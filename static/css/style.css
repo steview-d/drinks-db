@@ -165,6 +165,14 @@ main {
     /*box-shadow: none;*/
 }
 
+.subheader-label {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    width: 60%;
+}
+
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
@@ -337,8 +345,14 @@ nav ul .active {
 .intro-wrapper img {
     display: block;
     width: 100%;
-    height: 30vh;
+    height: 40vh;
     object-fit: cover;
+}
+
+@media screen and (min-width: 601px) {
+    .intro-wrapper img {
+        height: 30vh;
+    }
 }
 
 .intro {
@@ -352,7 +366,7 @@ nav ul .active {
     font-weight: bold;
     background-color: white;
     color: black;
-    padding: 1.2rem;
+    padding: .8rem;
 }
 
 @media screen and (min-width: 601px) {
@@ -395,6 +409,18 @@ nav ul .active {
         margin-bottom: .3rem;
     }
 }
+
+
+/* ---------------------------------------------------------------- View By -*/
+
+/*#category-tab .card.small {*/
+/*    height:200px;*/
+/*    position: relative;*/
+/*}*/
+
+
+
+
 
 
 /* ------------------------------------------------------------ Drink Cards -*/
@@ -465,25 +491,25 @@ nav ul .active {
     border-bottom: 2px solid #555;
 }
 
-.tabs .tab a{
-    color:#000;
+.tabs .tab a {
+    color: #000;
 }
 
 .tabs .tab a:focus,
 .tabs .tab a:hover {
-    background-color:#eee;
-    color:#000;
+    background-color: #eee;
+    color: #000;
 }
 
 .tabs .tab a.active {
-    background-color:#212121;
-    color:#fff;
+    background-color: #212121;
+    color: #fff;
 }
 
 
 .tabs .tab a:focus.active {
-    background-color:#212121;
-    color:#fff;
+    background-color: #212121;
+    color: #fff;
 }
 
 #difficulty-tab img {
@@ -700,10 +726,6 @@ nav ul .active {
 
 #account {
     padding-top: 2rem;
-}
-
-#account .card-content {
-    min-height: 200px;
 }
 
 #account hr {
