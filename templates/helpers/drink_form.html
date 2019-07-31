@@ -40,9 +40,13 @@
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}"> {% else %}
-                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required pattern=".{5,200}" data-length="200"> {% endif %}
+                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}">
+                        <label for="imageUrl">Image Url</label>{% else %}
+                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required pattern=".{5,200}" data-length="200">
                         <label for="imageUrl">Image Url</label>
+                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a>
+                        {% endif %}
+                        
                     </div>
                 </div>
                 <!--Glass Type | name="glassType"-->

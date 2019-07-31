@@ -120,4 +120,10 @@ $(document).ready(function() {
         if (el_height > tallest) { tallest = el_height };
     });
     $("#category-tab").find(".card-content").css('height', tallest + 'px');
+    
+    // Add / Edit Drink Form - Fill 'Image Url' input box with default value
+    $('#add-default-url').click(function() {
+       $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus()
+    });
+    
 });

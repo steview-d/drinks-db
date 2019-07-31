@@ -627,8 +627,6 @@ input.invalid[type=password]:not(.browser-default) {
 
 
 textarea.materialize-textarea:focus:not([readonly])
-
-
 /* --------------------------------------------------------- Category Cards -*/
 
 /* ------------------------------------------------------------- Pagination -*/
@@ -712,7 +710,7 @@ textarea.materialize-textarea:focus:not([readonly])
 
 .info-label {
     font-size: 1.0rem;
-    padding: .2rem;
+    padding: .2rem 0.4rem;
     margin: 0 .2rem;
     border: 1px solid black;
     color: black;
@@ -812,9 +810,18 @@ textarea.materialize-textarea:focus:not([readonly])
 
 /* ------------------------------------------------------- Add | Edit Drink -*/
 
-#add-edit i {
-    font-size: .8rem;
-    color: #b30c0c;
+#add-default-url {
+    color: #919191;
+    right: 0;
+    transition: 0.3s ease-in;
+}
+
+#add-default-url:hover {
+    color: black;
+}
+
+#add-edit .material-tooltip > .backdrop {
+    background-color: purple;
 }
 
 .required-label {
@@ -823,8 +830,6 @@ textarea.materialize-textarea:focus:not([readonly])
     padding: 1rem;
     width: 60%;
 }
-
-
 
 /* ---------------------------------------------------------------- Account -*/
 
