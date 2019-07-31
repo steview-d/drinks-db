@@ -3,22 +3,19 @@
 <div class="page-container content-wrapper">
 
     <div class="row center">
-        <h4>ADD DRINK</h4>
-        <h5>Will be added by user: {{session['username']}}</h5>
+        <h2>Add Drink</h2>
     </div>
 
     <div class="row">
         <form method="POST" action="{{ url_for('add_drink') }}" class="col s12">
             <div class="center">
-                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Submit Drink</button>
+                <button class="btn btn--black" type="submit">Submit Drink</button>
             </div>
-            <hr> 
                 {% include 'helpers/drink_form.html' %}
-            <hr>
             <!--Submit & Cancel Buttons-->
             <div class="center">
-                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons right">send</i>Submit Drink</button>
-                <a class="waves-effect waves-light btn history-back"><i class="material-icons right">cancel</i>Cancel</a>
+                <button class="btn btn--black" type="submit">Submit Drink</button>
+                <a class="btn btn--black history-back">Cancel</a>
             </div>
         </form>
     </div>
