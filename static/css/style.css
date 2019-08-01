@@ -67,7 +67,9 @@ a {
 }
 
 h2 {
-    font-family: 'Playfair Display SC', serif;
+    /*font-family: 'Playfair Display SC', serif;*/
+    font-family: 'Cormorant SC', serif;
+    font-size: 4rem;
 }
 
 h3 {
