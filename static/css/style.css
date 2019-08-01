@@ -181,7 +181,7 @@ main {
     width: 60%;
 }
 
-.btn--add-ingredient {
+.btn--green {
     font-family: 'Muli', sans-serif;
     height: 2.2rem;
     line-height: 2.2rem;
@@ -193,9 +193,9 @@ main {
     margin: 2rem 0;
 }
 
-.btn--add-ingredient:hover,
-.btn--add-ingredient:focus,
-.btn--add-ingredient:active {
+.btn--green:hover,
+.btn--green:focus,
+.btn--green:active {
     background-color: white;
     border: 1px solid #388E3C;
     color: #388E3C;
@@ -203,7 +203,7 @@ main {
 
 
 
-.btn--remove-ingredient {
+.btn--orange {
     font-family: 'Muli', sans-serif;
     height: 2.2rem;
     line-height: 2.2rem;
@@ -215,9 +215,9 @@ main {
     margin: 2rem 0;
 }
 
-.btn--remove-ingredient:hover,
-.btn--remove-ingredient:focus,
-.btn--remove-ingredient:active {
+.btn--orange:hover,
+.btn--orange:focus,
+.btn--orange:active {
     background-color: white;
     border: 1px solid #F57C00;
     color: #F57C00;
