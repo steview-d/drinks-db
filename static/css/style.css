@@ -483,6 +483,26 @@ nav ul .active {
     }
 }
 
+.index-top .col {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+@media screen and (min-width: 992px) {
+    .index-top .col {
+        min-height: 100px;
+    }
+}
+
+.index-top h6 {
+    margin-bottom: 1rem;
+}
+
+.index-top .div-bottom {
+    margin-top: auto;
+}
+
+
 
 /* ---------------------------------------------------------------- View By -*/
 
