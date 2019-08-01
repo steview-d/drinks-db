@@ -1,7 +1,7 @@
 import math
 import os
 import random
-from flask import flash, Flask, redirect, render_template, request, session, \
+from flask import abort, flash, Flask, redirect, render_template, request, session, \
     url_for
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -499,6 +499,7 @@ def delete_drink(drink_id):
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
+    
     # Get Categories for filter dropdowns
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
@@ -695,16 +696,17 @@ def view_only(option, choice):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('error.html', error=404), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    session.clear(e)
-    return render_template('500.html'), 500
+    session.clear()
+    return render_template('error.html', error=500), 500
 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
+

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Page Not Found</title>
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300&display=swap" rel="stylesheet">
+    <!--Materialize CSS-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+    <!--Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/fv.ico') }}" type="image/x-icon">
+    <!--CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
+</head>
+
+<body class="error-page">
+    <a href="{{url_for('index')}}">
+        <h1><span>error {{error}}</span><br><span>Click Here To Start Over</span></h1>
+    </a>
+</body>
+
+</html>

@@ -108,7 +108,7 @@ body {
     background-image: url('../images/bg1.jpg');
     background-repeat: repeat;
     display: flex;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     flex-direction: column;
     font-family: 'Muli', sans-serif;
 }
@@ -982,6 +982,36 @@ footer i:hover {
 
 .info-btn-size {
     font-size: 15px;
+}
+
+
+/* ---------------------------------------------------- Error Pages -*/
+
+.error-page {
+    background: url(../images/error.jpeg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.error-page h1 {
+    position: absolute;
+    top: 15%;
+    font-size: 3rem;
+    line-height: 1.35em;
+}
+
+.error-page h1 span {
+    color: black;
+    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0 20px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+@media screen and (min-width: 601px) {
+    .error-page h1 {
+        font-size: 5rem;
+    }
 }
 
 /* ---------------------------------------------------- Testing / Temporary -*/
