@@ -77,7 +77,8 @@ h3 {
 
 h4,
 h5 {
-    font-family: 'Merriweather', serif;
+    font-family: 'Playfair Display', serif;
+    
 }
 
 
@@ -135,10 +136,6 @@ main {
 
 .f-playfair {
     font-family: 'Playfair Display', serif;
-}
-
-.f-merriweather {
-    font-family: 'Merriweather', serif;
 }
 
 .f-muli {
@@ -218,6 +215,34 @@ main {
     border: 1px solid #F57C00;
     color: #F57C00;
 }
+
+.card-label {
+    position: absolute;
+    font-size: 0.7rem;
+    top: 8px;
+    right: 16px;
+    margin-top: 7px;
+    padding: 2px 8px;
+    border: 1px solid black;
+    color: black;
+}
+
+.card-label--pos-1 {
+    top: 8px;
+}
+
+.card-label--pos-2 {
+    top: 38px;
+}
+
+.card-label--pos-3 {
+    top: 68px;
+}
+
+.card-label--pos-4 {
+    top: 98px;
+}
+
 
 /* ------------------------------------------------------------ Landing Page-*/
 
@@ -505,18 +530,6 @@ nav ul .active {
     .card-image img {
         height: 260px;
     }
-}
-
-.card-category {
-    position: absolute;
-    font-size: 0.7rem;
-    top: 8px;
-    right: 16px;
-    background-color: var(--neon-yellow);
-    margin-top: 7px;
-    padding: 2px 8px;
-    border: 1px solid black;
-    color: black;
 }
 
 .card .card-action a {
@@ -830,7 +843,7 @@ textarea.materialize-textarea.invalid {
     color: black;
 }
 
-#add-edit .material-tooltip > .backdrop {
+#add-edit .material-tooltip>.backdrop {
     background-color: purple;
 }
 
