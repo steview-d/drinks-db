@@ -573,9 +573,9 @@ nav ul .active {
 .pagination li.active a {
     background-color: initial;
     border-radius: 5px;
-    border: 2px solid var(--neon-blue);
+    border: 2px solid black;
     font-weight: bold;
-    color: var(--neon-blue);
+    color: black;
 }
 
 /* ----------------------------------------------------------- Sort Options -*/
@@ -609,24 +609,34 @@ nav ul .active {
     box-shadow: 0 1px 0 0 #9e9e9e;
 }
 
-input[type=text]:not(.browser-default):focus:not([readonly])+label {
+input[type=text]:not(.browser-default):focus:not([readonly])+label,
+input[type=password]:not(.browser-default):focus:not([readonly])+label,
+input[type=url]:not(.browser-default):focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label {
     color: #212121;
 }
 
+input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #9e9e9e;
     box-shadow: 0 1px 0 0 #9e9e9e
 }
 
 input.invalid[type=text]:not(.browser-default),
-input.invalid[type=password]:not(.browser-default) {
+input.invalid[type=password]:not(.browser-default),
+input.invalid[type=url]:not(.browser-default),
+textarea.materialize-textarea.invalid {
     border-bottom: 1px solid #b30c0c;
     box-shadow: 0 1px 0 0 #b30c0c;
 }
 
 
-textarea.materialize-textarea:focus:not([readonly])
+
+
+
+
 /* --------------------------------------------------------- Category Cards -*/
 
 /* ------------------------------------------------------------- Pagination -*/

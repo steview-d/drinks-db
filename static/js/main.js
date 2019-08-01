@@ -38,12 +38,14 @@ $(document).ready(function() {
                 "<div class='input-field'>" +
                 "<input id='measure_" + (num_fields + 1) + "' name='measure_" + (num_fields + 1) + "' type='text' class='validate' required>" +
                 "<label for='measure_" + (num_fields + 1) + "'>Measure " + num_list[(num_fields)] + "</label>" +
+                "<span class='helper-text' data-error='Cannot be empty.' data-success='Passed'></span>" +
                 "</div>" +
                 "</div>" +
                 "<div class='col s8 l4 ingredient_field'>" +
                 "<div class='input-field'>" +
                 "<input id='ingredient_" + (num_fields + 1) + "' name='ingredient_" + (num_fields + 1) + "' type='text' class='validate' required>" +
                 "<label for='ingredient_" + (num_fields + 1) + "'>Ingredient " + num_list[(num_fields)] + "</label>" +
+                "<span class='helper-text' data-error='Cannot be empty.' data-success='Passed'></span>" +
                 "</div>" +
                 "</div>"
 

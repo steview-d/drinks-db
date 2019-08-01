@@ -1,3 +1,10 @@
+<!--Required Fields Notice-->
+<div class="row">
+    <div class="col s12 center">
+        <h6 class="required-label">All fields must be completed before you submit this form</h6>
+    </div>
+</div>
+
 <div id="add-edit" class="row">
     <div class="col s12 xl10 offset-xl1">
         <div class="center">
@@ -10,9 +17,10 @@
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <input id="name" name="name" type="text" class="validate" required value="{{drink.name}}"> {% else %}
-                        <input id="name" name="name" type="text" class="validate"> {% endif %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,25}" value="{{drink.name}}"> {% else %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,25}"> {% endif %}
                         <label for="name">Drink Name</label>
+                        <span class="helper-text" data-error="Name must be between 5 and 25 chars" data-success="Passed"></span>
                     </div>
                 </div>
                 <!--Category | name="category"-->
@@ -40,13 +48,13 @@
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required value="{{drink.imageUrl}}">
+                        <input id="imageUrl" name="imageUrl" type="url" class="validate" pattern="https?://.+" minlength="12" required value="{{drink.imageUrl}}">
                         <label for="imageUrl">Image Url</label>{% else %}
-                        <input id="imageUrl" name="imageUrl" type="text" class="validate" required pattern=".{5,200}" data-length="200">
+                        <input id="imageUrl" name="imageUrl" type="url" class="validate" pattern="https?://.+" minlength="12" required>
                         <label for="imageUrl">Image Url</label>
-                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a>
-                        {% endif %}
-                        
+                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a> {% endif %}
+                        <span class="helper-text" data-error="Url must begin with 'http(s)://' and be a minimum of 12 chars." data-success="Passed"></span>
+
                     </div>
                 </div>
                 <!--Glass Type | name="glassType"-->
@@ -73,9 +81,10 @@
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <textarea id="instructions" name="instructions" class="materialize-textarea">{{drink.instructions}}</textarea> {% else %}
-                        <textarea id="instructions" name="instructions" class="materialize-textarea"></textarea> {% endif %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5">{{drink.instructions}}</textarea> {% else %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5"></textarea> {% endif %}
                         <label for="instructions">Instructions</label>
+                        <span class="helper-text" data-error="Instructions length must be at least 5 chars." data-success="Passed"></span>
                     </div>
                 </div>
                 <!--Difficulty | name="difficulty"-->
@@ -104,34 +113,28 @@
             </div>
 
             <div class="col s12 center" id="ingredients-container">
-                {% for i in range(num_boxes) %}
-                
-                    {% if loop.index % 2 != 0 %}
-                    
-                    <div class="col s4 l2 measure_field">
-                        <div class="input-field">
-                            {% if drink is defined %}
-                            <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}">
-                            {% else %}
-                            <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required>
-                            {% endif %}
-                            <label for="measure_{{class_num[i]}}">Measure {{class_name[i]}}</label>
-                        </div>
+                {% for i in range(num_boxes) %} {% if loop.index % 2 != 0 %}
+
+                <div class="col s4 l2 measure_field">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
+                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
+                        <label for="measure_{{class_num[i]}}">Measure {{class_name[i]}}</label>
+                        <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
                     </div>
-                    {% else %}
-                    <div class="col s8 l4 ingredient_field">
-                        <div class="input-field">
-                            {% if drink is defined %}
-                            <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}">
-                            {% else %}
-                            <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required>
-                            {% endif %}
-                            <label for="ingredient_{{class_num[i]}}">Ingredient {{class_name[i]}}</label>
-                        </div>
+                </div>
+                {% else %}
+                <div class="col s8 l4 ingredient_field">
+                    <div class="input-field">
+                        {% if drink is defined %}
+                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
+                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
+                        <label for="ingredient_{{class_num[i]}}">Ingredient {{class_name[i]}}</label>
+                        <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
                     </div>
-                    {% endif %} 
-                
-                {% endfor %}
+                </div>
+                {% endif %} {% endfor %}
             </div>
 
             <!--Add / Remove Ingredient Buttons-->
@@ -141,13 +144,9 @@
                     <a id="remove_ingredient" class="btn btn--remove-ingredient">Remove Ingredient</a>
                 </div>
             </div>
-            
-            <!--Required Fields Notice-->
-            <div class="row">
-                <div class="col s12 center">
-                    <h6 class="required-label">All fields must be completed before you submit this form</h6>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>
+            
