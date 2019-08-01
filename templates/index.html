@@ -4,10 +4,27 @@
 <div class="page-container intro-wrapper">
     <img src="{{ url_for('static', filename='images/background/index_top.jpg') }}">
     <div class="intro">
-        <div class="hide-on-small-only">
+        <div>
             <h5 class="f-playfair"><span class="intro-number">{{drinks.count()}} </span> drinks and counting!</h5>
-            <hr>
-            <h5>Cheers! The drinks db</h5>
+            <hr class="hide-on-small-only">
+            <h5 class="hide-on-small-only">Cheers! The drinks db</h5>
+            <div class="row">
+                {% if 'username' in session %}
+                <div class="col s12 m6">
+                    <a href="{{ url_for('search') }}" class="btn btn--green">Search</a>
+                </div>
+                <div class="col m6 hide-on-small-only">
+                    <a href="{{ url_for('add_drink') }}" class="btn btn--blue">Add Drink</a>
+                </div>
+                {% else %}
+                <div class="col s12 m6 l6">
+                    <a href="{{ url_for('login') }}" class="btn btn--green">Log In</a>
+                </div>
+                <div class="col m6 hide-on-small-only">
+                    <a href="{{ url_for('register') }}" class="btn btn--blue">Register</a>
+                </div>
+                {% endif %}
+            </div>
         </div>
 
     </div>
@@ -18,13 +35,13 @@
 
     <div class="index-top">
         <div class="row">
-            <div class="col s12 l4 offset-l2 center">
+            <div class="col s12 l3 offset-l3 center">
                 <h6>Browse by category, glass type, or difficulty.</h6>
                 <div class="div-bottom">
                     <a id="tabs-title-btn" class="btn btn--black">Browse</a>
                 </div>
             </div>
-            <div class="col s12 l4 wpull-l2 center">
+            <div class="col s12 l3 center">
                 <h6>Sort the display order.</h6>
                 <div class="div-bottom">
                     <a id="sort-options-btn" class="btn btn--black">Sort</a>

@@ -201,8 +201,6 @@ main {
     color: #388E3C;
 }
 
-
-
 .btn--orange {
     font-family: 'Muli', sans-serif;
     height: 2.2rem;
@@ -221,6 +219,26 @@ main {
     background-color: white;
     border: 1px solid #F57C00;
     color: #F57C00;
+}
+
+.btn--blue {
+    font-family: 'Muli', sans-serif;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    font-size: 1rem;
+    background-color: #2196f3;
+    border: 1px solid #2196f3;
+    color: white;
+    transition: 0.5s;
+    margin: 2rem 0;
+}
+
+.btn--blue:hover,
+.btn--blue:focus,
+.btn--blue:active {
+    background-color: white;
+    border: 1px solid #1976d2;
+    color: #1976d2;
 }
 
 .card-label {
@@ -408,7 +426,6 @@ nav ul .active {
     }
 }
 
-
 .intro-wrapper {
     max-width: 1280px;
     padding: 0;
@@ -429,11 +446,13 @@ nav ul .active {
 }
 
 .intro {
+    background: url(../images/background/grey_tx.jpg);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate( -50%, -50%);
     width: 70%;
+    border: 2px solid #ccc;
     border-radius: 15px;
     text-align: center;
     font-weight: bold;
@@ -452,7 +471,7 @@ nav ul .active {
 @media screen and (min-width: 993px) {
     .intro {
         left: 30%;
-        width: 40%;
+        width: 30%;
     }
 }
 
