@@ -15,7 +15,7 @@
         </div>
         <!--User Drinks & Stats-->
         <div class="col s12 xl9">
-            <div class="row">
+            <div class="row eq-height-columns">
                 <!--Most Viewed | Small Screen Only-->
                 <div class="col s12 hide-on-med-and-up">
                     <div class="card horizontal">
@@ -28,7 +28,7 @@
                             <div class="card-content">
                                 <h6>Most Viewed</h6>
                                 <hr>
-                                <p>Your drink with the most views is {{most_viewed.name}} with {{most_viewed.views}} views.</p>
+                                <p>YYour drink with the most views is {{most_viewed.name}}. It has been viewed {{most_viewed.views}} times.</p>
                             </div>
                             <div class="card-action center-align">
                                 <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
@@ -59,7 +59,7 @@
                         <div class="card-content">
                             <h6>Most Viewed</h6>
                             <hr>
-                            <p>Your drink with the most views is {{most_viewed.name}} with {{most_viewed.views}} views.</p>
+                            <p>Your drink with the most views is {{most_viewed.name}}. It has been viewed {{most_viewed.views}} times.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
@@ -81,13 +81,13 @@
                     <div class="card">
                         {% if most_favorited %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <img class="responsive-img" src="{{most_favorited.imageUrl}}">
                             <a href="{{ url_for('view_only', option = 'category', choice = most_favorited.category) }}" class="card-category">{{most_favorited.category.title()}}</a>
                         </div>
                         <div class="card-content">
                             <h6>Most Favorited</h6>
                             <hr>
-                            <p>Your drink with the most views is {{most_favorited.name}} with {{most_favorited.views}} views.</p>
+                            <p>Your most favorited drink is {{most_favorited.name}}. It has been favorited by {{most_favorited.views}} users.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_favorited._id) }}">{{most_favorited.name}}</a>
@@ -109,13 +109,13 @@
                     <div class="card">
                         {% if most_commented %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <img class="responsive-img" src="{{most_commented.imageUrl}}">
                             <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-category">{{most_commented.category.title()}}</a>
                         </div>
                         <div class="card-content">
                             <h6>Most Commented</h6>
                             <hr>
-                            <p>Your drink with the most views is {{most_commented.name}} with {{most_commented.views}} views.</p>
+                            <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.views}} comments.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>
