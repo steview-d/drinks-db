@@ -988,7 +988,7 @@ footer i:hover {
 /* ---------------------------------------------------- Error Pages -*/
 
 .error-page {
-    background: url(../images/error.jpeg) no-repeat center center fixed;
+    background: url(../images/background/error_bg.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 
