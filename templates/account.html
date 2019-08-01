@@ -21,7 +21,7 @@
                     <div class="card horizontal">
                         {% if most_viewed %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_viewed.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_viewed.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_viewed.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_viewed.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_viewed.difficulty.title()}}</a>
@@ -55,7 +55,7 @@
                     <div class="card">
                         {% if most_viewed %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_viewed.imageUrl}}">
+                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_viewed.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_viewed.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_viewed.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_viewed.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_viewed.difficulty.title()}}</a>
@@ -85,7 +85,7 @@
                     <div class="card">
                         {% if most_favorited %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_favorited.imageUrl}}">
+                            <a href="{{ url_for('drink', drink_id = most_favorited._id) }}"><img class="responsive-img" src="{{most_favorited.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_favorited.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_favorited.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_favorited.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_favorited.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_favorited.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_favorited.difficulty.title()}}</a>
@@ -115,7 +115,7 @@
                     <div class="card">
                         {% if most_commented %}
                         <div class="card-image">
-                            <img class="responsive-img" src="{{most_commented.imageUrl}}">
+                            <a href="{{ url_for('drink', drink_id = most_commented._id) }}"><img class="responsive-img" src="{{most_commented.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_commented.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_commented.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_commented.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_commented.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_commented.difficulty.title()}}</a>
