@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # secret.key to be REMOVED prior to submission
 # Use an env variable instead
-app.secret_key = 'qjfg[73hzd<Gid#-h'
+app.secret_key = os.getenv("SECRET", 'qjfg[73hzd<Gid#-h')
 
 app.config["MONGO_DBNAME"] = 'drinksdb'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
