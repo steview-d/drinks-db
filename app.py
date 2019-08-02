@@ -490,8 +490,24 @@ def edit_drink(drink_id):
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
 
+    # Also need to remove drink for user faves
+    
+    user_faves = drinks.find_one({"_id": ObjectId(drink_id)})['favoritesTxt']
+    
+    for name in user_faves:
+        print(name)
+        mongo.db.users.find_one_and_update({'userName': name}, {'$pull': {'favoritesTxt': drink_id}})
+    
+    print("")
+    print(user_faves)
+    print("")
+
     drink_name = drinks.find_one({"_id": ObjectId(drink_id)})['name']
+    # Don't really delete while testing
     drinks.delete_one({"_id": ObjectId(drink_id)})
+    print("")
+    print("DRINK DELETED")
+    print("")
 
     flash("{} has been deleted".format(drink_name))
     return redirect(url_for('index'))
