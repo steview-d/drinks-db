@@ -489,25 +489,16 @@ def edit_drink(drink_id):
 @app.route("/delete_drink/<drink_id>", methods=['GET', 'POST'])
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
-
-    # Also need to remove drink for user faves
     
+    # Get list of users who have favorited this drink and remove
+    # the drink from their favorites list
     user_faves = drinks.find_one({"_id": ObjectId(drink_id)})['favoritesTxt']
-    
     for name in user_faves:
-        print(name)
-        mongo.db.users.find_one_and_update({'userName': name}, {'$pull': {'favoritesTxt': drink_id}})
-    
-    print("")
-    print(user_faves)
-    print("")
+        mongo.db.users.find_one_and_update({
+            'userName': name}, {'$pull': {'favoritesTxt': drink_id}})
 
     drink_name = drinks.find_one({"_id": ObjectId(drink_id)})['name']
-    # Don't really delete while testing
     drinks.delete_one({"_id": ObjectId(drink_id)})
-    print("")
-    print("DRINK DELETED")
-    print("")
 
     flash("{} has been deleted".format(drink_name))
     return redirect(url_for('index'))
