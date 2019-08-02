@@ -105,7 +105,7 @@ textarea {
 /* ------------------------------------------------------------------- Body -*/
 
 body {
-    background-image: url('../images/bg1.jpg');
+    background-image: url('../images/background/bg.jpg');
     background-repeat: repeat;
     display: flex;
     /*min-height: 100vh;*/
@@ -299,6 +299,7 @@ nav {
 
 nav .brand-logo {
     font-family: 'Grand Hotel', cursive;
+    font-style: italic;
     font-size: 3rem;
     transition: 0.2s;
 }
