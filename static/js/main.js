@@ -121,11 +121,18 @@ $(document).ready(function() {
         var el_height = parseInt($(this).css('height').slice(0, -2));
         if (el_height > tallest) { tallest = el_height };
     });
-    $("#category-tab").find(".card-content").css('height', tallest + 'px');
-    
+    if (tallest == 0) {
+        $("#category-tab").find(".card-content").css('height', '120px');
+    }
+    else {
+        $("#category-tab").find(".card-content").css('height', tallest + 'px');
+    }
+
+
+
     // Add / Edit Drink Form - Fill 'Image Url' input box with default value
     $('#add-default-url').click(function() {
-       $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus()
+        $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus()
     });
-    
+
 });
