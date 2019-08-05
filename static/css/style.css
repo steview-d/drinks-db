@@ -6,9 +6,7 @@
 
 :root {
     /* Set neon color */
-    --neon-blue: #011ffd;
     --neon-pink: #ff2281;
-    --neon-yellow: #fdf501;
 }
 
 
@@ -249,7 +247,7 @@ main {
     margin-top: 7px;
     padding: 2px 8px;
     border: 1px solid black;
-    color: black;
+    color: white;
 }
 
 .card-label--pos-1 {
@@ -747,15 +745,15 @@ textarea.materialize-textarea.invalid {
 }
 
 .border-color--green {
-    border-bottom: 3px solid green;
-}
-
-.border-color--purple {
-    border-bottom: 3px solid purple;
+    border-bottom: 3px solid #4caf50;
 }
 
 .border-color--pink {
-    border-bottom: 3px solid #ec407a;
+    border-bottom: 3px solid #ff4081;
+}
+
+.border-color--purple {
+    border-bottom: 3px solid #7c4dff;
 }
 
 .drink-author {
@@ -1144,17 +1142,6 @@ hr {
     letter-spacing: 0.15em;
 }
 
-.neon-yellow {
-    text-shadow: 0 0 5px var(--neon-yellow),
-    0 0 10px var(--neon-yellow),
-    0 0 20px var(--neon-yellow),
-    0 0 40px var(--neon-yellow),
-    0 0 80px var(--neon-yellow),
-    0 0 90px var(--neon-yellow),
-    0 0 100px var(--neon-yellow),
-    0 0 150px var(--neon-yellow);
-}
-
 .neon-pink {
     text-shadow: 0 0 5px var(--neon-pink),
     0 0 10px var(--neon-pink),
@@ -1165,44 +1152,3 @@ hr {
     0 0 100px var(--neon-pink),
     0 0 150px var(--neon-pink);
 }
-
-.neon-blue {
-    text-shadow: 0 0 5px var(--neon-blue),
-    0 0 10px var(--neon-blue),
-    0 0 20px var(--neon-blue),
-    0 0 40px var(--neon-blue),
-    0 0 80px var(--neon-blue),
-    0 0 90px var(--neon-blue),
-    0 0 100px var(--neon-blue),
-    0 0 150px var(--neon-blue);
-}
-
-
-
-
-.neon-border {
-    border: 2px solid #fff;
-    border-radius: 10px;
-
-    /*animation: flicker 1.5s infinite alternate;     */
-    box-shadow: 0 0 .5rem #fff,
-    inset 0 0 .5rem #fff,
-    0 0 1rem var(--neon-blue),
-    inset 0 0 0.5rem var(--neon-blue),
-    0 0 2rem var(--neon-blue),
-    inset 0 0 1rem var(--neon-blue);
-}
-
-neon-border:focus {
-    outline: none;
-}
-
-
-
-/*MAYBE - FOR FONT ISSUE*/
-
-/*.wf-loading body {*/
-
-/*visibility: hidden;*/
-
-/*}*/
