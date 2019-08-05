@@ -535,7 +535,6 @@ nav ul .active {
 
 @media screen and (min-width: 401px) {
     #category-tab .card-content {
-        padding: 24px 18px;
         height: 132px;
     }
 }
@@ -550,7 +549,22 @@ nav ul .active {
 @media screen and (min-width: 601px) {
     #category-tab .card-content {
         padding: 24px;
-        height: unset;
+        height: 154px;
+    }
+}
+
+@media screen and (min-width: 801px) {
+    #category-tab .card-content {
+        padding: 24px;
+        height: 132px;
+
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #category-tab .card-content {
+        padding: 24px;
+        height: 112px;
 
     }
 }
@@ -564,6 +578,9 @@ nav ul .active {
     background-color: #212121;
     padding: 0 12px;
     height: 70px;
+    
+    /*margin-top: auto;*/
+    
 }
 
 .card .card-action a {
