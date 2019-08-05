@@ -526,13 +526,34 @@ nav ul .active {
 
 /* ---------------------------------------------------------------- View By -*/
 
-/*#category-tab .card.small {*/
+#category-tab .card-content {
+    padding: 24px 18px;
+    font-size: 0.9rem;
+    height: 150px;
+}
 
-/*    height:200px;*/
 
-/*    position: relative;*/
+@media screen and (min-width: 401px) {
+    #category-tab .card-content {
+        padding: 24px 18px;
+        height: 132px;
+    }
+}
 
-/*}*/
+@media screen and (min-width: 501px) {
+    #category-tab .card-content {
+        height: 138px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    #category-tab .card-content {
+        padding: 24px;
+        height: unset;
+
+    }
+}
 
 /* ------------------------------------------------------------ Drink Cards -*/
 

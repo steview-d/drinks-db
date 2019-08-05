@@ -115,20 +115,6 @@ $(document).ready(function() {
         $('#flashed-message').remove();
     });
 
-    // Set px height of all .card-content divs in category tab to all the same height
-    var tallest = 0;
-    $("#category-tab").find(".card-content").each(function() {
-        var el_height = parseInt($(this).css('height').slice(0, -2));
-        if (el_height > tallest) { tallest = el_height };
-    });
-    if (tallest == 0) {
-        $("#category-tab").find(".card-content").css('height', '120px');
-    }
-    else {
-        $("#category-tab").find(".card-content").css('height', tallest + 'px');
-    }
-
-
 
     // Add / Edit Drink Form - Fill 'Image Url' input box with default value
     $('#add-default-url').click(function() {
