@@ -29,7 +29,7 @@
             <div class="col s6 m4 l3 xl2">
                 <div class="card blue-grey darken-1 center">
                     <div class="card-image">
-                        <img src="{{ url_for('static', filename='images/glass/g_'+glass.glassType+'.jpg') }}">
+                        <a href="{{ url_for('view_only', option = 'glassType', choice = glass.glassType) }}"><img src="{{ url_for('static', filename='images/glass/g_'+glass.glassType+'.jpg') }}"></a>
                     </div>
                     <div class="card-action">
                         <a href="{{ url_for('view_only', option = 'glassType', choice = glass.glassType) }}">{{glass.glassType}}</a>
@@ -45,7 +45,7 @@
             <div class="col s12 m4">
                 <div class="card">
                    <div class="card-image">
-                        <img src="{{ url_for('static', filename='images/difficulty/'+level_of_difficulty.difficulty+'.jpg') }}">
+                        <a href="{{ url_for('view_only', option = 'difficulty', choice = level_of_difficulty.difficulty) }}"><img src="{{ url_for('static', filename='images/difficulty/'+level_of_difficulty.difficulty+'.jpg') }}"></a>
                     </div>
                     <div class="card-action">
                         <a href="{{ url_for('view_only', option = 'difficulty', choice = level_of_difficulty.difficulty) }}">{{level_of_difficulty.difficulty}}</a>
