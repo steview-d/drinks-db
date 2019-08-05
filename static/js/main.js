@@ -10,8 +10,6 @@ $(document).ready(function() {
     $('.tooltipped').tooltip();
     // Materialize Modal
     $('.modal').modal();
-    // Materialize Character Counter
-    $('input#imageUrl, textarea#textarea2').characterCounter();
     // MaterialBoxed
     $('.materialboxed').materialbox();
     // Material Tabs

@@ -17,10 +17,10 @@
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,25}" value="{{drink.name}}"> {% else %}
-                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,25}"> {% endif %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}" value="{{drink.name}}"> {% else %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}"> {% endif %}
                         <label for="name">Drink Name</label>
-                        <span class="helper-text" data-error="Name must be between 5 and 25 chars" data-success="Passed"></span>
+                        <span class="helper-text" data-error="Name must be between 5 and 26 chars" data-success="Passed"></span>
                     </div>
                 </div>
                 <!--Category | name="category"-->
