@@ -779,8 +779,8 @@ textarea.materialize-textarea.invalid {
 
 
 #ingredients-box {
-    background-color: #eee;
-    padding: 0.5rem 2rem 2rem;
+    /*background-color: #eee;*/
+    padding: 0 2rem 2rem;
 }
 
 .measure-width {
@@ -788,8 +788,8 @@ textarea.materialize-textarea.invalid {
 }
 
 #instructions-box {
-    background-color: #eee;
-    padding: 2rem;
+    /*background-color: #eee;*/
+    padding: 1rem 2rem;
 }
 
 #instructions-box hr {
@@ -831,7 +831,7 @@ textarea.materialize-textarea.invalid {
 }
 
 #info-box {
-    background-color: #eee;
+    /*background-color: #eee;*/
     padding: 1rem 2rem;
     font-size: 2rem;
     line-height: 2rem;
