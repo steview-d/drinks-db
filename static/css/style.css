@@ -151,7 +151,7 @@ main {
 /* ------------------------------------------------------- Buttons & Labels -*/
 
 .btn--black,
-.btn--black:active {
+.btn--black:focus {
     font-family: 'Muli', sans-serif;
     height: 1.8rem;
     line-height: 1.7rem;
@@ -164,7 +164,7 @@ main {
 }
 
 .btn--black:hover,
-.btn--black:focus {
+.btn--black:active {
     background-color: white;
     border: 1px solid black;
     color: black;
