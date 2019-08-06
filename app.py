@@ -44,13 +44,12 @@ def inject_enumerate():
 
 # Routes
 
-@app.route("/landing")
+@app.route("/")
 def landing():
     return render_template('landing.html')
 
 
-
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/all_drinks", methods=['POST', 'GET'])
 def index():
     categories = mongo.db.categories.find()
     glass_types = mongo.db.glass.find()
@@ -717,6 +716,8 @@ def internal_server_error(e):
     session.clear()
     return render_template('error.html', error=500), 500
 
+
+# Main
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

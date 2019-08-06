@@ -30,7 +30,7 @@
                 <!--Main Nav-->
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!--Nav Option For All - Regardless Of Logged In Or Out-->
-                    {% if request.path == '/' %}
+                    {% if 'all_drinks' in request.path %}
                     <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
                     {% else %}
                     <li><a href="{{ url_for('index') }}">Home</a></li>

@@ -325,6 +325,7 @@ main {
 .landing i {
     margin: 2vw auto 1vw;
     font-size: 12vw;
+    color: white;
     transition: 0.3s;
     transition-timing-function: ease-in;
 }
