@@ -319,12 +319,12 @@ main {
 .landing-box h4 {
     font-family: 'Playfair Display', serif;
     margin-top: 0;
-    font-size: 9vw;
+    font-size: 8.5vw;
 }
 
 .landing i {
     margin: 2vw auto 1vw;
-    font-size: 12vw;
+    font-size: 11vw;
     color: white;
     transition: 0.3s;
     transition-timing-function: ease-in;
@@ -339,7 +339,7 @@ main {
 
 @media screen and (min-width: 601px){
     .landing-box h1 {
-        font-size: 17vw;
+        font-size: 19vw;
     }
     
     .landing-box h4 {
@@ -347,22 +347,43 @@ main {
     }
     
     .landing i {
-        font-size: 8.5vw;
+        font-size: 8vw;
     }
 }
 
 
 @media screen and (min-width: 993px){
     .landing-box h1 {
+        font-size: 14vw;
+        margin: 1vw 40vw 0 0;
+    }
+    
+    .landing-box h4 {
+        font-size: 5vw;
+        margin: 0 40vw 0 0;
+    }
+    
+    .landing i {
+        font-size: 6vw;
+        margin: 2vw 40vw 1vw 0;
+    }
+}
+
+
+@media screen and (min-width: 1201px){
+    .landing-box h1 {
         font-size: 10vw;
+        /*margin: 1vw 40vw 0 0;*/
     }
     
     .landing-box h4 {
         font-size: 3.5vw;
+        /*margin: 0 40vw 0 0;*/
     }
     
     .landing i {
-        font-size: 5vw;
+        font-size: 4vw;
+        /*margin: 2vw 40vw 1vw 0;*/
     }
 }
 
