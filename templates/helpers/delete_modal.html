@@ -1,10 +1,10 @@
-<a class="modal-trigger btn btn--black" href="#delete_drink">DELETE DRINK</a>
+<a class="modal-trigger btn btn--red" href="#delete_drink">DELETE DRINK</a>
 
 <div id="delete_drink" class="modal">
     <div class="modal-content center-align">
         <h4>CONFIRM DELETE</h4>
         <h6>You cannot undo this action</h6>
-        <a href="{{ url_for('delete_drink', drink_id = drink._id) }}" class="btn btn--black modal-close">Delete</a>
+        <a href="{{ url_for('delete_drink', drink_id = drink._id) }}" class="btn btn--red modal-close">Delete</a>
         <a href="#" class="btn btn--black modal-close">Cancel</a>
         
     </div>

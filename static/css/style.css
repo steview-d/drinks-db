@@ -168,7 +168,26 @@ main {
     background-color: white;
     border: 1px solid black;
     color: black;
-    /*box-shadow: none;*/
+}
+
+.btn--red {
+    font-family: 'Muli', sans-serif;
+    height: 1.8rem;
+    line-height: 1.7rem;
+    font-size: 0.8rem;
+    background-color: #e53935;
+    border: 1px solid #e53935;
+    color: white;
+    transition: 0.5s;
+    margin-bottom: 1rem;
+}
+
+.btn--red:hover,
+.btn--red:focus,
+.btn--red:active {
+    background-color: white;
+    border: 1px solid #c62828;
+    color: #c62828;
 }
 
 .subheader-label {
@@ -238,6 +257,8 @@ main {
     border: 1px solid #1976d2;
     color: #1976d2;
 }
+
+
 
 .card-label {
     position: absolute;
