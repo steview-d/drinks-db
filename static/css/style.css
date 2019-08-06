@@ -546,10 +546,16 @@ nav ul .active {
 
 /* ---------------------------------------------------------------- View By -*/
 
+#filter-tabs ul {
+    margin-bottom: 1rem;
+}
+
 #category-tab .card-content {
     padding: 24px 18px;
     font-size: 0.9rem;
     height: 150px;
+    background-color: #eee;
+    color: black;
 }
 
 
@@ -670,6 +676,7 @@ nav ul .active {
 }
 
 #difficulty-tab img {
+    height: 200px;
     object-fit: cover;
 }
 
