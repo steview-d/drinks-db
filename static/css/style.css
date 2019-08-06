@@ -106,7 +106,7 @@ body {
     background-image: url('../images/background/bg.jpg');
     background-repeat: repeat;
     display: flex;
-    /*min-height: 100vh;*/
+    min-height: 100vh;
     flex-direction: column;
     font-family: 'Muli', sans-serif;
 }
