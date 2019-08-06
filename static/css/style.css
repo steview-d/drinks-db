@@ -159,7 +159,8 @@ main {
     border: 1px solid black;
     color: white;
     transition: 0.5s;
-    margin-bottom: 1rem;
+    /*margin-bottom: 1rem;*/
+    margin: 0.5rem auto 1rem;
 }
 
 .btn--black:hover,
