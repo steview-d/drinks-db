@@ -287,29 +287,83 @@ main {
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
-    background: url(../images/landing.jpg) no-repeat center center fixed;
+    background: url(../images/background/land_test.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    color: white;
 }
 
 .landing-box {
     margin: auto;
-    width: 80%;
-    padding: 20px;
-    border-radius: 15px;
-    border: 2px solid white;
-    /*color: white;*/
-    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    padding: 1.5vw;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background: rgba(0, 0, 0, 0.7);
 
 }
 
-.landing h3 {
-    font-family: 'Pacifico', cursive;
-    font-size: 5rem;
+.landing-box h1 {
+    font-family: 'Grand Hotel', cursive;
+    font-style: italic;
+    font-size: 24vw;
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+    margin: 1vw auto 0;
 }
 
+.landing-box h4 {
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    font-size: 9vw;
+}
+
+.landing i {
+    margin: 2vw auto 1vw;
+    font-size: 12vw;
+    transition: 0.3s;
+    transition-timing-function: ease-in;
+}
+
+.landing i:hover {
+    text-shadow: 0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+@media screen and (min-width: 601px){
+    .landing-box h1 {
+        font-size: 17vw;
+    }
+    
+    .landing-box h4 {
+        font-size: 6.5vw;
+    }
+    
+    .landing i {
+        font-size: 8.5vw;
+    }
+}
+
+
+@media screen and (min-width: 993px){
+    .landing-box h1 {
+        font-size: 10vw;
+    }
+    
+    .landing-box h4 {
+        font-size: 3.5vw;
+    }
+    
+    .landing i {
+        font-size: 5vw;
+    }
+}
 
 /* ---------------------------------------------------------------- Nav Bar -*/
 
@@ -604,9 +658,8 @@ nav ul .active {
     background-color: #212121;
     padding: 0 12px;
     height: 70px;
-    
+
     /*margin-top: auto;*/
-    
 }
 
 .card .card-action a {

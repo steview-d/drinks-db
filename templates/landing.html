@@ -5,35 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cheers!</title>
+    <title>{% if title is defined %} Cheers! | {{title}} {% else %} Cheers! {% endif %}</title>
     <!--Google Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Grand+Hotel|Cormorant+SC|Muli:300|Playfair+Display" rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!--Materialize CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/fv.ico') }}" type="image/x-icon">
     <!--CSS-->
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />-->
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
 </head>
 
 <body class="landing">
     <div class="v-center-wrapper">
         <div class="v-center-content">
-            <div class="landing-box">
-                <h3 class="neon neon-pinkS">
-                    Fancy A Drink?
-                </h3>
+            <div class="landing-box center">
+                <h1>Cheers!</h1>
+                <h4>The Drinks db</h4>
+                <i class="fas fa-sign-in-alt"></i>
             </div>
-
         </div>
     </div>
+
+
+
+    <!--Scripts-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 
 </html>
-
-
-
-
-
-<div class="intro">
-    <h5 class="f-playfair"><span class="intro-number">{{drinks.count()}} </span> drinks and counting!</h5>
-    <p>Find new drinks, share your own, leave comments, or a make a list of your favorites.</p>
-    <h3>Cheers! The drinks db</h3>
-</div>

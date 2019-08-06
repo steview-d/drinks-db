@@ -44,6 +44,12 @@ def inject_enumerate():
 
 # Routes
 
+@app.route("/landing")
+def landing():
+    return render_template('landing.html')
+
+
+
 @app.route("/", methods=['POST', 'GET'])
 def index():
     categories = mongo.db.categories.find()
