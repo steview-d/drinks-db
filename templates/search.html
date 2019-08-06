@@ -96,6 +96,50 @@
         <h5>Search Results</h5>
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
     </div>
+    
+    <hr class="hr-results">
+    
+    <!--Pagination Top-->
+    <ul class="pagination center">
+        <!--Left Arrow-->
+        {% if current_page | int > 1 %}
+        <li class=""><a href="{{ url_for('search',
+            current_page=current_page-1,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter) }}"><i class="fas fa-angle-left"></i></a></li>
+        {% else %}
+        <li class="disabled"><i class="fas fa-angle-left"></i></li>
+        {% endif %}
+
+        <!--Page Numbers-->
+        {% for page_number in pages %} {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li class="waves-effect"><a href="{{ url_for('search',
+            current_page=page_number,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter) }}">{{ page_number }}</a></li>
+        {% endif %} {% endfor %}
+
+        <!--Right Arrow-->
+        {% if current_page | int
+        < pages | count | int %} <li class=""><a href="{{ url_for('search',
+            current_page=current_page+1,
+            find=find,
+            category_filter=category_filter,
+            glassType_filter=glassType_filter,
+            difficulty_filter=difficulty_filter) }}"><i class="fas fa-angle-right"></i></a></li>
+            {% else %}
+            <li class="disabled"><i class="fas fa-angle-right"></i></li>
+            {% endif %}
+    </ul>
+    <br>
+    
+    
 
     <div class="row">
         {% for drink in results %}
@@ -105,7 +149,7 @@
         {% endfor %}
     </div>
 
-    <!--Pagination-->
+    <!--Pagination Bottom-->
     <ul class="pagination center">
         <!--Left Arrow-->
         {% if current_page | int > 1 %}

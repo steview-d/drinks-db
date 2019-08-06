@@ -150,9 +150,7 @@ main {
 
 /* ------------------------------------------------------- Buttons & Labels -*/
 
-.btn--black,
-.btn--black:focus,
-.btn--black:active {
+.btn--black {
     font-family: 'Muli', sans-serif;
     height: 1.8rem;
     line-height: 1.7rem;
@@ -164,7 +162,9 @@ main {
     margin-bottom: 1rem;
 }
 
-.btn--black:hover {
+.btn--black:hover,
+.btn--black:focus,
+.btn--black:active {
     background-color: white;
     border: 1px solid black;
     color: black;
@@ -676,6 +676,11 @@ nav ul .active {
 
 .display-summary {
     margin-top: 3rem;
+}
+
+.hr-results {
+    width: 50%;
+    margin: auto;
 }
 
 .pagination li.active {
