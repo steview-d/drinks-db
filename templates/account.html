@@ -20,43 +20,8 @@
         <div class="col s12 xl9">
             <div class="row eq-height-columns">
                 
-                <!--Most Viewed | Small Screen Only-->
-                <div class="col s12 hide-on-med-and-up">
-                    <div class="card horizontal">
-                        {% if most_viewed %}
-                        <div class="card-image">
-                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}" alt="{{most_viewed.name}}"></a>
-                            <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_viewed.category.title()}}</a>
-                            <a href="{{ url_for('view_only', option = 'glassType', choice = most_viewed.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_viewed.glassType.title()}} Glass</a>
-                            <a href="{{ url_for('view_only', option = 'difficulty', choice = most_viewed.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_viewed.difficulty.title()}}</a>
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h6>Most Viewed</h6>
-                                <hr>
-                                <p>Your drink with the most views is {{most_viewed.name}}. It has been viewed {{most_viewed.views}} times.</p>
-                            </div>
-                            <div class="card-action center-align">
-                                <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div class="card-image">
-                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" alt="No Drink" class="responsive-img">
-                        </div>
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h6>Most Viewed</h6>
-                                <hr>
-                                <p>None of your drinks have been viewed yet.</p>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                
-                <!--Most Viewed | Medium & Up-->
-                <div class="col m4 hide-on-small-only">
+                <!--Most Viewed-->
+                <div class="col s12 m4">
                     <div class="card">
                         {% if most_viewed %}
                         <div class="card-image">
