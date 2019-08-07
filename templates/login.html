@@ -7,12 +7,12 @@
                 <form method="POST" action="{{ url_for('login') }}" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Username" id="username" name="username" type="text" required>
+                            <input placeholder="Username" id="username" name="username" type="text" autocomplete="username" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Password" id="password" name="password" type="password" required>
+                            <input placeholder="Password" id="password" name="password" type="password" autocomplete="current-password" required>
                         </div>
                     </div>
                     <button class="btn btn--black" type="submit">Log In</button>

@@ -79,7 +79,7 @@
 
     <!--Side Nav-->
     <ul class="sidenav black white-text" id="mobile-nav">
-        <img class="responsive-img" src="../static/images/sidenav-bg.jpg" alt="Background Pattern">
+        <img class="responsive-img" src="{{ url_for('static', filename='images/sidenav-bg.jpg') }}" alt="Background Pattern">
 
         <!--Nav Option For All - Regardless Of Logged In Or Out-->
         {% if 'all_drinks' in request.path %}
