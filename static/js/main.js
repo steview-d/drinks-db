@@ -1,23 +1,16 @@
 $(document).ready(function() {
 
     // Materialize Framework Iniitialisations
-
-    // Materialize SideNav
     $('.sidenav').sidenav();
-    // Materialize Select
     $('select').formSelect();
-    // Materialize Tool Tip
     $('.tooltipped').tooltip();
-    // Materialize Modal
     $('.modal').modal();
-    // MaterialBoxed
     $('.materialboxed').materialbox();
-    // Material Tabs
     $('.tabs').tabs();
 
 
-    // Back button
-    $('.history-back').click(function() {
+    // Cancel Form Button
+    $('.cancel-form').click(function() {
         window.history.back();
     });
 
@@ -89,7 +82,6 @@ $(document).ready(function() {
         localStorage.setItem('currentTab', $(this).children('a').attr('href').substring(1));
     });
 
-
     // Sort Options
     if (localStorage.getItem('sortOptionsState') == 1 && $('#sort-options').hasClass('hidden')) {
         $('#sort-options').removeClass('hidden');
@@ -105,8 +97,10 @@ $(document).ready(function() {
         }
     });
 
+
     // Set menu active highlight on side nav
     $('#mobile-nav li > .active').css('background-color', 'rgba(255,255,255,0.3');
+
 
     // Close displayed flash message
     $('.close-btn').click(function() {
@@ -116,7 +110,7 @@ $(document).ready(function() {
 
     // Add / Edit Drink Form - Fill 'Image Url' input box with default value
     $('#add-default-url').click(function() {
-        $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus()
+        $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus();
     });
 
 });
