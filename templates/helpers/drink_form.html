@@ -51,7 +51,7 @@
                         {% else %}
                         <input id="imageUrl" name="imageUrl" type="url" class="validate" pattern="https?://.+" minlength="12" required>
                         <label for="imageUrl">Image Url</label>
-                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a>
+                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a>
                         {% endif %}
                         <span class="helper-text" data-error="Url must begin with 'http(s)://' and be a minimum of 12 chars." data-success="Passed"></span>
                     </div>
@@ -82,7 +82,9 @@
                         {% else %}
                         <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5"></textarea>
                         {% endif %}
-                        <label for="instructions">Instructions</label>
+                        <label for="instructions">Instructions 
+                            <i class="fas fa-info-circle fa-sm tooltipped" data-position="right" data-tooltip="Separate each instruction into it's own sentence."></i>
+                        </label>
                         <span class="helper-text" data-error="Instructions length must be at least 5 chars." data-success="Passed"></span>
                     </div>
                 </div>
