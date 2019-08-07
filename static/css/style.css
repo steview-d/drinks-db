@@ -284,6 +284,24 @@ main {
     top: 68px;
 }
 
+.search-relevance {
+    position: absolute;
+    font-size: 1.1rem;
+    bottom: 8px;
+    left: 16px;
+    margin-top: 7px;
+    padding: 2px 8px;
+    border: 1px solid black;
+    background-color: yellow;
+    color: black;
+}
+
+@media screen and (min-width: 601px) {
+    .search-relevance {
+        font-size: 1.3rem;
+    }
+}
+
 /* ------------------------------------------------------------ Landing Page-*/
 
 .landing {
