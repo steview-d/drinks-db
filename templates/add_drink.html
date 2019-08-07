@@ -1,7 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="page-container content-wrapper">
-
     <div class="row center">
         <h2>Add Drink</h2>
     </div>
@@ -11,7 +10,9 @@
             <div class="center">
                 <button class="btn btn--black" type="submit">Submit Drink</button>
             </div>
-                {% include 'helpers/drink_form.html' %}
+            
+            {% include 'helpers/drink_form.html' %}
+            
             <!--Submit & Cancel Buttons-->
             <div class="center">
                 <button class="btn btn--black" type="submit">Submit Drink</button>

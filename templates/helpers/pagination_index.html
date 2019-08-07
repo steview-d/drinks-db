@@ -1,0 +1,24 @@
+<ul class="pagination .pagination-lg center pagination-top">
+    <!--Left Arrow-->
+    {% if current_page | int > 1 %}
+    <li><a href="{{ url_for('index', current_page=current_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
+    {% else %}
+    <li class="disabled"><i class="fas fa-angle-left"></i></li>
+    {% endif %}
+
+    <!--Page Numbers-->
+    {% for page_number in pages %}
+        {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li><a href="{{ url_for('index', current_page=page_number) }}">{{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    <!--Right Arrow-->
+    {% if current_page | int < pages | count | int %}
+    <li><a href="{{ url_for('index', current_page=current_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
+    {% else %}
+    <li class="disabled"><i class="fas fa-angle-right"></i></li>
+    {% endif %}
+</ul>

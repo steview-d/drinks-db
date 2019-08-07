@@ -551,6 +551,7 @@ nav ul .active {
     width: 70%;
     border: 2px solid #ccc;
     border-radius: 15px;
+    font-family: 'Playfair Display', serif;
     text-align: center;
     font-weight: bold;
     background-color: white;
@@ -572,6 +573,13 @@ nav ul .active {
     }
 }
 
+.intro-subheading {
+    font-family: 'Grand Hotel', cursive;
+    font-style: italic;
+    font-size: 2.8rem;
+    
+}
+
 .intro hr {
     margin: 1rem auto;
     width: 35%;
@@ -585,18 +593,6 @@ nav ul .active {
 
 .intro .row {
     margin-bottom: 0;
-}
-
-.intro h6 {
-    min-height: 1px;
-    margin-bottom: 1rem;
-}
-
-@media screen and (min-width: 601px) {
-    .intro h6 {
-        min-height: 60px;
-        margin-bottom: .3rem;
-    }
 }
 
 .index-top .col {
@@ -613,12 +609,6 @@ nav ul .active {
 .index-top h6 {
     margin-bottom: 1rem;
 }
-
-.index-top .div-bottom {
-    margin-top: auto;
-}
-
-
 
 /* ---------------------------------------------------------------- View By -*/
 
@@ -1175,6 +1165,7 @@ footer i:hover {
 .error-page {
     background: url(../images/background/error_bg.jpg) no-repeat center center fixed;
     background-size: cover;
+    margin: 0;
 }
 
 .error-page h1 {

@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-image">
-        <a href="{{ url_for('drink', drink_id = drink._id) }}"><img class="responsive-img" src="{{drink.imageUrl}}"></a>
+        <a href="{{ url_for('drink', drink_id = drink._id) }}"><img class="responsive-img" alt="{{drink.name}}" src="{{drink.imageUrl}}"></a>
         <a href="{{ url_for('view_only', option = 'category', choice = drink.category) }}" class="card-label card-label--pos-1 green">{{drink.category.title()}}</a>
         <a href="{{ url_for('view_only', option = 'glassType', choice = drink.glassType) }}" class="card-label card-label--pos-2 pink accent-2">{{drink.glassType.title()}} Glass</a>
         <a href="{{ url_for('view_only', option = 'difficulty', choice = drink.difficulty) }}" class="card-label card-label--pos-3 deep-purple accent-2">{{drink.difficulty.title()}}</a>

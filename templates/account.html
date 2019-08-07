@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
 <div id="account" class="page-container content-wrapper">
-
     <div class="row">
+        
         <!--User & Stats-->
         <div class="col s12 xl3">
             <h2>Hi {{user.userName}}</h2>
@@ -10,18 +10,22 @@
             <p>Drinks submitted by you have been favorited a total of <span class="info-label">{{favorites}}</span> times</p>
             <p>A total of <span class="info-label">{{comments}}</span> comments have been left across all of your drinks</p>
 
-            <p>There are currently <span class="info-label">{{total_drinks}}</span> drinks in the database, spread over a total of <span class="info-label">{{total_categories}}</span> categories, <span class="info-label">{{total_glass_types}}</span> different
-                types of drinking glasses, and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
+            <p>There are currently <span class="info-label">{{total_drinks}}</span> drinks in the database, 
+                spread over a total of <span class="info-label">{{total_categories}}</span> categories, 
+                <span class="info-label">{{total_glass_types}}</span> different ypes of drinking glasses, 
+                and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
         </div>
-        <!--User Drinks & Stats-->
+        
+        <!--User Drinks Stats-->
         <div class="col s12 xl9">
             <div class="row eq-height-columns">
+                
                 <!--Most Viewed | Small Screen Only-->
                 <div class="col s12 hide-on-med-and-up">
                     <div class="card horizontal">
                         {% if most_viewed %}
                         <div class="card-image">
-                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}"></a>
+                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}" alt="{{most_viewed.name}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-label card-label--pos-1 yellow accent-2">{{most_viewed.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_viewed.glassType) }}" class="card-label card-label--pos-2 orange accent-2">{{most_viewed.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_viewed.difficulty) }}" class="card-label card-label--pos-3 light-green accent-3">{{most_viewed.difficulty.title()}}</a>
@@ -30,7 +34,7 @@
                             <div class="card-content">
                                 <h6>Most Viewed</h6>
                                 <hr>
-                                <p>YYour drink with the most views is {{most_viewed.name}}. It has been viewed {{most_viewed.views}} times.</p>
+                                <p>Your drink with the most views is {{most_viewed.name}}. It has been viewed {{most_viewed.views}} times.</p>
                             </div>
                             <div class="card-action center-align">
                                 <a href="{{ url_for('drink', drink_id = most_viewed._id) }}">{{most_viewed.name}}</a>
@@ -38,7 +42,7 @@
                         </div>
                         {% else %}
                         <div class="card-image">
-                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" alt="No Drink" class="responsive-img">
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">
@@ -50,12 +54,13 @@
                         {% endif %}
                     </div>
                 </div>
+                
                 <!--Most Viewed | Medium & Up-->
                 <div class="col m4 hide-on-small-only">
                     <div class="card">
                         {% if most_viewed %}
                         <div class="card-image">
-                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}"></a>
+                            <a href="{{ url_for('drink', drink_id = most_viewed._id) }}"><img class="responsive-img" src="{{most_viewed.imageUrl}}" alt="{{most_viewed.name}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_viewed.category) }}" class="card-label card-label--pos-1 green">{{most_viewed.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_viewed.glassType) }}" class="card-label card-label--pos-2 pink accent-2">{{most_viewed.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_viewed.difficulty) }}" class="card-label card-label--pos-3 deep-purple accent-2">{{most_viewed.difficulty.title()}}</a>
@@ -70,22 +75,23 @@
                         </div>
                         {% else %}
                         <div class="card-image">
-                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" alt="No Drink" class="responsive-img">
                         </div>
                         <div class="card-content">
-                                <h6>Most Viewed</h6>
-                                <hr>
-                                <p>None of your drinks have been viewed yet.</p>
+                            <h6>Most Viewed</h6>
+                            <hr>
+                            <p>None of your drinks have been viewed yet.</p>
                         </div>
                         {% endif %}
                     </div>
                 </div>
+                
                 <!--Most Favorited-->
                 <div class="col s6 m4">
                     <div class="card">
                         {% if most_favorited %}
                         <div class="card-image">
-                            <a href="{{ url_for('drink', drink_id = most_favorited._id) }}"><img class="responsive-img" src="{{most_favorited.imageUrl}}"></a>
+                            <a href="{{ url_for('drink', drink_id = most_favorited._id) }}"><img class="responsive-img" alt="{{most_favorited.name}}" src="{{most_favorited.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_favorited.category) }}" class="card-label card-label--pos-1 green">{{most_favorited.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_favorited.glassType) }}" class="card-label card-label--pos-2 pink accent-2">{{most_favorited.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_favorited.difficulty) }}" class="card-label card-label--pos-3 deep-purple accent-2">{{most_favorited.difficulty.title()}}</a>
@@ -100,22 +106,23 @@
                         </div>
                         {% else %}
                         <div class="card-image">
-                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" alt="No Drink" class="responsive-img">
                         </div>
                         <div class="card-content">
-                                <h6>Most Favorites</h6>
-                                <hr>
-                                <p>Your drinks have not been added to anyones favorites yet.</p>
+                            <h6>Most Favorites</h6>
+                            <hr>
+                            <p>Your drinks have not been added to anyones favorites yet.</p>
                         </div>
                         {% endif %}
                     </div>
                 </div>
+                
                 <!--Most Commented-->
                 <div class="col s6 m4">
                     <div class="card">
                         {% if most_commented %}
                         <div class="card-image">
-                            <a href="{{ url_for('drink', drink_id = most_commented._id) }}"><img class="responsive-img" src="{{most_commented.imageUrl}}"></a>
+                            <a href="{{ url_for('drink', drink_id = most_commented._id) }}"><img class="responsive-img" alt="{{most_commented.name}}" src="{{most_commented.imageUrl}}"></a>
                             <a href="{{ url_for('view_only', option = 'category', choice = most_commented.category) }}" class="card-label card-label--pos-1 green">{{most_commented.category.title()}}</a>
                             <a href="{{ url_for('view_only', option = 'glassType', choice = most_commented.glassType) }}" class="card-label card-label--pos-2 pink accent-2">{{most_commented.glassType.title()}} Glass</a>
                             <a href="{{ url_for('view_only', option = 'difficulty', choice = most_commented.difficulty) }}" class="card-label card-label--pos-3 deep-purple accent-2">{{most_commented.difficulty.title()}}</a>
@@ -130,20 +137,18 @@
                         </div>
                         {% else %}
                         <div class="card-image">
-                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" class="responsive-img">
+                            <img width="375" src="{{ url_for('static', filename='images/no_image.jpg') }}" alt="No Drink" class="responsive-img">
                         </div>
                         <div class="card-content">
-                                <h6>Most Commented</h6>
-                                <hr>
-                                <p>No one has left a comment on any of your drinks yet.</p>
+                            <h6>Most Commented</h6>
+                            <hr>
+                            <p>No one has left a comment on any of your drinks yet.</p>
                         </div>
                         {% endif %}
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
     <!--Users Submitted Drinks-->
@@ -153,7 +158,7 @@
         <!--Summary-->
         {% if total_drinks_by_user > 0 %}
         <h6>Showing most recent first</h6>
-        <div class="row center wid">
+        <div class="row center">
             <h6>Showing {{first_dr_result_num}} - {{last_dr_result_num}} of {{total_drinks_by_user}} results</h6>
         </div>
         {% else %}
@@ -163,42 +168,46 @@
 
         <div class="row">
             {% for drink in users_drinks %}
-            <div class="col s6 l4 xl3">
-                {% include 'helpers/drink_card.html' %}
-            </div>
+                <div class="col s6 l4 xl3">
+                    {% include 'helpers/drink_card.html' %}
+                </div>
             {% endfor %}
         </div>
+        
         <!--Pagination-->
         {% if total_drinks_by_user > 4 %}
         <ul class="pagination center">
             <!--Left Arrow-->
             {% if drinks_page | int > 1 %}
-            <li class=""><a href="{{ url_for('account',
-                    account_name = session.username,
-                    drinks_page=drinks_page-1,
-                    favorites_page=favorites_page) }}"><i class="fas fa-angle-left"></i></a></li>
+            <li><a href="{{ url_for('account',
+                        account_name = session.username,
+                        drinks_page=drinks_page-1,
+                        favorites_page=favorites_page) }}">
+            <i class="fas fa-angle-left"></i></a></li>
             {% else %}
             <li class="disabled"><i class="fas fa-angle-left"></i></li>
             {% endif %}
             <!--Page Numbers-->
-            {% for dr_page_number in dr_pages %} {% if dr_page_number == drinks_page %}
-            <li class="active"><a>{{ dr_page_number }}</a></li>
-            {% else %}
-            <li class="waves-effect"><a href="{{ url_for('account',
-                        account_name = session.username,
-                        drinks_page=dr_page_number,
-                        favorites_page=favorites_page) }}">{{ dr_page_number }}</a></li>
-            {% endif %} {% endfor %}
-            <!--Right Arrow-->
-            {% if drinks_page | int
-            < dr_pages | count | int %} <li class=""><a href="{{ url_for('account',
-                    account_name = session.username,
-                    drinks_page=drinks_page+1,
-                    favorites_page=favorites_page) }}"><i class="fas fa-angle-right"></i></a></li>
+            {% for dr_page_number in dr_pages %}
+                {% if dr_page_number == drinks_page %}
+                <li class="active"><a>{{ dr_page_number }}</a></li>
                 {% else %}
-                <li class="disabled"><i class="fas fa-angle-right"></i></li>
+                <li><a href="{{ url_for('account',
+                            account_name = session.username,
+                            drinks_page=dr_page_number,
+                            favorites_page=favorites_page) }}">{{ dr_page_number }}</a></li>
                 {% endif %}
-
+            {% endfor %}
+            <!--Right Arrow-->
+            {% if drinks_page | int < dr_pages | count | int %}
+            <li><a href="{{ url_for('account',
+                        account_name = session.username,
+                        drinks_page=drinks_page+1,
+                        favorites_page=favorites_page) }}">
+            <i class="fas fa-angle-right"></i></a></li>
+            {% else %}
+            <li class="disabled"><i class="fas fa-angle-right"></i></li>
+            {% endif %}
         </ul>
         {% endif %}
     </div>
@@ -206,6 +215,7 @@
     <!--Users Favorite Drinks-->
     <div class="row">
         <h4>Drinks Favorited By You</h4>
+        
         <!--Summary-->
         {% if total_user_fave_drinks > 0 %}
         <div class="row center">
@@ -216,41 +226,46 @@
         {% endif %}
         <div class="row">
             {% for drink in favorited_drinks %}
-            <div class="col s6 l4 xl3">
-                {% include 'helpers/drink_card.html' %}
-            </div>
+                <div class="col s6 l4 xl3">
+                    {% include 'helpers/drink_card.html' %}
+                </div>
             {% endfor %}
         </div>
+        
         <!--Pagination-->
         {% if total_user_fave_drinks > 4 %}
         <ul class="pagination center">
             <!--Left Arrow-->
             {% if favorites_page | int > 1 %}
-            <li class=""><a href="{{ url_for('account',
-                    account_name = session.username,
-                    drinks_page=drinks_page,
-                    favorites_page=favorites_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
+            <li><a href="{{ url_for('account',
+                        account_name = session.username,
+                        drinks_page=drinks_page,
+                        favorites_page=favorites_page-1) }}">
+            <i class="fas fa-angle-left"></i></a></li>
             {% else %}
             <li class="disabled"><i class="fas fa-angle-left"></i></li>
             {% endif %}
             <!--Page Numbers-->
-            {% for fv_page_number in fv_pages %} {% if fv_page_number == favorites_page %}
-            <li class="active"><a>{{ fv_page_number }}</a></li>
-            {% else %}
-            <li class="waves-effect"><a href="{{ url_for('account',
-                account_name = session.username,
-                drinks_page=drinks_page,
-                favorites_page=fv_page_number) }}">{{ fv_page_number }}</a></li>
-            {% endif %} {% endfor %}
-            <!--Right Arrow-->
-            {% if favorites_page | int
-            < fv_pages | count | int %} <li class=""><a href="{{ url_for('account',
-                    account_name = session.username,
-                    drinks_page=drinks_page,
-                    favorites_page=favorites_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
+            {% for fv_page_number in fv_pages %}
+                {% if fv_page_number == favorites_page %}
+                <li class="active"><a>{{ fv_page_number }}</a></li>
                 {% else %}
-                <li class="disabled"><i class="fas fa-angle-right"></i></li>
+                <li><a href="{{ url_for('account',
+                            account_name = session.username,
+                            drinks_page=drinks_page,
+                            favorites_page=fv_page_number) }}">{{ fv_page_number }}</a></li>
                 {% endif %}
+            {% endfor %}
+            <!--Right Arrow-->
+            {% if favorites_page | int < fv_pages | count | int %}
+            <li><a href="{{ url_for('account',
+                        account_name = session.username,
+                        drinks_page=drinks_page,
+                        favorites_page=favorites_page+1) }}">
+            <i class="fas fa-angle-right"></i></a></li>
+            {% else %}
+            <li class="disabled"><i class="fas fa-angle-right"></i></li>
+            {% endif %}
         </ul>
         {% endif %}
     </div>

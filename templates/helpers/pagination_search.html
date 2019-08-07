@@ -1,0 +1,42 @@
+<ul class="pagination center">
+    <!--Left Arrow-->
+    {% if current_page | int > 1 %}
+    <li><a href="{{ url_for('search',
+                current_page=current_page-1,
+                find=find,
+                category_filter=category_filter,
+                glassType_filter=glassType_filter,
+                difficulty_filter=difficulty_filter) }}">
+        <i class="fas fa-angle-left"></i></a></li>
+    {% else %}
+    <li class="disabled"><i class="fas fa-angle-left"></i></li>
+    {% endif %}
+
+    <!--Page Numbers-->
+    {% for page_number in pages %}
+        {% if page_number == current_page %}
+        <li class="active"><a>{{ page_number }}</a></li>
+        {% else %}
+        <li><a href="{{ url_for('search',
+                    current_page=page_number,
+                    find=find,
+                    category_filter=category_filter,
+                    glassType_filter=glassType_filter,
+                    difficulty_filter=difficulty_filter) }}">
+            {{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    <!--Right Arrow-->
+    {% if current_page | int < pages | count | int %}
+    <li><a href="{{ url_for('search',
+                current_page=current_page+1,
+                find=find,
+                category_filter=category_filter,
+                glassType_filter=glassType_filter,
+                difficulty_filter=difficulty_filter) }}">
+        <i class="fas fa-angle-right"></i></a></li>
+    {% else %}
+    <li class="disabled"><i class="fas fa-angle-right"></i></li>
+    {% endif %}
+</ul>

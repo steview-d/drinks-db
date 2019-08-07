@@ -1,11 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="page-container content-wrapper">
-
     <div class="row center">
         <h3>Showing Only: {{choice.title()}}</h3>
         {% if 'category' in request.path %}
-            <p class="subheader-label">{{view.categoryDescription}}</p>
+        <p class="subheader-label">{{view.categoryDescription}}</p>
         {% endif %}
     </div>
     
@@ -17,11 +16,13 @@
     </div>
 
     <!--Summary-->
-    <div class="row center">
     {% if drinks.count() == 0 %}
+    <div class="center">
         <h6>No drinks to show.</h6>
     </div>
+    
     {% else %}
+    <div>
         <h6>Showing {{first_result_num}} - {{last_result_num}} of {{drinks.count()}} results</h6>
     </div>
 
@@ -39,26 +40,28 @@
     <ul class="pagination center">
         <!--Left Arrow-->
         {% if current_page | int > 1 %}
-        <li class=""><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
+        <li><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page-1) }}"><i class="fas fa-angle-left"></i></a></li>
         {% else %}
         <li class="disabled"><i class="fas fa-angle-left"></i></li>
         {% endif %}
 
         <!--Page Numbers-->
-        {% for page_number in pages %} {% if page_number == current_page %}
-        <li class="active"><a>{{ page_number }}</a></li>
-        {% else %}
-        <li class="waves-effect"><a href="{{ url_for('view_only', option = option, choice = choice, current_page=page_number) }}">{{ page_number }}</a></li>
-        {% endif %} {% endfor %}
+            {% for page_number in pages %}
+            {% if page_number == current_page %}
+            <li class="active"><a>{{ page_number }}</a></li>
+            {% else %}
+            <li><a href="{{ url_for('view_only', option = option, choice = choice, current_page=page_number) }}">{{ page_number }}</a></li>
+            {% endif %}
+        {% endfor %}
 
         <!--Right Arrow-->
-        {% if current_page | int
-        < pages | count | int %} <li class=""><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
+        {% if current_page | int < pages | count | int %}
+        <li><a href="{{ url_for('view_only', option = option, choice = choice, current_page=current_page+1) }}"><i class="fas fa-angle-right"></i></a></li>
         {% else %}
         <li class="disabled"><i class="fas fa-angle-right"></i></li>
         {% endif %}
-
     </ul>
+    
     {% endif %}
 
 </div>
