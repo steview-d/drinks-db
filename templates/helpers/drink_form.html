@@ -11,95 +11,94 @@
             <h5>General Information</h5>
         </div>
         <div class="row">
-            <!--Name & Category-->
             <div class="col s12 center">
-                <!--Drink Name | name="name"-->
+                <!--Drink Name-->
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}" value="{{drink.name}}"> {% else %}
-                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}"> {% endif %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}" value="{{drink.name}}">
+                        {% else %}
+                        <input id="name" name="name" type="text" class="validate" required pattern=".{5,26}">
+                        {% endif %}
                         <label for="name">Drink Name</label>
                         <span class="helper-text" data-error="Name must be between 5 and 26 chars" data-success="Passed"></span>
                     </div>
                 </div>
-                <!--Category | name="category"-->
+                <!--Category-->
                 <div class="col s12 l4">
                     <div class="input-field">
                         <select id="category" name="category" class="validate" required>
-                    <option value="" disabled selected>Category</option>
-                    
-                    {% for item in all_categories %}
-                    {% if item.category == category_match %}
-                    <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
-                    {% else %}
-                    <option value="{{ item.category }}">{{ item.category.title() }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
+                        <option value="" disabled selected>Category</option>
+                        {% for item in all_categories %}
+                            {% if item.category == category_match %}
+                            <option value="{{ item.category }}" selected>{{ item.category.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.category }}">{{ item.category.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
                         <label>Category</label>
                     </div>
                 </div>
             </div>
-
-            <!--Image & Glass Type-->
             <div class="col s12 center">
-                <!--Drink Image | name="imageUrl"-->
+                <!--Drink Image-->
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
                         <input id="imageUrl" name="imageUrl" type="url" class="validate" pattern="https?://.+" minlength="12" required value="{{drink.imageUrl}}">
-                        <label for="imageUrl">Image Url</label>{% else %}
+                        <label for="imageUrl">Image Url</label>
+                        {% else %}
                         <input id="imageUrl" name="imageUrl" type="url" class="validate" pattern="https?://.+" minlength="12" required>
                         <label for="imageUrl">Image Url</label>
-                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a> {% endif %}
+                        <a><i id="add-default-url" class="far fa-plus-square prefix tooltipped url-plus" class="btn tooltipped" data-position="left" data-tooltip="Click to add default Url"></i></a>
+                        {% endif %}
                         <span class="helper-text" data-error="Url must begin with 'http(s)://' and be a minimum of 12 chars." data-success="Passed"></span>
-
                     </div>
                 </div>
-                <!--Glass Type | name="glassType"-->
+                <!--Glass Type-->
                 <div class="col s12 l4">
                     <div class="input-field">
                         <select id="glassType" name="glassType" class="validate" required>
-                    <option value="" disabled selected>Glass Type</option>
-                    {% for item in all_glass_types %}
-                    {% if item.glassType == glass_type_match %}
-                    <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
-                    {% else %}
-                    <option value="{{ item.glassType }}">{{ item.glassType.title() }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
+                        <option value="" disabled selected>Glass Type</option>
+                        {% for item in all_glass_types %}
+                            {% if item.glassType == glass_type_match %}
+                            <option value="{{ item.glassType }}" selected>{{ item.glassType.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.glassType }}">{{ item.glassType.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
                         <label>Glass Type</label>
                     </div>
                 </div>
             </div>
-
-            <!--Instructions & Difficulty-->
             <div class="col s12 center">
-                <!--Instructions | name="instructions"-->
+                <!--Instructions-->
                 <div class="col s12 l8">
                     <div class="input-field">
                         {% if drink is defined %}
-                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5">{{drink.instructions}}</textarea> {% else %}
-                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5"></textarea> {% endif %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5">{{drink.instructions}}</textarea>
+                        {% else %}
+                        <textarea id="instructions" name="instructions" class="materialize-textarea validate" required minlength="5"></textarea>
+                        {% endif %}
                         <label for="instructions">Instructions</label>
                         <span class="helper-text" data-error="Instructions length must be at least 5 chars." data-success="Passed"></span>
                     </div>
                 </div>
-                <!--Difficulty | name="difficulty"-->
+                <!--Difficulty-->
                 <div class="col s12 l4">
                     <div class="input-field">
                         <select id="difficulty" name="difficulty" class="validate" required>
-                    <option value="" disabled selected>Difficulty</option>
-                    {% for item in all_difficulties %}
-                    {% if item.difficulty == difficulty_match %}
-                    <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
-                    {% else %}
-                    <option value="{{ item.difficulty }}">{{ item.difficulty.title() }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
+                        <option value="" disabled selected>Difficulty</option>
+                        {% for item in all_difficulties %}
+                            {% if item.difficulty == difficulty_match %}
+                            <option value="{{ item.difficulty }}" selected>{{ item.difficulty.title() }}</option>
+                            {% else %}
+                            <option value="{{ item.difficulty }}">{{ item.difficulty.title() }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
                         <label>Difficulty</label>
                     </div>
                 </div>
@@ -111,30 +110,34 @@
             <div class="center">
                 <h5>Ingredients</h5>
             </div>
-
             <div class="col s12 center" id="ingredients-container">
-                {% for i in range(num_boxes) %} {% if loop.index % 2 != 0 %}
-
-                <div class="col s4 l2 measure_field">
-                    <div class="input-field">
-                        {% if drink is defined %}
-                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                        <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
-                        <label for="measure_{{class_num[i]}}">Measure {{class_name[i]}}</label>
-                        <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
+                {% for i in range(num_boxes) %} 
+                    {% if loop.index % 2 != 0 %}
+                    <div class="col s4 l2 measure_field">
+                        <div class="input-field">
+                            {% if drink is defined %}
+                            <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}">
+                            {% else %}
+                            <input id="measure_{{class_num[i]}}" name="measure_{{class_num[i]}}" type="text" class="validate" required>
+                            {% endif %}
+                            <label for="measure_{{class_num[i]}}">Measure {{class_name[i]}}</label>
+                            <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
+                        </div>
                     </div>
-                </div>
-                {% else %}
-                <div class="col s8 l4 ingredient_field">
-                    <div class="input-field">
-                        {% if drink is defined %}
-                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}"> {% else %}
-                        <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required> {% endif %}
-                        <label for="ingredient_{{class_num[i]}}">Ingredient {{class_name[i]}}</label>
-                        <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
+                    {% else %}
+                    <div class="col s8 l4 ingredient_field">
+                        <div class="input-field">
+                            {% if drink is defined %}
+                            <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required value="{{drink.ingredients[i]}}">
+                            {% else %}
+                            <input id="ingredient_{{class_num[i]}}" name="ingredient_{{class_num[i]}}" type="text" class="validate" required>
+                            {% endif %}
+                            <label for="ingredient_{{class_num[i]}}">Ingredient {{class_name[i]}}</label>
+                            <span class="helper-text" data-error="Cannot be empty." data-success="Passed"></span>
+                        </div>
                     </div>
-                </div>
-                {% endif %} {% endfor %}
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <!--Add / Remove Ingredient Buttons-->
@@ -144,8 +147,6 @@
                     <a id="remove_ingredient" class="btn btn--orange">Remove Ingredient</a>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

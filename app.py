@@ -263,7 +263,7 @@ def drink(drink_id):
 
     # List of path partials to exclude from view counter
     exclude_paths = ['drink', 'toggle_favorite']
-    
+
     # Increment view counter
     # Continue only if previous url is not in exclude paths
     if request.referrer and not any(
@@ -664,7 +664,7 @@ def view_only(option, choice):
     drinks = mongo.db.drinks.find({option: choice}) \
         .sort(sort_by, sort_order).skip(
         (current_page - 1) * drinks_per_page).limit(drinks_per_page)
-        
+
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x = current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1

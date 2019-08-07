@@ -1,18 +1,17 @@
 {% with messages = get_flashed_messages() %} 
     {% if messages %} 
         {% for message in messages %}
-        <div class="qpage-container" id="flashed-message">
-            <div class="row flash-box">
-                <div class="col s12">
-                    <h6>System Message:</h6>
-                    <h5>{{ message }}</h5>
-                </div>
-                <div class="center close-btn">
-                    <a><i class="far fa-times-circle"></i></a>
+            <div class="qpage-container" id="flashed-message">
+                <div class="row flash-box">
+                    <div class="col s12">
+                        <h6>System Message:</h6>
+                        <h5>{{ message }}</h5>
+                    </div>
+                    <div class="center close-btn">
+                        <a><i class="far fa-times-circle"></i></a>
+                    </div>
                 </div>
             </div>
-</div>
         {% endfor %}
     {% endif %}
 {% endwith %}
-    
