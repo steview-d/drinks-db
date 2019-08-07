@@ -1,7 +1,8 @@
 import math
 import os
 import random
-from flask import abort, flash, Flask, redirect, render_template, request, session, \
+from flask import flash, Flask, redirect, render_template, request, \
+    session, \
     url_for
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -37,11 +38,6 @@ sort_order_list = ['Ascending', 'Descending']
 sort_options = [8, '8', 'name', 0, 1, 'Ascending']
 
 
-@app.context_processor
-def inject_enumerate():
-    return dict(enumerate=enumerate)
-
-
 # Routes
 
 @app.route("/")
@@ -55,7 +51,7 @@ def index():
     glass_types = mongo.db.glass.find()
     difficulties = mongo.db.difficulty.find()
 
-    # Get Suggested Drinks For User
+    # Get Num (arg2) Suggested Drinks For User
     suggestions = get_suggestions(mongo, 4)
 
     # Sort Options
@@ -80,11 +76,6 @@ def index():
     first_result_num = x - drinks_per_page + 1
     last_result_num = x if x < total_drinks else total_drinks
 
-    # Get Quotes
-    all_quotes = mongo.db.quotes.find_one({}, {"_id": 0, "quote": 1})['quote']
-    quote = all_quotes[random.randrange(len(all_quotes))]
-    quote_name, quote_text = quote.split(':', 1)
-
     return render_template('index.html',
                            drinks=drinks,
                            categories=categories,
@@ -96,9 +87,6 @@ def index():
                            pages=num_pages,
                            first_result_num=first_result_num,
                            last_result_num=last_result_num,
-                           # Quotes
-                           quote_name=quote_name,
-                           quote_text=quote_text,
                            # Display Options
                            sort_options=sort_options,
                            # Items for Drop Downs
@@ -171,8 +159,8 @@ def account(account_name):
         # Page Title
         title = str(user['userName']).title() + "'s Account"
 
-        # For all drinks submitted by the user, get their total views &
-        # how many times they have been favorited by other users
+        # For all drinks submitted by the user, get their total views,
+        # comments, and how many times they have been favorited by other users
         total_views = 0
         total_favorites = 0
         total_comments = 0
@@ -273,18 +261,19 @@ def drink(drink_id):
     # Page Title
     title = drink['name']
 
-    # Increment view counter
     # List of path partials to exclude from view counter
     exclude_paths = ['drink', 'toggle_favorite']
+    
+    # Increment view counter
     # Continue only if previous url is not in exclude paths
-
-    if request.referrer and not any (s in request.referrer for s in exclude_paths):
+    if request.referrer and not any(
+            s in request.referrer for s in exclude_paths):
         # Update views if drink by a different user, or no user logged in
         if session.get('username') is None or session['username'] != drink[
                 'userName']:
             mongo.db.drinks.update_one(
                 {'_id': ObjectId(drink_id)}, {'$inc': {'views': int(1)}})
-    views=mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})['views']
+    views = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})['views']
 
     # Instructions
     instructions = drink['instructions'].split(". ")
@@ -331,7 +320,7 @@ def drink(drink_id):
     except KeyError:
         user_favorites = []
     is_favorite = 1 if drink_id in user_favorites else 0
-    
+
     # Get Quotes
     all_quotes = mongo.db.quotes.find_one({}, {"_id": 0, "quote": 1})['quote']
     quote = all_quotes[random.randrange(len(all_quotes))]
@@ -349,10 +338,9 @@ def drink(drink_id):
                            quote_name=quote_name,
                            quote_text=quote_text)
 
-        
+
 @app.route("/toggle_favorite/<drink_id>/<is_favorite>")
 def toggle_favorite(drink_id, is_favorite):
-
     # Add or remove drink from favorites list for users and drinks collections
     action = '$pull' if is_favorite == "1" else '$addToSet'
     mongo.db.users.find_one_and_update({
@@ -368,7 +356,7 @@ def toggle_favorite(drink_id, is_favorite):
     mongo.db.drinks.find_one_and_update({
         '_id': ObjectId(drink_id)}, {
         '$set': {'favorites': favorites_txt_length}})
-        
+
     return redirect(url_for('drink', drink_id=drink_id))
 
 
@@ -404,7 +392,7 @@ def add_drink():
 
         # Process ingredients & measures
         drink_dict['ingredients'] = get_ingredients(drink_dict)
-  
+
         drink_dict['views'] = int(0)
         drink_dict['favoritesTxt'] = []
         drink_dict['favorites'] = 0
@@ -494,7 +482,7 @@ def edit_drink(drink_id):
 @app.route("/delete_drink/<drink_id>", methods=['GET', 'POST'])
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
-    
+
     # Get list of users who have favorited this drink and remove
     # the drink from their favorites list
     user_faves = drinks.find_one({"_id": ObjectId(drink_id)})['favoritesTxt']
@@ -511,7 +499,6 @@ def delete_drink(drink_id):
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    
     # Get Categories for filter dropdowns
     all_categories = mongo.db.categories.find()
     all_glass_types = mongo.db.glass.find()
@@ -648,16 +635,13 @@ def search():
 
 @app.route("/view_only/<option>/<choice>", methods=['GET', 'POST'])
 def view_only(option, choice):
-    
     if option == 'category':
         view = mongo.db.categories.find_one({option: choice})
     elif option == 'difficulty':
         view = mongo.db.difficulty.find_one({option: choice})
     else:
         view = mongo.db.glass.find_one({option: choice})
-        
-    
-    # view = mongo.db.categories.find_one({option: choice}) # change category (x2) later
+
     title = view[option].title()
 
     # Sort Options
@@ -680,6 +664,7 @@ def view_only(option, choice):
     drinks = mongo.db.drinks.find({option: choice}) \
         .sort(sort_by, sort_order).skip(
         (current_page - 1) * drinks_per_page).limit(drinks_per_page)
+        
     # Summary - (example) 'showing 1 - 9 of 15 results'
     x = current_page * drinks_per_page
     first_result_num = x - drinks_per_page + 1
@@ -723,4 +708,3 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=True)
-
