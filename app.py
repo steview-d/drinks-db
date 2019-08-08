@@ -169,13 +169,25 @@ def account(account_name):
             total_favorites += drink['favorites']
             total_comments += drink['comments']
 
-        # Get drinks with most views, comments, favoriyes, for current user
-        most_viewed = mongo.db.drinks.find_one({
-            "userName": account_name}, sort=[("views", -1)])
-        most_favorited = mongo.db.drinks.find_one({
-            "userName": account_name}, sort=[("favorites", -1)])
-        most_commented = mongo.db.drinks.find_one({
-            "userName": account_name}, sort=[("comments", -1)])
+        # Get drinks with most views, comments, favorites, for current user
+        if drinks_submitted_by_user.count() != 0:
+            most_viewed = mongo.db.drinks.find_one({
+                "userName": account_name}, sort=[("views", -1)])
+            if most_viewed['views'] == 0:
+                most_viewed = None
+
+            most_favorited = mongo.db.drinks.find_one({
+                "userName": account_name}, sort=[("favorites", -1)])
+            if most_favorited['favorites'] == 0:
+                most_favorited = None
+
+            most_commented = mongo.db.drinks.find_one({
+                "userName": account_name}, sort=[("comments", -1)])
+            if most_commented['comments'] == 0:
+                most_commented = None
+
+        else:
+            most_viewed, most_favorited, most_commented = None, None, None
 
         # Get general db stats
         total_drinks = mongo.db.drinks.count()

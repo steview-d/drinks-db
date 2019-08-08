@@ -64,7 +64,7 @@
                         <div class="card-content">
                             <h6>Most Favorited</h6>
                             <hr>
-                            <p>Your most favorited drink is {{most_favorited.name}}. It has been favorited by {{most_favorited.views}} users.</p>
+                            <p>Your most favorited drink is {{most_favorited.name}}. It has been favorited by {{most_favorited.favorites}} users.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_favorited._id) }}">{{most_favorited.name}}</a>
@@ -95,7 +95,7 @@
                         <div class="card-content">
                             <h6>Most Commented</h6>
                             <hr>
-                            <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.views}} comments.</p>
+                            <p>Your drink with the most comments is {{most_commented.name}} with {{most_commented.comments}} comments.</p>
                         </div>
                         <div class="card-action center-align">
                             <a href="{{ url_for('drink', drink_id = most_commented._id) }}">{{most_commented.name}}</a>

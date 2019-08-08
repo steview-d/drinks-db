@@ -24,7 +24,7 @@ def get_suggestions(mongo, num_suggestions):
         other_users_drinks = []
 
     suggestions = []
-    if other_users_drinks:
+    if len(other_users_drinks) > 3:
         while len(suggestions) < num_suggestions:
             suggestions.append(other_users_drinks.pop(
                                random.randint(0, len(other_users_drinks)-1)))
