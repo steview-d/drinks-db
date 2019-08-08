@@ -274,7 +274,7 @@ def drink(drink_id):
     title = drink['name']
 
     # List of path partials to exclude from view counter
-    exclude_paths = ['drink', 'toggle_favorite']
+    exclude_paths = ['drink/', 'toggle_favorite']
 
     # Increment view counter
     # Continue only if previous url is not in exclude paths
