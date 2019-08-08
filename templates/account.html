@@ -1,10 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
-<div id="account" class="page-container content-wrapper">
+<section id="account" class="page-container content-wrapper">
     <div class="row">
         
         <!--User & Stats-->
-        <div class="col s12 xl3">
+        <section class="col s12 xl3">
             <h2>Hi {{user.userName}}</h2>
             <p>Your drinks have had a total of <span class="info-label">{{views}}</span> views</p>
             <p>Drinks submitted by you have been favorited a total of <span class="info-label">{{favorites}}</span> times</p>
@@ -14,10 +14,10 @@
                 spread over a total of <span class="info-label">{{total_categories}}</span> categories, 
                 <span class="info-label">{{total_glass_types}}</span> different ypes of drinking glasses, 
                 and <span class="info-label">{{total_difficulties}}</span> levels of difficulty.</p>
-        </div>
+        </section>
         
         <!--User Drinks Stats-->
-        <div class="col s12 xl9">
+        <section class="col s12 xl9">
             <div class="row eq-height-columns">
                 
                 <!--Most Viewed-->
@@ -113,11 +113,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <!--Users Submitted Drinks-->
-    <div class="row">
+    <section class="row">
         <h4>Drinks Submitted By You</h4>
 
         <!--Summary-->
@@ -175,10 +175,10 @@
             {% endif %}
         </ul>
         {% endif %}
-    </div>
+    </section>
 
     <!--Users Favorite Drinks-->
-    <div class="row">
+    <section class="row">
         <h4>Drinks Favorited By You</h4>
         
         <!--Summary-->
@@ -233,7 +233,7 @@
             {% endif %}
         </ul>
         {% endif %}
-    </div>
-</div>
+    </section>
+</section>
 
 {% endblock %}

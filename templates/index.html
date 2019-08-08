@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 <!--Intro Box-->
-<div class="page-container intro-wrapper">
+<section class="page-container intro-wrapper">
     <img src="{{ url_for('static', filename='images/background/main_top.jpg') }}" alt="Row Of Drinks">
     <div class="intro">
         <div>
@@ -27,34 +27,32 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="page-container content-wrapper">
+<section class="page-container content-wrapper">
     <div class="spacer-2r"></div>
 
     <!--Browse / View By-->
-    <div class="row">
+    <article class="row">
         <div class="col s12 center">
             <h6>Browse by category, glass type, or difficulty.</h6>
             <a id="tabs-title-btn" class="btn btn--black">Browse</a>
         </div>
-    </div>
+        {% include 'helpers/view_by.html' %}
+    </article>
 
-    {% include 'helpers/view_by.html' %}
-
-    <div class="row">
+    <!--Sort Options-->
+    <section class="row">
         <div class="col s12 center">
             <h6>Sort the display order.</h6>
             <a id="sort-options-btn" class="btn btn--black">Sort Options</a>
         </div>
-    </div>
-
-    <!--Sort Options-->
-    <div id="sort-options" class="row hidden">
-        <form method="POST" action="{{ url_for('index')}}">
-            {% include 'helpers/sort_options.html' %}
-        </form>
-    </div>
+        <div id="sort-options" class="row hidden">
+            <form method="POST" action="{{ url_for('index')}}">
+                {% include 'helpers/sort_options.html' %}
+            </form>
+        </div>
+    </section>
 
     <!--Summary-->
     <div class="col s12 display-summary">
@@ -69,28 +67,30 @@
     <br>
 
     <!--Drinks Grid-->
-    <div class="row">
+    <section class="row">
         {% for drink in drinks %}
             <div class="col s6 l4 xl3">
                 {% include 'helpers/drink_card.html' %}
             </div>
         {% endfor %}
-    </div>
+    </section>
 
     <!--Pagination Bottom-->
     {% include 'helpers/pagination_index.html' %}
 
     <!--Suggestions-->
-    {% if suggestions %}
-    <h5>You may also like...</h5>
-    <div class="row">
-        {% for drink in suggestions %}
-        <div class="col s6 xl3">
-            {% include 'helpers/drink_card.html' %}
+    <article>
+        {% if suggestions %}
+        <h5>You may also like...</h5>
+        <div class="row">
+            {% for drink in suggestions %}
+            <div class="col s6 xl3">
+                {% include 'helpers/drink_card.html' %}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-</div>
+        {% endif %}
+    </article>
+</section>
 
 {% endblock %}

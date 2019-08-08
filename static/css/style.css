@@ -891,7 +891,7 @@ textarea.materialize-textarea.invalid {
 
 #ingredients-box {
     /*background-color: #eee;*/
-    padding: 0 2rem 2rem;
+    padding: 0 .75rem 2rem;
 }
 
 .measure-width {
@@ -900,7 +900,7 @@ textarea.materialize-textarea.invalid {
 
 #instructions-box {
     /*background-color: #eee;*/
-    padding: 1rem 2rem;
+    padding: 1rem .75rem;
 }
 
 #instructions-box hr {
@@ -957,6 +957,10 @@ textarea.materialize-textarea.invalid {
     white-space: nowrap
 }
 
+#favorites-box .favorites-content{
+    margin-bottom: 2rem;
+}
+
 @media screen and (min-width: 993px) {
     #favorites-box {
         padding-right: 54px;
@@ -967,6 +971,8 @@ textarea.materialize-textarea.invalid {
     font-size: 4rem;
     margin: 1rem;
 }
+
+
 
 .white-border {
     border: 1px solid black;

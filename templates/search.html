@@ -1,16 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="page-container content-wrapper">
+<section class="page-container content-wrapper">
 
     <!--Page Title-->
     <div class="row center">
         <h2>Search</h2>
     </div>
 
-    <div class="row">
+    <!--Main Search Section-->
+    <section class="row">
         <form action="{{ url_for('search') }}" class="col s12 xl10 offset-xl1">
             
-            <!--Search-->
+            <!--Search Input-->
             <span><i class="fas fa-search"></i></span>
             <div class="input-field">
                 {% if find %}
@@ -70,54 +71,56 @@
                 <a class="btn btn--black" href="{{ url_for('search') }}">Reset</a>
             </div>
         </form>
-    </div>
+    </section>
 
-    <!--No results from search-->
-    {% if num_results == 0 %}
-    <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
-    {% endif %}
-    
-    <!--Display Results-->
-    {% if results %}
-    <!--Sort Options-->
-    <div class="sort-options-title center">
-        <a id="sort-options-btn" class="btn btn--black">Sort Options</a>
-    </div>
-    <br>
-    <div id="sort-options" class="row hidden">
-        <form method="POST" action="{{ url_for('search',
-                                    current_page=page_number,
-                                    find=find,
-                                    category_filter=category_filter,
-                                    glassType_filter=glassType_filter,
-                                    difficulty_filter=difficulty_filter)}}">
-            {% include 'helpers/sort_options.html' %}
-        </form>
-    </div>
-
-    <!--Results Summary-->
-    <div class="row center">
-        <h5>Search Results</h5>
-        <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
-    </div>
-    <hr class="hr-results">
-    
-    <!--Pagination Top-->
-    {% include 'helpers/pagination_search.html' %}
-    <br>
-
-    <!--Display Drinks-->
-    <div class="row">
-        {% for drink in results %}
-        <div class="col s6 l4 xl3 center">
-            {% include 'helpers/drink_card.html' %}
+    <!--Display Search Results-->
+    <section>
+        <!--No results from search-->
+        {% if num_results == 0 %}
+        <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
+        {% endif %}
+        
+        {% if results %}
+        <!--Sort Options-->
+        <div class="sort-options-title center">
+            <a id="sort-options-btn" class="btn btn--black">Sort Options</a>
         </div>
-        {% endfor %}
-    </div>
-
-    <!--Pagination Bottom-->
-    {% include 'helpers/pagination_search.html' %}
-    {% endif %}
-</div>
+        <br>
+        <div id="sort-options" class="row hidden">
+            <form method="POST" action="{{ url_for('search',
+                                        current_page=page_number,
+                                        find=find,
+                                        category_filter=category_filter,
+                                        glassType_filter=glassType_filter,
+                                        difficulty_filter=difficulty_filter)}}">
+                {% include 'helpers/sort_options.html' %}
+            </form>
+        </div>
+    
+        <!--Results Summary-->
+        <div class="row center">
+            <h5>Search Results</h5>
+            <h6>Showing {{first_result_num}} - {{last_result_num}} of {{results.count()}} results</h6>
+        </div>
+        <hr class="hr-results">
+        
+        <!--Pagination Top-->
+        {% include 'helpers/pagination_search.html' %}
+        <br>
+    
+        <!--Display Drinks-->
+        <div class="row">
+            {% for drink in results %}
+            <div class="col s6 l4 xl3 center">
+                {% include 'helpers/drink_card.html' %}
+            </div>
+            {% endfor %}
+        </div>
+    
+        <!--Pagination Bottom-->
+        {% include 'helpers/pagination_search.html' %}
+        {% endif %}
+    </section>
+</section>
 
 {% endblock %}
