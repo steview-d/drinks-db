@@ -3,20 +3,28 @@
 body {
     background-image: url('../images/background/bg.jpg');
     background-repeat: repeat;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     min-height: 100vh;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     font-family: 'Muli', sans-serif;
 }
 
 main {
     background-color: rgb(255, 255, 255); /*Fallback*/
     background-color: rgba(255, 255, 255, 0.7);
-    flex: 1 0 auto;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
 }
 
 .page-container {
-    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -62,8 +70,11 @@ main {
 }
 
 .eq-height-columns {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 a {
@@ -117,9 +128,11 @@ footer i:hover {
     height: 1.8rem;
     line-height: 1.7rem;
     font-size: 0.8rem;
-    background-color: black;
+    background-color: #212121;
     border: 1px solid black;
     color: white;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
     margin: 0.5rem auto 1rem;
 }
@@ -138,6 +151,8 @@ footer i:hover {
     background-color: #e53935;
     border: 1px solid #c62828;
     color: white;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
     margin: 0.5rem auto 1rem;
 }
@@ -156,6 +171,8 @@ footer i:hover {
     background-color: #4CAF50;
     border: 1px solid #388E3C;
     color: white;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
     margin: 2rem 0;
 }
@@ -174,6 +191,8 @@ footer i:hover {
     background-color: #FF9800;
     border: 1px solid #F57C00;
     color: white;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
     margin: 2rem 0;
 }
@@ -192,6 +211,8 @@ footer i:hover {
     background-color: #2196f3;
     border: 1px solid #1976d2;
     color: white;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
     transition: 0.5s;
     margin: 2rem 0;
 }
@@ -251,9 +272,6 @@ footer i:hover {
 
 .landing {
     background: url(../images/background/landing.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
     color: white;
 }
@@ -285,8 +303,12 @@ footer i:hover {
     margin: 2vw auto 1vw;
     font-size: 11vw;
     color: white;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
     transition: 0.3s;
-    transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+         -o-transition-timing-function: ease-in;
+            transition-timing-function: ease-in;
 }
 
 @media screen and (min-width: 601px){
@@ -346,6 +368,8 @@ nav {
 nav .brand-logo {
     font-style: italic;
     font-size: 3rem;
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
     transition: 0.2s;
 }
 
@@ -361,6 +385,8 @@ nav .brand-logo {
 
 nav ul a {
     font-size: 2rem;
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
     transition: 0.2s;
 }
 
@@ -428,7 +454,8 @@ nav ul a {
     display: block;
     width: 100%;
     height: 40vh;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 
 @media screen and (min-width: 601px) {
@@ -442,7 +469,9 @@ nav ul a {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50%);
+    -webkit-transform: translate( -50%, -50%);
+        -ms-transform: translate( -50%, -50%);
+            transform: translate( -50%, -50%);
     width: 70%;
     border: 2px solid #ccc;
     border-radius: 15px;
@@ -561,7 +590,8 @@ nav ul a {
 
 #difficulty-tab img {
     height: 200px;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
 }
 
 .subheader-label {
@@ -576,9 +606,15 @@ nav ul a {
 /* ------------------------------------------------------------ Drink Cards -*/
 
 .card .card-action {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     background-color: #212121;
     padding: 0 12px;
     height: 70px;
@@ -586,11 +622,14 @@ nav ul a {
 
 .card .card-action a {
     color: white !important;
+    -webkit-transition: 0.8s ease-in;
+    -o-transition: 0.8s ease-in;
     transition: 0.8s ease-in;
 }
 
 .card-image img {
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     height: 200px;
 }
 
@@ -645,7 +684,7 @@ nav ul a {
 
 [type="radio"]:checked+span:after {
     border: 2px solid black;
-    background-color: black;
+    background-color: #212121;
 }
 
 .dropdown-content li>a,
@@ -659,7 +698,8 @@ nav ul a {
 
 .row .input-field input[type=text]:focus {
     border-bottom: 1px solid #9e9e9e;
-    box-shadow: 0 1px 0 0 #9e9e9e;
+    -webkit-box-shadow: 0 1px 0 0 #9e9e9e;
+            box-shadow: 0 1px 0 0 #9e9e9e;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly])+label,
@@ -674,7 +714,8 @@ input[type=password]:not(.browser-default):focus:not([readonly]),
 input[type=url]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #9e9e9e;
-    box-shadow: 0 1px 0 0 #9e9e9e
+    -webkit-box-shadow: 0 1px 0 0 #9e9e9e;
+            box-shadow: 0 1px 0 0 #9e9e9e
 }
 
 input.invalid[type=text]:not(.browser-default),
@@ -682,7 +723,8 @@ input.invalid[type=password]:not(.browser-default),
 input.invalid[type=url]:not(.browser-default),
 textarea.materialize-textarea.invalid {
     border-bottom: 1px solid #b30c0c;
-    box-shadow: 0 1px 0 0 #b30c0c;
+    -webkit-box-shadow: 0 1px 0 0 #b30c0c;
+            box-shadow: 0 1px 0 0 #b30c0c;
 }
 
 
@@ -713,7 +755,8 @@ textarea.materialize-textarea.invalid {
 }
 
 #drink-img img {
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     max-height: 375px;
     margin: 0 auto 20px;
 }
@@ -814,7 +857,9 @@ textarea.materialize-textarea.invalid {
 }
 
 .swirl-bottom {
-    transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+        -ms-transform: scaleY(-1);
+            transform: scaleY(-1);
 }
 
 .comment-box {
@@ -852,6 +897,8 @@ textarea.materialize-textarea.invalid {
 #add-default-url {
     color: #919191;
     right: 0;
+    -webkit-transition: 0.3s ease-in;
+    -o-transition: 0.3s ease-in;
     transition: 0.3s ease-in;
 }
 
@@ -903,7 +950,9 @@ textarea.materialize-textarea.invalid {
 .v-center-content {
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
 }
 
 .log-reg-wrapper {
@@ -927,9 +976,14 @@ footer .row {
 }
 
 .footer-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     text-align: center;
     padding: 8px;
 }
@@ -940,6 +994,8 @@ footer .row {
 }
 
 footer i {
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
     transition: 0.2s;
 }
 
@@ -978,7 +1034,7 @@ footer i {
     background-color: rgba(255, 255, 255, 0.7);
     padding: 0 20px;
     -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
+            box-decoration-break: clone;
 }
 
 @media screen and (min-width: 601px) {
