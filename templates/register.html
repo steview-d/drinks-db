@@ -9,12 +9,18 @@
                 <form method="POST" action="{{ url_for('register') }}" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Username" id="username" name="username" type="text" class="validate" autocomplete="username" required pattern=".{5,15}">
+                            <input id="username" name="username" type="text" class="validate" autocomplete="username" required pattern=".{3,15}">
+                            <label for="username">Username
+                                <i class="fas fa-info-circle fa-sm tooltipped" data-position="right" data-tooltip="Username should be between 3 and 15 characters in length"></i>
+                            </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Password" id="password" name="password" type="password" class="validate" autocomplete="new-password" required pattern=".{5,15}">
+                            <input id="password" name="password" type="password" class="validate" autocomplete="new-password" required pattern=".{5,15}">
+                            <label for="password">Password
+                                <i class="fas fa-info-circle fa-sm tooltipped" data-position="right" data-tooltip="Password should be between 5 and 15 characters in length"></i>
+                            </label>
                         </div>
                     </div>
                     <button class="btn btn--black" type="submit">CREATE ACCOUNT</button>
