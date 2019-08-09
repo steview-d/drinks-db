@@ -101,6 +101,11 @@ def index():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
+    # Confirm not already logged in
+    if session.get('username'):
+        flash("Already logged in. Logout first to login as a different user.")
+        return redirect(url_for('index'))
+
     # User login - check user/pass and route accordingly
     if request.method == 'POST':
         user_list = mongo.db.users
@@ -127,6 +132,11 @@ def logout():
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
+    # Confirm not already logged in
+    if session.get('username'):
+        flash("Already logged in. Logout first to register a new user.")
+        return redirect(url_for('index'))
+
     # User registration - check user/pass and route accordingly
     if request.method == 'POST':
         user_list = mongo.db.users
@@ -149,9 +159,9 @@ def register():
 def account(account_name):
     # Check to make sure account being accessed through url matches
     # account stored in session.
-    # This stops users accessing any account through the url bar.
-    if account_name != session['username']:
-        return redirect(url_for('account', account_name=session['username']))
+    if account_name != session.get('username'):
+        flash("You can only access your own account page.")
+        return redirect(url_for('index'))
     else:
         user = mongo.db.users.find_one({"userName": account_name})
 
@@ -378,6 +388,11 @@ def toggle_favorite(drink_id, is_favorite):
 
 @app.route("/add_drink", methods=['GET', 'POST'])
 def add_drink():
+    # Check to make sure a user is logged in
+    if not session.get('username'):
+        flash("You must be logged in to add a drink.")
+        return redirect(url_for('index'))
+
     # Page Title
     title = "Add Drink"
 
@@ -441,10 +456,10 @@ def add_drink():
 def edit_drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
 
-    # Check user can edit drink - and not fudged URL
-    user = session['username']
+    # Check user is trying to edit only their own drink
+    user = session.get('username')
     if user != "Admin" and user != drink['userName']:
-        flash("CHEEKY! YOU CAN ONLY EDIT YOUR OWN DRINKS!")
+        flash("You can only edit drinks you have submitted yourself.")
         return redirect(url_for('drink', drink_id=drink_id))
 
     date = datetime.strftime(drink.get('date'), '%d %B %Y')
@@ -500,10 +515,9 @@ def delete_drink(drink_id):
     drinks = mongo.db.drinks
 
     # Check user attempting to delete drink is allowed
-    if session['username'] != drinks.find_one({
+    if session.get('username') != drinks.find_one({
             "_id": ObjectId(drink_id)})['userName']:
-        flash("Oh no you dont {}! That's not your drink to delete.".format(
-            session['username']))
+        flash("Oh no you dont! That's not your drink to delete.")
         return redirect(url_for('drink', drink_id=drink_id))
     else:
         # Get list of users who have favorited this drink and remove
