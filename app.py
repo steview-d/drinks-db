@@ -35,7 +35,7 @@ sort_order_list = ['Ascending', 'Descending']
 # Default Sort Options:
 # drinks_per_page | num_drinks_display | sort_by |
 # relevance flag | sort_order | sort_order_txt
-sort_options = [8, '8', 'name', 0, 1, 'Ascending']
+default_sort_options = [8, '8', 'name', 0, 1, 'Ascending']
 
 
 # Routes
@@ -55,14 +55,19 @@ def index():
     suggestions = get_suggestions(mongo, 4)
 
     # Sort Options
+    # Check if session exists
+    if session.get('sort_options') is None:
+        session['sort_options'] = default_sort_options
+
     if request.method == "POST":
-        sort_drinks(mongo, sort_options)
+        sort_drinks(mongo)
         return redirect(url_for('index'))
 
     # Set Drinks Display Options
-    drinks_per_page = sort_options[0]
-    sort_by = sort_options[2]
-    sort_order = sort_options[4]
+    drinks_per_page = session['sort_options'][0]
+    sort_by = session['sort_options'][2]
+    sort_order = session['sort_options'][4]
+    sort_options = session['sort_options']
 
     # Pagination
     current_page = int(request.args.get('current_page', 1))
@@ -542,29 +547,37 @@ def search():
         # Get Search Term
         find = request.args['find']
 
-        # Sort
-        if request.method == "POST":
-            sort_drinks(mongo, sort_options)
-            # State if sort by relevance first
-            sort_options[3] = 1 if 'relevance' in request.form else 0
+        # Sort Options
+        # Check if session exists
+        if session.get('sort_options') is None:
+            session['sort_options'] = default_sort_options
 
+        if request.method == "POST":
+            sort_drinks(mongo)
+            # State if sort by relevance first
+            session['sort_options'][
+                3] = 1 if 'relevance' in request.form else 0
             return redirect(url_for('search',
                                     category_filter=category_filter,
                                     glassType_filter=glass_type_filter,
                                     difficulty_filter=difficulty_filter,
                                     find=find))
 
-        # Display Options
-        results_per_page = sort_options[0]
-        sort_by = sort_options[2]
-        sort_order = sort_options[4]
+        # Set Drinks Display Options
+        results_per_page = session['sort_options'][0]
+        sort_by = session['sort_options'][2]
+        sort_order = session['sort_options'][4]
+
         current_page = int(request.args.get('current_page', 1))
 
         # Set 'sort_values' based on user input
         sort_values = [(sort_by, sort_order), ('name', pymongo.ASCENDING)] if \
-            sort_options[3] != 1 else [('score', {'$meta': 'textScore'}),
-                                       (sort_by, sort_order),
-                                       ('name', pymongo.ASCENDING)]
+            session['sort_options'][3] != 1 else [
+            ('score', {'$meta': 'textScore'}),
+            (sort_by, sort_order),
+            ('name', pymongo.ASCENDING)]
+
+        sort_options = session['sort_options']
 
         # Create 'search_str' for use in search
         search_str = {'$text': {'$search': find}} if find != "" else {
@@ -657,17 +670,21 @@ def view_only(option, choice):
     title = view[option].title()
 
     # Sort Options
+    # Check if session exists
+    if session.get('sort_options') is None:
+        session['sort_options'] = default_sort_options
+
     if request.method == "POST":
-        sort_drinks(mongo, sort_options)
+        sort_drinks(mongo)
         return redirect(url_for('view_only',
                                 view=view,
                                 option=option,
                                 choice=choice))
 
-    # Display Options
-    drinks_per_page = sort_options[0]
-    sort_by = sort_options[2]
-    sort_order = sort_options[4]
+    drinks_per_page = session['sort_options'][0]
+    sort_by = session['sort_options'][2]
+    sort_order = session['sort_options'][4]
+    sort_options = session['sort_options']
 
     # Pagination
     current_page = int(request.args.get('current_page', 1))

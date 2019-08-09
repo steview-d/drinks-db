@@ -32,16 +32,15 @@ def get_suggestions(mongo, num_suggestions):
     return suggestions
 
 
-def sort_drinks(mongo, sort_options):
-    """ Sets the values for the 'sort_options' list
+def sort_drinks(mongo):
+    """ Sets the values for the 'sort_options' session list
 
     Function uses the values from request.form to set the contents of
-    'sort_options'. The function returns None as 'sort_options' is a 
-    global  variable and is set from within this function.
+    'sort_options'. The function returns None as 'sort_options' is
+    global and values are set from within this function.
 
     Args:
         mongo : Always 'mongo'
-        sort_options : The 'sort_options' list
 
     Returns:
         None
@@ -49,19 +48,21 @@ def sort_drinks(mongo, sort_options):
 
     # Number Of Drinks To Display
     num_drinks_display = request.form['num_drinks_display']
-    sort_options[0] = mongo.db.drinks.count() if num_drinks_display\
+    session['sort_options'][0] = mongo.db.drinks.count() if num_drinks_display\
         == 'All' else int(num_drinks_display)
-    sort_options[1] = num_drinks_display
+    session['sort_options'][1] = num_drinks_display
 
     # Drinks Sort By
     sort_by = request.form['sort_by']
-    sort_options[2] = sort_by
-    sort_options[3] = 0
+    session['sort_options'][2] = sort_by
+    session['sort_options'][3] = 0
 
     # Drinks Sort Order
     sort_order = request.form['sort_order']
-    sort_options[4] = 1 if sort_order == 'Ascending' else -1
-    sort_options[5] = sort_order
+    session['sort_options'][4] = 1 if sort_order == 'Ascending' else -1
+    session['sort_options'][5] = sort_order
+
+    session['sort_options'] = session['sort_options']
 
     return None
 
