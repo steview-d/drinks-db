@@ -155,7 +155,7 @@ def register():
     return render_template('register.html', title="Register")
 
 
-@app.route("/account/<account_name>", methods=['GET', 'POST'])
+@app.route("/account/<account_name>")
 def account(account_name):
     # Check to make sure account being accessed through url matches
     # account stored in session.
@@ -277,7 +277,7 @@ def account(account_name):
                                last_fv_result_num=last_fv_result_num)
 
 
-@app.route("/drink/<drink_id>", methods=['GET', 'POST'])
+@app.route("/drink/<drink_id>", methods=['POST', 'GET'])
 def drink(drink_id):
     drink = mongo.db.drinks.find_one({"_id": ObjectId(drink_id)})
 
@@ -386,7 +386,7 @@ def toggle_favorite(drink_id, is_favorite):
     return redirect(url_for('drink', drink_id=drink_id))
 
 
-@app.route("/add_drink", methods=['GET', 'POST'])
+@app.route("/add_drink", methods=['POST', 'GET'])
 def add_drink():
     # Check to make sure a user is logged in
     if not session.get('username'):
@@ -510,14 +510,14 @@ def edit_drink(drink_id):
                            difficulty_match=drink['difficulty'])
 
 
-@app.route("/delete_drink/<drink_id>", methods=['GET', 'POST'])
+@app.route("/delete_drink/<drink_id>")
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
 
     # Check user attempting to delete drink is allowed
     if session.get('username') != drinks.find_one({
             "_id": ObjectId(drink_id)})['userName']:
-        flash("Oh no you dont! That's not your drink to delete.")
+        flash("Oh no you don't! That's not your drink to delete.")
         return redirect(url_for('drink', drink_id=drink_id))
     else:
         # Get list of users who have favorited this drink and remove
