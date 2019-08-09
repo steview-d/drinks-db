@@ -1,9 +1,8 @@
 import math
 import os
 import random
-from flask import flash, Flask, redirect, render_template, request, \
-    session, \
-    url_for
+from flask import (flash, Flask, redirect, render_template, request, session,
+                   url_for)
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -500,18 +499,26 @@ def edit_drink(drink_id):
 def delete_drink(drink_id):
     drinks = mongo.db.drinks
 
-    # Get list of users who have favorited this drink and remove
-    # the drink from their favorites list
-    user_faves = drinks.find_one({"_id": ObjectId(drink_id)})['favoritesTxt']
-    for name in user_faves:
-        mongo.db.users.find_one_and_update({
-            'userName': name}, {'$pull': {'favoritesTxt': drink_id}})
+    # Check user attempting to delete drink is allowed
+    if session['username'] != drinks.find_one({
+            "_id": ObjectId(drink_id)})['userName']:
+        flash("Oh no you dont {}! That's not your drink to delete.".format(
+            session['username']))
+        return redirect(url_for('drink', drink_id=drink_id))
+    else:
+        # Get list of users who have favorited this drink and remove
+        # the drink from their favorites list
+        user_faves = drinks.find_one({
+            "_id": ObjectId(drink_id)})['favoritesTxt']
+        for name in user_faves:
+            mongo.db.users.find_one_and_update({
+                'userName': name}, {'$pull': {'favoritesTxt': drink_id}})
 
-    drink_name = drinks.find_one({"_id": ObjectId(drink_id)})['name']
-    drinks.delete_one({"_id": ObjectId(drink_id)})
+        drink_name = drinks.find_one({"_id": ObjectId(drink_id)})['name']
+        drinks.delete_one({"_id": ObjectId(drink_id)})
 
-    flash("{} has been deleted".format(drink_name))
-    return redirect(url_for('index'))
+        flash("{} has been deleted".format(drink_name))
+        return redirect(url_for('index'))
 
 
 @app.route("/search", methods=['GET', 'POST'])
