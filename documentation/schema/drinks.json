@@ -1,0 +1,43 @@
+{
+    "_id":{
+        "$oid":"5d021d724eb4593f44507aa5"
+    },
+    "name":"Daiquiri",
+    "category":"classic cocktail",
+    "userName":"Dave",
+    "date":{
+        "$date":{
+            "$numberLong":"1560211200000"
+        }
+    },
+    "ingredients":[
+        "2 oz",
+        "Light Rum",
+        "3/4 oz",
+        "Fresh Lime Juice",
+        "3/4 oz",
+        "Simple Syrup"
+    ],
+    "instructions":"Shake with ice. Strain into a chilled glass.",
+    "difficulty":"beginner",
+    "glassType":"cocktail",
+    "imageUrl":"https://content.mrbostondrinks.com/recipes/daiquiri-2012/32/632.jpg",
+    "views":{
+        "$numberInt":"52"
+    },
+    "favoritesTxt":[
+        "Al",
+        "Peggy",
+        "Bud"
+    ],
+    "favorites":{
+        "$numberInt":"3"
+    },
+    "commentsTxt":[
+
+    ],
+    "comments":{
+        "$numberInt":"0"
+    }
+}
+  

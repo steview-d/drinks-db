@@ -1,0 +1,12 @@
+{  
+    "_id":{  
+        "$oid":"5d021ccb4eb4593f44507aa3"
+    },
+    "userName":"Dave",
+    "password":"notarealpassword",
+    "favoritesTxt":[  
+        "5d021d724eb4593f44507aa5",
+        "5d02431b9e70e83f4489a4fa",
+        "5d23021c1e8fe909a855b904"
+    ]
+}
