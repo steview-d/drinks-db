@@ -199,7 +199,7 @@
                 <h5>Leave a comment</h5>
                 <div class="row">
                     <form action="{{ url_for('drink', drink_id = drink._id) }}" method="POST" class="col s12">
-                        {% if session %}
+                        {% if session['username'] %}
                         </span><input placeholder="Type your comment here" id="comment" name="comment" type="text">
                         <button class="btn right btn--black" type="submit">Send</button>
                         {% else %}
