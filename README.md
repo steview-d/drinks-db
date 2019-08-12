@@ -120,7 +120,7 @@ favoritesTxt: <array>
 	2:<string>
 	....
 ```
-Examples of the above in .json format can be found [here](documenation/schema).
+Examples of the above in .json format can be found [here](documentation/schema).
 
 #### CSS Framework
 I chose Materialize as the CSS Framework. Having previously only really used Bootstrap I wanted to use a different one this time around more out of curiosity than anything else. Unfortunately, I felt I spent more time fighting Materialize than actually working with it so the quest continues to find another CSS Framework for my next project.
@@ -144,13 +144,13 @@ It seemed natural to use Materialize Icons with the Materiaze framework, but I c
 Mock ups were created early on in this project, before any code was committed. The early designs differ only slightly to the finished product, and it is clear to see that in the most part, the final result has turned out very much as I originally envisioned.
 You can view the wireframes for each page using the links below
 
-- [Home Page - Guest / Non User](static/wireframes/home_o.png)
-- [Home Page - User Logged In](static/wireframes/home_i.png)
-- [Search](static/wireframes/search_io.png)
-- [Account Page](static/wireframes/account_i.png)
-- [Add Drink](static/wireframes/add_i.png)
-- [Edit Drink](static/wireframes/edit_i.png)
-- [Login / Register](static/wireframes/log_reg_o.png)
+- [Home Page - Guest / Non User](documentation/wireframes/home_o.png)
+- [Home Page - User Logged In](documentation/wireframes/home_i.png)
+- [Search](documentation/wireframes/search_io.png)
+- [Account Page](documentation/wireframes/account_i.png)
+- [Add Drink](documentation/wireframes/add_i.png)
+- [Edit Drink](documentation/wireframes/edit_i.png)
+- [Login / Register](documentation/wireframes/log_reg_o.png)
 
 
 
