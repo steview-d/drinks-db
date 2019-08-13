@@ -11,12 +11,9 @@ from py_helper.helper import get_suggestions, sort_drinks, get_ingredients
 
 app = Flask(__name__)
 
-# secret.key to be REMOVED prior to submission
-# Use an env variable instead
-app.secret_key = os.getenv("SECRET", 'qjfg[73hzd<Gid#-h')
-
+app.config['SECRET_KEY'] = os.environ.get('SECRET')
 app.config["MONGO_DBNAME"] = 'drinksdb'
-app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost')
+app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
@@ -757,4 +754,4 @@ def internal_server_error(e):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
