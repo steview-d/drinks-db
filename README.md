@@ -5,6 +5,15 @@
 At it's most basic level, my goal is to allow users to create drinks and cocktails using the information provided, as well as add their own to share with other users.
 
 This initial brief has been expanded on considerably and I plan to use the following documentation to not only show what else this app can do, but also how it does it, and why.
+
+## Jump To A Section
+[UX](#ux) || [User Stories](#user-stories) | [Design](#design) | [Wireframes](#wireframes)
+[Features](#features) || [Current Features](#current-features)  | [Planned Features](#planned-features)
+[Technologies Used](#technologies-used) || [Languages](#languages) | [Libraries](#libraries) | [Tools](#tools) | [Hosting](#hosting)
+[Testing](#testing) || 
+[Deployment](#deployment) || [Deployment To Heroku](#deployment-to-heroku) | [Local Deployment](#local-deployment)
+[Credits](#credits) || [Content](#content) | [Media](#media) | [Acknowledgements](#acknowledgements)
+
  
 ## UX
 
@@ -40,7 +49,7 @@ Most importantly, as a user I want to be able to do this with minimal effort. I 
 
 #### As the site admin, I want to be able to:
 
-- Build up a collection of drinks to continually provide the user with more choice on every visit.
+- Build up a collection of drinks to continually provide the user with more choice on every visit, and to encourage them to return.
 - Give users the ability to interact with each other through the comments to help build a community.
 - Allow the users to personalise their own experience through the ability to display results how they choose, and have their own section of the site (Account Page) that is all about them and their drinks.
 
@@ -127,7 +136,7 @@ I chose Materialize as the CSS Framework. Having previously only really used Boo
 Despite my struggles with Materialize, I was still able to produce a fully responsive site that works and displays well across all the most popular browsers and devices.
 
 #### Color Scheme
-For the color scheme, I initially went with a neon 80's style look, until I realised it looked more like a Myspace page from the mid 2000's. Instead, I went with a simple black and white approach, injecting color via the drink cards and labels. I did keep one neon effect, limiting it's use to the landing page, nav bar, and drink card links.
+For the color scheme, I initially went with a neon 80's style look, but it ended up looking more like a Myspace page from the mid 2000's. Instead, I went with a simple black and white approach, injecting color via the drink cards and labels. I did keep one neon effect, limiting it's use to the landing page, nav bar, and drink card links.
 
 #### Typography
 Fonts were kept to a minimum.
@@ -144,13 +153,13 @@ It seemed natural to use Materialize Icons with the Materiaze framework, but I c
 Mock ups were created early on in this project, before any code was committed. The early designs differ only slightly to the finished product, and it is clear to see that in the most part, the final result has turned out very much as I originally envisioned.
 You can view the wireframes for each page using the links below
 
-- [Home Page - Guest / Non User](documentation/wireframes/home_o.png)
-- [Home Page - User Logged In](documentation/wireframes/home_i.png)
-- [Search](documentation/wireframes/search_io.png)
-- [Account Page](documentation/wireframes/account_i.png)
-- [Add Drink](documentation/wireframes/add_i.png)
-- [Edit Drink](documentation/wireframes/edit_i.png)
-- [Login / Register](documentation/wireframes/log_reg_o.png)
+- [Home Page - Guest / Non User](https://i.imgur.com/HI498hv.png)
+- [Home Page - User Logged In](https://i.imgur.com/PAJoEjJ.png)
+- [Search](https://i.imgur.com/UIyBcB4.png)
+- [Account Page](https://i.imgur.com/2syYTs6.png)
+- [Add Drink](https://i.imgur.com/V398o7i.png)
+- [Edit Drink](https://i.imgur.com/zlJFrwt.png)
+- [Login / Register](https://i.imgur.com/UV6dOtu.png)
 
 
 
@@ -166,7 +175,7 @@ Once read, it can be easily dismissed by clicking the close button in the upper 
 A simple landing page that contains the text "Cheers! The Drinks db" on top of a full screen image of some filled shot glasses. This makes the visitor aware that the drinks in question are alcohlic and as such the site is a database of alcoholic drinks, most likley spirits, given the contents of the image.
 
 **Register A New Account**
-Users can use the site as a guest, but certain features are unavailable unless logged in. There is no barrier to registerin. Users provide a user name of their choosing and a password, and if accepted, they are stored in the database.
+Users can use the site as a guest, but certain features are unavailable unless logged in. There is no barrier to registering. Users provide a user name of their choosing and a password, and if accepted, they are stored in the database.
 When a user registers, assuming they pass the validation checks, they are automatically logged in and taken to the home page.
 Data validation on the registration form checks to make sure the user name is a minimum of 3, and maximum of 15 characters. There is a small 'i' icon next to the placeholder text which the user can hover over / click on for a tooltip explaining this.
 The same applies to the password field, the only difference being a minimum of 5 characters are required.
@@ -196,7 +205,7 @@ If the drink card is a drink which has been submitted by the user who is viewing
 
 The cards have been kept intentionally simple so as to not overload the user with information, and instead let the images 'pop' and draw the user in.
 
-Pagination options have been placed both before, and after the drinks, make it easier for the user to move through the drinks.
+Pagination options have been placed both before and after the drinks, making it easier for the user to move through the drinks.
 
 **Suggested Drinks**
 When a user is logged in, the home page can display some suggested drinks to the user. The criteria for display is to only show drinks not submitted by current user, to not show the same drink in this section, and to dsiplay a total of 4 drinks in a row.
@@ -204,9 +213,9 @@ When a user is logged in, the home page can display some suggested drinks to the
 If all of these conditions cannot be satsfied, then nothing will be shown.
 
 **Browse Options**
-On the home page, there is a button called browse options. Clicking this opens a box containing 3 tabs; category, glass type, and difficulty. This allows the user to browse the different categories, glasses, and difficulties and choose to view drinks only of a specific type.
+On the home page, there is a ``browse`` button. Clicking this opens a box containing 3 tabs; category, glass type, and difficulty. This allows the user to browse the different categories, glasses, and difficulties and choose to view drinks only from one of these sections.
 
-The categories have been divided into cards, each containing some text describing that particular category. The text has been taken from [Wikipedia](https://en.wikipedia.org/wiki/Main_Page) and where there is too much text to display, the text has been truncated. The full text is shown on the individual category screen.
+The categories have been divided into cards, each containing some text describing that particular category. Where there is too much text to display, the text has been truncated. The full text is shown on the individual category screen.
 
 In the case of glass types, an image of each glass is provided to better help the user choose, especially as it is expected that not all users will be immediately familiar with what each glass looks like.
 
@@ -242,7 +251,7 @@ Users can also sort by 'relevance' - which is explained in more detail as part o
 Users can search for specific keywords, filter by category, glass type, or difficulty, or any combination of these.
 When the results are displayed, they are displayed in the same familiar format as how drinks are displayed on the home and 'showing only' pages.
 
-If as part of the seach, the user has entered keywords to search on, when the results are displayed, the cards will contain a small yellow box in the lower left corner with a % value inside. This is the drinks relevance to the search term and allows the user to select the 'sort results by relevance first' option. This is only available when a keyword has been used, and allows the user to order the results by most relevant first. If 2 or more drinks have the same score, they are then sorted by name, views, comments, etc - whichever the user specified.
+If as part of the seach, the user has entered keywords to search on, when the results are displayed, the cards will contain a small yellow box in the lower left corner with a % value inside. This is the drinks relevance to the search term and allows the user to select the ``sort results by relevance first`` option. This is only available when a keyword has been used, and allows the user to order the results by most relevant first. If 2 or more drinks have the same score, they are then secondary sorted by name, views, comments, etc - whichever the user specified.
 
 The score is calculated by using MondoDB text indexes. A text index on the drinks collection was created using
 ```
@@ -290,7 +299,7 @@ Each drink can have up to 10 measures and ingredients, but a minimum of 1. The p
 **Edit Drink**
 The edit drink form is identical in layout to the add drink form, and very similar in functionality.
 
-The important differences from a UX perspective is the '+' icon is not present for the default image. As there will already be an image stored (even a placeholder) the user has the option to update with their own, or keep the existing.
+The important differences from a UX perspective is the '+' icon is not present for the default image. As there will already be an image stored (even if only a placeholder) the user has the option to update with their own, or keep the existing.
 
 The number of measures and ingredients boxes shown match the number of measures and ingredients, as opposed to the default 4 with the add drink page.
 
@@ -339,11 +348,34 @@ To make managing the site easier, an admin panel will need to be added. Initiall
 
 
 ## Technologies Used
+### Languages
+- [HTML](https://html.spec.whatwg.org/multipage/) used as the markup language
+- [CSS](https://www.w3.org/Style/CSS/) used to style the HTML
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) used mostly for DOM manipulation
+- [Python3](https://www.python.org/) used to run the backend application
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+### Libraries
+- [Materialize](https://materializecss.com/) v1.0.0 used as the CSS framework for the project
+- [Font Awesome](https://fontawesome.com/) v5.8.2 to provide the icon set
+- [Google Fonts](https://fonts.google.com/) provided the fonts used throughout the project
+- [jQuery](https://jquery.com/) is used to manipulate the DOM, for example buttons, and showing / hiding elements
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/) v1.0.2 is the micro web framework that runs the application
+- [PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) 2.3.0 was used to enable the python application to access the Mongo database
+- [Jinja](https://jinja.palletsprojects.com/en/2.10.x/) v2.10.1 is the default templating language for flask and is used to display data from the python application in the frontend html pages
 
-- [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
+### Tools
+- [AWS Cloud9](https://aws.amazon.com/cloud9/) is the IDE used to put all this together
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) is the database used
+- [MongoDB Compass](https://www.mongodb.com/products/compass) is an app that allowed me to access the database directly and perform CRUD operations separate to the project
+- [Git](https://git-scm.com/) is used for version control
+- [GitHub](https://github.com/) is used for remote storage and sharing of the code base
+- [Imgur](https://imgur.com/) is used to host some image files externally.
+- [Balsamiq](https://balsamiq.com/) was used to create the wireframes when initially planning this project
+- [Photoshop](https://www.photoshop.com/) was used to edit and alter images as required
+- [TinyJpg](https://tinyjpg.com/) was used to reduce the file size of .jpg's and .png's 
+
+### Hosting
+- [Heroku](https://www.heroku.com/) is used to host the app
 
 
 ## Testing
@@ -368,24 +400,63 @@ If this section grows too long, you may want to split it off into a separate fil
 
 ## Deployment
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+### Deployment To Heroku
+The site has been deployed to [Heroku](https://www.heroku.com/) and the latest version can be found [here]([http://cheers-drinksdb.herokuapp.com/). The following steps were taken in order to deploy:
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
+**AWS Cloud9 IDE**
+- I prepared my code for deployment to Heroku by firstly removing my secret key. I created a different secret_key within .bashrc so I could still run the project from my own IDE
+- I turned off Flask debugging by setting ``debug=False``
+- I created a requirements file with the command ``sudo pip3 freeze --local > requirements.txt``. Unfortunately, AWS Cloud9 makes this list longer than it should be by adding everything that is installed to environments by default to this list too, so I went through and manually removed anything that wasn't required.
+- A file named ``Procfile`` was created, containing a single line, ``web: python app.py`` to tell Heroku to run ``app.py`` on startup.
+- Once up to date, everything was pushed to GitHub master branch.
 
-In addition, if it is not obvious, you should also describe how to run your code locally.
+**Heroku**
+- From the Heroku dashboard I created a new app, using the name ``cheers-drinksdb`` and set the region to Europe.
+- In the settings tab I clicked ``reveal config vars`` and entered the required environment variables, which in this case were:
+	- IP ``0.0.0.0``
+	- PORT ``5000``
+	- MONGO_URI ``mongodb+srv://root:<password_removed>@myfirstcluster-fai9p.mongodb.net/drinksdb?retryWrites=true&w=majority``
+	- SECRET ``<secret key for flask session>``
+- I made sure the secret key used was different to the one used within my IDE.
+- On the deploy tab, in the ``Deployment method`` section I chose to deploy from my GitHub repo.
+- I did this by clicking the GitHub option, then in the box underneath, and next to my GitHub username, I searched for and selected the ``drinks-db`` repo and clicked connect.
+- Then, I selected the ``Enable Automatic Deploys`` option on the master branch so that all pushes to this branch would be automatically deployed to Heroku.
+
+By completing the above steps I was able to take my code from AWS Cloud9 and successfully deploy my project to Heroku.
+
+### Local Deployment
+The following instructions are based on you using VSCode running on Windows 10. If your IDE / OS is different, your commands may differ slightly, but the process remains the same.
+
+As a minimum you will need [Python 3](https://www.python.org/downloads/) installed on your machine. You will also need [PIP](https://pypi.org/project/pip/) which comes preinstalled with Python versions 3.4 and later. Having [Git](https://git-scm.com/) is also highly recommended.
+
+To deploy locally on your own machine, follow these steps:
+- Save a copy of the repo on your local machine or use ``git clone https://github.com/steview-d/drinks-db.git`` and cd into the correct folder using the terminal.
+- Create a virtual environment, using ``python -m venv venv`` where the 2nd ``venv`` is the environment name.
+- Activate the virtual environment with ``venv\Scripts\activate ``
+- Install any required modules with ``pip install -r requirements.txt``
+- Within the file ``app.py`` change the line ``app.config['SECRET_KEY'] = os.getenv('SECRET')`` to ``app.config['SECRET_KEY'] = os.getenv('SECRET', '<your_key>)`` where ``<your_key>`` is a secret key of your choosing.
+- Also change ``app.config["MONGO_URI"] = os.getenv('MONGO_URI')`` to ``app.config["MONGO_URI"] = os.getenv('MONGO_URI', <your mongo_uri string>)`` where ``<your mongo_uri string>`` is the string that points to your own MongoDB.
+- Your database should be named ``drinksdb`` with collections set up as outlined in the [database design](#database) section of this document. To help, you can also refer to these included [JSON examples](documentation/schema)
+- From the terminal you can then run the app with ``python app.py`` and view in a browser at ``[http://127.0.0.1:5000/]``
+
 
 
 ## Credits
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+All code, outside of frameworks and libraries, is my own.
+The recipes for the drinks were sourced from [Mr.Boston](https://mrbostondrinks.com/)
+The text for the drink categories was taken from [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+The quotes used within the drink pages were sourced from various sites across the internet. Too many to list (or remember) but every quote is attributed to its (supposed) author.
+All other words and text are my own.
 
 ### Media
-- The photos used in this site were obtained from ...
+- The images for the drinks have been sourced from their respective recipes at [Mr.Boston](https://mrbostondrinks.com/)
+- The images used for the background, favicon and the footer cocktail logo were all originally sourced from google image search. Minor modifications have been made and they are being used in a non-profit educational capacity. If the site were to ever be monetised, these images would be replaced, or permission sought for their use
+- The background for the quotes on the drinks page was created using this [Background Image Generator](http://bg.siteorigin.com/)
+- The images for the landing page, error page, home page header image, and the individual drinks glasses were all licensed from [Adobe Stock](https://stock.adobe.com/uk/)
 
 ### Acknowledgements
 
-- I received inspiration for this project from X
+- Thanks once again go to [Antonija Šimić](https://github.com/tonkec), my Code Institute mentor, for her guidance and advice whilst working on this project.
+- Additional thanks to [Shane Muirhead](https://github.com/ShaneMuir) for his help with testing, and also helping me get my head around form resubmissions early on in the project, as it was driving me nuts.

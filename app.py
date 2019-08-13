@@ -11,7 +11,7 @@ from py_helper.helper import get_suggestions, sort_drinks, get_ingredients
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET')
+app.config['SECRET_KEY'] = os.getenv('SECRET')
 app.config["MONGO_DBNAME"] = 'drinksdb'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
@@ -753,5 +753,5 @@ def internal_server_error(e):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
+            port=os.environ.get('PORT'),
             debug=False)
