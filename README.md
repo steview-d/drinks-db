@@ -290,9 +290,9 @@ Users can use the site as a guest, but certain features are unavailable unless l
 
 When a user registers, assuming they pass the validation checks, they are automatically logged in and taken to the home page.
 
-Data validation on the registration form checks to make sure the username is a minimum of 3, and maximum of 15 characters. There is a small 'i' icon next to the placeholder text which the user can hover over / click on for a tooltip explaining this.
+Data validation on the registration form checks to make sure the username is a minimum of 3, and maximum of 10 characters. There is a small 'i' icon next to the placeholder text which the user can hover over / click on for a tooltip explaining this.
 
-The same applies to the password field, the only difference being a minimum of 5 characters are required.
+The same applies to the password field, the only difference being a minimum of 5 and maximum of 15 characters are required.
 
 If a user attempts to register with a name which has already been registered, the system flashes a message informing them of this, and to choose another.
 
@@ -582,7 +582,8 @@ All HTML was passed through the HTML validator at [validator.w3.org](https://val
 
 #### CSS
 
-The CSS style sheet was passed through [jigsaw.w3.org/css-validator/](https://jigsaw.w3.org/css-validator/) and returned with no errors.
+The CSS style sheet was first passed through [Autoprefixer CSS online](https://autoprefixer.github.io/) to add required vendor prefixes for the last 4 versions of supported browsers.
+It was then passed through [jigsaw.w3.org/css-validator/](https://jigsaw.w3.org/css-validator/) and returned with no errors, just warnings about the vendor prefixes which is normal as it doesn't recognise any of them.
 
 #### JavaScript
 

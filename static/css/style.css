@@ -936,6 +936,10 @@ textarea.materialize-textarea.invalid {
     margin: 10px 0;
 }
 
+#account h1 {
+    overflow-wrap: break-word;
+}
+
 #account p {
     line-height: 2;
 }
