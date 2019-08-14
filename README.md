@@ -637,7 +637,7 @@ Depending on whether the user is viewing the site as a guest, or logged in as a 
 The table below show what each user type should and shouldn't be able to do, and tests were conducted to ensure this was the case.
 
 | User Type | Home | Search | Register | Log In | Log Out | Account | Add Drink | Edit Drink | Delete Drink | Showing Only |
-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|-|
 |Guest|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:x:|:x:|:x:|:heavy_check_mark:|
 |Registered User|:heavy_check_mark:|:heavy_check_mark:|:x:|:x:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark::one:|:heavy_check_mark::one:|:heavy_check_mark:|
 
