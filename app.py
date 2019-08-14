@@ -455,7 +455,7 @@ def edit_drink(drink_id):
 
     # Check user is trying to edit only their own drink
     user = session.get('username')
-    if user != "Admin" and user != drink['userName']:
+    if user != drink['userName']:
         flash("You can only edit drinks you have submitted yourself.")
         return redirect(url_for('drink', drink_id=drink_id))
 

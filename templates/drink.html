@@ -130,7 +130,7 @@
                 
                 <div class="favorites-content center">
                     <!--Add as favorite-->
-                    {% if not session %}
+                     {% if not session['username'] %}
                     <p class="fave-msg-border">You must be logged in to add as a favorite</p>
                     {% elif session['username'] == drink.userName %}
                     <p class="fave-msg-border">You cannot add your own drinks to your favorites</p>
