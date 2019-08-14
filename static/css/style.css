@@ -871,14 +871,14 @@ textarea.materialize-textarea.invalid {
 }
 
 .comment-user {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
     color: #888;
     margin: 20px 0 0;
 }
 
 .comment-text {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0
 }
 
