@@ -964,6 +964,10 @@ textarea.materialize-textarea.invalid {
     line-height: 2;
 }
 
+.account-stats {
+    margin-bottom: 2rem;
+}
+
 /* ------------------------------------------------------ Log In & Register -*/
 
 .v-center-wrapper {

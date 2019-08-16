@@ -4,7 +4,7 @@
     <div class="row">
         
         <!--User & Stats-->
-        <section class="col s12 xl3">
+        <section class="col s12 account-stats">
             <h1>Hi {{user.userName}}</h1>
             <p>Your drinks have had a total of <span class="info-label">{{views}}</span> views</p>
             <p>Drinks submitted by you have been favorited a total of <span class="info-label">{{favorites}}</span> times</p>
@@ -17,7 +17,7 @@
         </section>
         
         <!--User Drinks Stats-->
-        <section class="col s12 xl9">
+        <section class="col s12">
             <div class="row eq-height-columns">
                 
                 <!--Most Viewed-->
@@ -52,7 +52,7 @@
                 </div>
                 
                 <!--Most Favorited-->
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                     <div class="card">
                         {% if most_favorited %}
                         <div class="card-image">
@@ -83,7 +83,7 @@
                 </div>
                 
                 <!--Most Commented-->
-                <div class="col s6 m4">
+                <div class="col s12 m4">
                     <div class="card">
                         {% if most_commented %}
                         <div class="card-image">
