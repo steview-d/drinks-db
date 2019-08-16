@@ -908,6 +908,7 @@ textarea.materialize-textarea.invalid {
 
 .required-label {
     display: inline-block;
+    margin-bottom: 1.2rem;
     border: 1px solid black;
     padding: 1rem;
     width: 60%;
