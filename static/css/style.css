@@ -30,7 +30,7 @@ main {
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
-    border-top: 2px solid #aaa;
+    /*border-top: 2px solid #aaa;*/
 }
 
 @media only screen and (min-width: 601px) {
@@ -59,6 +59,8 @@ main {
     background-color: rgb(255, 255, 255); /*Fallback*/
     background-color: rgba(255, 255, 255, 0.9);
     padding-bottom: 30px;
+    border-top: 2px solid #aaa;
+    border-bottom: 2px solid #aaa;
 }
 
 .hidden {
@@ -710,6 +712,24 @@ textarea.materialize-textarea.invalid {
 
 /* -------------------------------------------------------- Drink Page View -*/
 
+.section-padding {
+    padding: 6rem 0;
+}
+
+.drink-wrapper .mid-section-padding {
+    padding-bottom: 6rem;
+}
+
+.drink-wrapper {
+    background-color: rgb(255, 255, 255); /*Fallback*/
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0 30px;
+}
+
+.drink-wrapper .row {
+    margin-bottom: 0;
+}
+
 #drink-wrapper h4 {
     display: inline-block;
     padding-bottom: .4rem;
@@ -731,8 +751,19 @@ textarea.materialize-textarea.invalid {
     display: inline-block;
     border: 1px solid black;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem 0 2rem;
 }
+
+#drink-img {
+    padding-bottom: 8rem;
+}
+
+@media screen and (min-width: 993px) {
+    #drink-img {
+        padding-bottom: 0;
+    }
+}
+
 
 #drink-img img {
     -o-object-fit: cover;
@@ -777,13 +808,14 @@ textarea.materialize-textarea.invalid {
     white-space: nowrap
 }
 
-#favorites-box .favorites-content{
-    margin-bottom: 2rem;
+#favorites-box {
+    padding-bottom: 8rem;
 }
 
 @media screen and (min-width: 993px) {
     #favorites-box {
         padding-right: 54px;
+        padding-bottom: 0;
     }
 }
 
@@ -860,15 +892,6 @@ textarea.materialize-textarea.invalid {
 .comment-text {
     font-size: 1.2rem;
     margin: 0
-}
-
-#drink-wrapper .col {
-    margin-bottom: 20px;
-}
-
-#drink-wrapper .pd-fix {
-    padding-left: .75rem;
-    padding-right: .75rem;
 }
 
 
