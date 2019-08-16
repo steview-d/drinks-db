@@ -1,3 +1,4 @@
+
 # Cheers! The Drinks db
 
 'Cheers!' is an app built on the Flask micro web framework and using MongoDB as the database. Its purpose is to provide users with a number of different types of (mainly alcoholic) drinks and cocktails.
@@ -304,7 +305,7 @@ Much like the registration form, users can enter their username and password to 
 
 Flashed messages are used to inform the user if they enter an incorrect username / password, or if the user they tried to log in with does not exist.
 
-On successful log in to a previously registered account, the user is taken to their own account page.
+On successful log in to a previously registered account, the user is taken to the home page.
 
 **Log Out**
 
@@ -552,7 +553,7 @@ To make managing the site easier, an admin panel will need to be added. Initiall
 
 - [Git](https://git-scm.com/) is used for version control
 
-- [GitHub](https://github.com/) is used for remote storage and sharing of the code base
+- [GitHub](https://github.com/) provides hosting for software development version control using Git
 
 - [Imgur](https://imgur.com/) is used to host some image files externally.
 
@@ -603,7 +604,9 @@ My initial solution was to disable hover effects, but this affected all displays
 
 The site has been tested successfully on the following devices,
 
-- Windows 10 desktop at HD, QHD, and UWQHD
+- Windows 10 desktop at HD, QHD, and UWQHD on various browsers
+
+- Apple Macbook, with Safari browser
 
 - Google Pixel 2XL
 
@@ -623,7 +626,7 @@ The site has been tested successfully on the following browsers,
 
 - Edge v42
 
-[Safari Testing Still Required]
+- Safari v12
 
 Even though the project isn't aiming to be compatible with Internet Explorer 11, I tested it to see how close it came and was surprised to see that aside from some minor rendering issues it actually works ok. It hasn't been tested extensively, but on the surface it is functional and could be used if it had to.
 

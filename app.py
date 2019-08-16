@@ -111,8 +111,7 @@ def login():
         if current_user:
             if request.form['password'] == current_user['password']:
                 session['username'] = request.form['username']
-                return redirect(
-                    url_for('account', account_name=session['username']))
+                return redirect(url_for('index'))
             flash("Incorrect username and/or password. Please try again.")
             return render_template('login.html', title="Log In")
         flash("Username '{}' does not exist.".format(request.form['username']))
