@@ -10,7 +10,7 @@
         <div class="search-relevance">{{((drink.score / max_weight) * 100) | round | int}}%</div>
         {% endif %}
         {% if session['username'] == drink.userName %}
-        <a href="{{ url_for('edit_drink', drink_id = drink._id) }}" class="btn-floating halfway-fab waves-effect waves-light red btn-small">
+        <a href="{{ url_for('edit_drink', drink_id = drink._id) }}" class="btn-floating halfway-fab waves-effect waves-light green darken-2 btn-small">
             <i class="fas fa-pencil-alt"></i>
         </a>
         {% endif %}

@@ -253,11 +253,11 @@ footer i:hover {
 .search-relevance {
     position: absolute;
     font-size: 1.1rem;
-    bottom: 8px;
-    left: 16px;
+    bottom: 12px;
+    left: 12px;
     padding: 2px 8px;
     border: 1px solid black;
-    background-color: yellow;
+    background-color: white;
     color: black;
 }
 
@@ -519,6 +519,10 @@ nav ul a {
 
 
 /* --------------------------------------------------------Browse / View By -*/
+
+.browse-by {
+    margin: 3rem 0;
+}
 
 #filter-tabs ul {
     margin-bottom: 1rem;
