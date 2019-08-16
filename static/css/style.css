@@ -713,11 +713,17 @@ textarea.materialize-textarea.invalid {
 /* -------------------------------------------------------- Drink Page View -*/
 
 .section-padding {
-    padding: 6rem 0;
+    padding: 3rem 0;
+}
+
+@media screen and (min-width: 993px) {
+    .section-padding {
+        padding: 6rem 0;
+    }
 }
 
 .drink-wrapper .mid-section-padding {
-    padding-bottom: 6rem;
+    padding-bottom: 3rem;
 }
 
 .drink-wrapper {
@@ -755,7 +761,7 @@ textarea.materialize-textarea.invalid {
 }
 
 #drink-img {
-    padding-bottom: 8rem;
+    padding-bottom: 4rem;
 }
 
 @media screen and (min-width: 993px) {
@@ -781,7 +787,13 @@ textarea.materialize-textarea.invalid {
 }
 
 #instructions-box {
-    padding: 1rem .75rem;
+    padding: 1rem .75rem 4rem;
+}
+
+@media screen and (min-width: 601px) {
+    #instructions-box {
+        padding: 1rem .75rem;
+    }
 }
 
 #glass-img {
@@ -808,8 +820,12 @@ textarea.materialize-textarea.invalid {
     white-space: nowrap
 }
 
+.info-label-spacing h6 {
+    margin: 1rem 0;
+}
+
 #favorites-box {
-    padding-bottom: 8rem;
+    padding-bottom: 4rem;
 }
 
 @media screen and (min-width: 993px) {
