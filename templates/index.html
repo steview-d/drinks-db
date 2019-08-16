@@ -3,34 +3,16 @@
 <!--Intro Box-->
 <section class="page-container intro-wrapper">
     <img src="{{ url_for('static', filename='images/background/main_top.jpg') }}" alt="Row Of Drinks">
-    <div class="intro">
+    <div class="intro hide-on-small-only">
         <div>
             <h5><span class="intro-number">{{drinks.count()}} </span> drinks and counting!</h5>
-            <hr class="hide-on-small-only">
-            <h5 class="hide-on-small-only intro-subheading">Cheers! The drinks db</h5>
-            <div class="row">
-                {% if 'username' in session %}
-                <div class="col s12 m6">
-                    <a href="{{ url_for('search') }}" class="btn btn--green">Search</a>
-                </div>
-                <div class="col m6 hide-on-small-only">
-                    <a href="{{ url_for('add_drink') }}" class="btn btn--blue">Add Drink</a>
-                </div>
-                {% else %}
-                <div class="col s12 m6 l6">
-                    <a href="{{ url_for('login') }}" class="btn btn--green">Log In</a>
-                </div>
-                <div class="col m6 hide-on-small-only">
-                    <a href="{{ url_for('register') }}" class="btn btn--blue">Register</a>
-                </div>
-                {% endif %}
-            </div>
+            <hr>
+            <h5 class="intro-subheading">Cheers! The drinks db</h5>
         </div>
     </div>
 </section>
 
 <section class="page-container content-wrapper">
-    <div class="spacer-2r"></div>
 
     <!--Browse / View By-->
     <article class="row browse-by">
