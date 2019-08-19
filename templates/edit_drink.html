@@ -9,13 +9,13 @@
     <div class="row">
         <form method="POST" action="{{ url_for('edit_drink', drink_id = drink._id) }}" class="col s12">
             <!--Submit & Cancel Buttons-->
-            <div class="center">
-                <button class="btn btn--black" type="submit">Submit Changes</button>
-                <a class="btn btn--black cancel-form">Cancel</a>
-            </div>
-            <div class="center">
-                {% include 'helpers/delete_modal.html' %}
-            </div>
+            <!--<div class="center">-->
+            <!--    <button class="btn btn--white" type="submit">Submit Changes</button>-->
+            <!--    <a class="btn btn--black cancel-form">Cancel</a>-->
+            <!--</div>-->
+            <!--<div class="center">-->
+            <!--    {% include 'helpers/delete_modal.html' %}-->
+            <!--</div>-->
             
             <!--Drink Form Template-->
             {% include 'helpers/drink_form.html' %}
@@ -23,8 +23,10 @@
             <!--Submit & Cancel Buttons-->
             <div class="center">
                 <button class="btn btn--black" type="submit">Submit Changes</button>
-                <a class="btn btn--black cancel-form">Cancel</a>
+                <a class="btn btn--white cancel-form">Cancel</a>
             </div>
+            <br>
+            <hr class="hr-delete">
             <div class="center">
                 {% include 'helpers/delete_modal.html' %}
             </div>

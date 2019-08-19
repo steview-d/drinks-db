@@ -132,7 +132,7 @@ footer i:hover {
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
-    margin: 0.5rem auto 1rem;
+    margin: 0.5rem 0.5rem 1rem;
 }
 
 .btn--black:hover,
@@ -140,6 +140,26 @@ footer i:hover {
 .btn--black:active {
     background-color: white;
     color: black;
+}
+
+.btn--white {
+    height: 1.8rem;
+    line-height: 1.7rem;
+    font-size: 0.8rem;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    margin: 0.5rem 0.5rem 1rem;
+}
+
+.btn--white:hover,
+.btn--white:focus,
+.btn--white:active {
+    background-color: #212121;
+    color: white;
 }
 
 .btn--red {
@@ -162,44 +182,8 @@ footer i:hover {
     color: #c62828;
 }
 
-.btn--green {
-    height: 2.2rem;
-    line-height: 2.2rem;
-    font-size: 1rem;
-    background-color: #4CAF50;
-    border: 1px solid #388E3C;
-    color: white;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-    margin: 2rem 0;
-}
-
-.btn--green:hover,
-.btn--green:focus,
-.btn--green:active {
-    background-color: white;
-    color: #388E3C;
-}
-
-.btn--orange {
-    height: 2.2rem;
-    line-height: 2.2rem;
-    font-size: 1rem;
-    background-color: #FF9800;
-    border: 1px solid #F57C00;
-    color: white;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-    margin: 2rem 0;
-}
-
-.btn--orange:hover,
-.btn--orange:focus,
-.btn--orange:active {
-    background-color: white;
-    color: #F57C00;
+.fa-2x {
+    margin: 0.75rem 1rem 0.75rem 0    ;
 }
 
 
@@ -913,6 +897,10 @@ textarea.materialize-textarea.invalid {
 
 /* ------------------------------------------------------- Add | Edit Drink -*/
 
+#add-edit h5 {
+    margin-bottom: 2rem;
+}
+
 #add-default-url {
     color: #919191;
     right: 0;
@@ -930,11 +918,27 @@ textarea.materialize-textarea.invalid {
     margin-bottom: 1.2rem;
     border: 1px solid black;
     padding: 1rem;
-    width: 60%;
+}
+
+.add-remove-ingredients {
+    margin-top: -2.5rem;
+    margin-bottom: 3rem;
+    padding: 0 1.5rem;
 }
 
 
 /* ----------------------------------------------------------- Delete Modal -*/
+
+.hr-delete {
+    border-color: #e53935;
+    width: 60%;
+}
+
+@media screen and (min-width: 601px) {
+    .hr-delete {
+        width: 30%;
+    }
+}
 
 .modal {
     max-width: 800px;
