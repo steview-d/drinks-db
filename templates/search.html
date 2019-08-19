@@ -74,13 +74,14 @@
     </section>
 
     <!--Display Search Results-->
-    <section id="search-results">
-        <!--No results from search-->
-        {% if num_results == 0 %}
-        <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
-        {% endif %}
+
+    <!--No results from search-->
+    {% if num_results == 0 %}
+    <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
+    {% endif %}
         
-        {% if results %}
+    {% if results %}
+    <section id="search-results">
         <!--Sort Options-->
         <div class="sort-options-title center">
             <a id="sort-options-btn" class="btn btn--black">Sort Options</a>
@@ -119,11 +120,8 @@
     
         <!--Pagination Bottom-->
         {% include 'helpers/pagination_search.html' %}
-        {% endif %}
     </section>
+    {% endif %}
 </section>
-
-<!--Pass Flask variable to JS for search page position-->
-<script>var position = '{{ position }}'</script>
 
 {% endblock %}

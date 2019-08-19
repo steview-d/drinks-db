@@ -538,9 +538,6 @@ def search():
     all_glass_types = mongo.db.glass.find()
     all_difficulties = mongo.db.difficulty.find()
 
-    # Reset page position if not searching
-    position = None
-
     # Page Title
     title = "Search"
 
@@ -641,11 +638,7 @@ def search():
         # Page Title
         title = "Search Results"
 
-        # Set page load position
-        position = 'search-results'
-
         return render_template('search.html',
-                               position=position,
                                title=title,
                                find=find,
                                # Results

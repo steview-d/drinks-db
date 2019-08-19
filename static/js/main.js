@@ -113,9 +113,9 @@ $(document).ready(function() {
     });
 
 
-    // On search pages, move page position to specified #id
-    // to ensure search results are in view
-    if (typeof position !== 'undefined') {
-        document.location.hash = '#' + position;
+    // If search page contains search-results, anchor to that section
+    if (window.location.pathname.includes('search')) {
+        document.location.hash = '#search-results';
     }
+    
 });
