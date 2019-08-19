@@ -14,7 +14,6 @@ $(document).ready(function() {
         window.history.back();
     });
 
-
     // Add / Remove Ingredients
     var num_fields = $('#ingredients-container .ingredient_field').length;
     var min_fields = 1;
@@ -113,4 +112,10 @@ $(document).ready(function() {
         $('#imageUrl').val("https://i.imgur.com/VICrHNw.jpg").focus();
     });
 
+
+    // On search pages, move page position to specified #id
+    // to ensure search results are in view
+    if (typeof position !== 'undefined') {
+        document.location.hash = '#' + position;
+    }
 });

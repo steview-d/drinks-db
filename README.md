@@ -588,7 +588,10 @@ It was then passed through [jigsaw.w3.org/css-validator/](https://jigsaw.w3.org/
 
 #### JavaScript
 
-The JS file was run through [jshint.com](https://jshint.com/) and outside of numerous instances of ``$`` being undefined due to using jQuery, there were no errors.
+The JS file was run through [jshint.com](https://jshint.com/). It lists 2 variables as undefined, ``$`` and ``position``.
+``$`` is due to using jQuery.
+The ``position`` variable is defined within ``search.html`` and the JS checks to see if it is defined first, before trying to use it.
+There were no other warnings.
 
 #### Python
 

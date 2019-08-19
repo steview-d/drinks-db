@@ -640,7 +640,7 @@ def search():
 
         # Page Title
         title = "Search Results"
-        
+
         # Set page load position
         position = 'search-results'
 
