@@ -74,7 +74,11 @@
     </section>
 
     <!--Display Search Results-->
-    <section>
+    <section id="search-results">
+        <!--If Searching, Scroll To Results On Page Load-->
+        {% if position %}
+            <script>document.location.hash = '#' + '{{ position }}';</script>
+        {% endif %}
         <!--No results from search-->
         {% if num_results == 0 %}
         <h5 class="center">No drinks found for your search criteria. Please try another search.</h5>
