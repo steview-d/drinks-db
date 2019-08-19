@@ -716,6 +716,8 @@ I tested the search score results by creating drinks with certain words repeated
 
 I searched on username to ensure drinks from the searched user were returned. I searched by ingredient, category, glass type, and difficulty to ensure these also returned results as expected.
 
+I also discovered that on devices with limited height, when a user searches either by keyword or filter, the results are displayed below the search criteria (and sort options, if previously opened / selected) and this can mean the returned results are initially displayed off the screen. For users unfamiliar with the site, they could think nothing was returned. To fix this, when results are returned, the page will anchor to the #search-results section.
+
 #### Add / Edit Drinks - CRUD operations tested: Create, Read, Update & Delete.
 
 ##### Add A Drink
