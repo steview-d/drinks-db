@@ -271,6 +271,8 @@ You can view the wireframes for each page using the links below
 
 - [Login / Register](https://i.imgur.com/UV6dOtu.png)
 
+Alternatively, you can download them all directly from [here](documentation/wireframes).
+
 ## Features
 
 ### Current Features
@@ -574,6 +576,15 @@ To make managing the site easier, an admin panel will need to be added. Initiall
 Most of the testing was completed by myself. The majority of which was manual testing during the development of the site with additional testing completed at the end, before this write up.
 
 Friends and family have also tested by creating accounts and using the site on their own devices. They have tested how the page displays, registered their own accounts, created their own drinks, added favorites, and left comments. I have removed all the content that was added as part of friends & family testing, partly due to it not always being of the same quality as the initial data I added, but also because when people are given a new toy, they tend to do silly things with it...
+
+To test yourself, you can
+- Browse as a guest, but with limited functionality.
+- Create your own user. Do not use a password you use elsewhere as the passwords are not secure.
+- Use an existing user to see how the app handles user drinks submissions for views, comments, favorites, etc. You can do this with:
+	- Username: Kelly
+	- Password: flare
+
+If testing with user 'Kelly', for the benefit of other testers, please refrain from deleting any drinks. To test this aspect of the site, you can create and delete submissions with users you create yourself.
 
 ### Code Validation
 
