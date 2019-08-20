@@ -5,7 +5,7 @@
 
 My goal is to allow users to create drinks and cocktails using the information provided, as well as allowing them to add their own to share with others, and much more.
 
-The deployed site can be found at [http://cheers-drinksdb.herokuapp.com](http://cheers-drinksdb.herokuapp.com)
+The deployed site can be found at [cheers-drinksdb.herokuapp.com](https://cheers-drinksdb.herokuapp.com)
 
 ## Jump To A Section
 
@@ -793,7 +793,7 @@ This was checked by viewing the users account page confirm the favorites list wa
 
 ### Deployment To Heroku
 
-The site has been deployed to [Heroku](https://www.heroku.com/) and the latest version can be found [here]([http://cheers-drinksdb.herokuapp.com/). The following steps were taken in order to deploy:
+The site has been deployed to [Heroku](https://www.heroku.com/) and the latest version can be found [here]([https://cheers-drinksdb.herokuapp.com/). The following steps were taken in order to deploy:
 
 **AWS Cloud9 IDE**
 
