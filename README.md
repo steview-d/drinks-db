@@ -5,6 +5,8 @@
 
 My goal is to allow users to create drinks and cocktails using the information provided, as well as allowing them to add their own to share with others, and much more.
 
+The deployed site can be found at [http://cheers-drinksdb.herokuapp.com](http://cheers-drinksdb.herokuapp.com)
+
 ## Jump To A Section
 
 [UX](#ux) || [User Stories](#user-stories) | [Design](#design) | [Wireframes](#wireframes)
@@ -43,11 +45,11 @@ The landing page is used to tell the user this is a site about drinks. Thanks to
 
 - See how popular the drinks I have submitted are by seeing which ones have been
 
-- Looked at the most
+	- Looked at the most
 
-- Added to the most users favorites list
+	- Added to the most users favorites list
 
-- Commented on the most
+	- Commented on the most
 
 - Add drinks to a list of my favorites
 
@@ -57,11 +59,11 @@ The landing page is used to tell the user this is a site about drinks. Thanks to
 
 - Choose how the information is presented to me, for example:
 
-- Number of drinks per page
+	- Number of drinks per page
 
-- Sort by name, views, comments, favorites, difficulty, and date
+	- Sort by name, views, comments, favorites, difficulty, and date
 
-- Sort either ascending or descending
+	- Sort either ascending or descending
 
 - Search the database for drinks that match key words of my choosing and order the results either based on their relevance to what I searched for, or some other criteria of my own choosing.
 
@@ -237,7 +239,7 @@ For the color scheme, I initially went with a neon 80's style look, but it ended
 
 #### Typography
 
-Fonts were kept to a minimum.
+The following fonts were used:
 
 - [Grand Hotel](https://fonts.google.com/specimen/Grand+Hotel) was used for the full screen navigation elements.
 
@@ -253,7 +255,7 @@ It seemed natural to use Materialize Icons with the Materialize framework, but I
 
 ### Wireframes
 
-Mock-ups were created early on in this project, before any code was committed. The early designs differ only slightly to the finished product, and it is clear to see that in the most part, the final result has turned out very much as I originally envisioned.
+Mock-ups were created early on in this project, before any code was committed. The early designs differ only slightly to the finished product, and in the most part, the final result has turned out very much as I originally envisioned.
 
 You can view the wireframes for each page using the links below
 
@@ -293,7 +295,7 @@ Users can use the site as a guest, but certain features are unavailable unless l
 
 When a user registers, assuming they pass the validation checks, they are automatically logged in and taken to the home page.
 
-Data validation on the registration form checks to make sure the username is a minimum of 3, and maximum of 10 characters. There is a small 'i' icon next to the placeholder text which the user can hover over / click on for a tooltip explaining this.
+Data validation on the registration form checks to make sure the username is a minimum of 3, and maximum of 12 characters. There is a small 'i' icon next to the placeholder text which the user can hover over / click on for a tooltip explaining this.
 
 The same applies to the password field, the only difference being a minimum of 5 and maximum of 15 characters are required.
 
@@ -391,7 +393,7 @@ Users can search for specific keywords, filter by category, glass type, or diffi
 
 When the results are displayed, they are displayed in the same familiar format as how drinks are displayed on the home and 'showing only' pages.
 
-If as part of the search, the user has entered keywords to search on, when the results are displayed, the cards will contain a small yellow box in the lower left corner with a % value inside. This is the drinks relevance to the search term and allows the user to select the ``sort results by relevance first`` option. This is only available when a keyword has been used and allows the user to order the results by most relevant first. If 2 or more drinks have the same score, they are then secondary sorted by name, views, comments, etc - whichever the user specified.
+If as part of the search, the user has entered keywords to search on, when the results are displayed, the cards will contain a small white box in the lower left corner with a % value inside. This is the drinks relevance to the search term and allows the user to select the ``sort results by relevance first`` option. This is only available when a keyword has been used and allows the user to order the results by most relevant first. If 2 or more drinks have the same score, they are then secondary sorted by name, views, comments, etc - whichever the user specified.
 
 The score is calculated by using MondoDB text indexes. A text index on the drinks collection was created using
 
@@ -453,7 +455,7 @@ There is a tooltip letting users know, when entering instructions, to put each o
 
 The site doesn't currently host the images for drinks ( - on the planned features list) and instead stores the url of the image to display. If a user is adding a drink but doesn't have an image to use, they can click the '+' button at the end of the input field and it will populate the field with a link to a placeholder image. This avoids the individual drinks pages looking 'broken' if there is no image to display.
 
-Each drink can have up to 10 measures and ingredients, but a minimum of 1. The page defaults to 4 but using the ``add ingredient`` and ``remove ingredient`` buttons the user can adjust the number of boxes to match the number of measures and ingredients they require.
+Each drink can have up to 10 measures and ingredients, but a minimum of 1. The page defaults to 4 but using the ``+`` and ``-`` icons the user can adjust the number of boxes to match the number of measures and ingredients they require.
 
 **Edit Drink**
 
@@ -475,7 +477,7 @@ Each user has their own account page, which is used to store user specific infor
 
 Every account page, regardless of the user’s time on site and activity, will display a welcome message, along with some stats for the user and the site overall. It will show combined totals for views, favorites, and comments for all user submitted drinks. It will also show how many drinks are currently in the database, along with the total number of categories, types of glass, and levels of difficulty.
 
-If the user has submitted drinks, it will also scan all these drinks and display at the top which ones have received the most views, comments, and additions to other users favorite lists.
+If the user has submitted drinks, it will also scan all these drinks and display the ones which have received the most views, comments, and additions to other users favorite lists.
 
 Further down, the page shows all drinks submitted by the user in groups of 4 (or 8 if there are more than 21 total) and pagination options are provided to allow the user to browse.
 
@@ -575,9 +577,13 @@ To make managing the site easier, an admin panel will need to be added. Initiall
 
 Most of the testing was completed by myself. The majority of which was manual testing during the development of the site with additional testing completed at the end, before this write up.
 
-Friends and family have also tested by creating accounts and using the site on their own devices. They have tested how the page displays, registered their own accounts, created their own drinks, added favorites, and left comments. I have removed all the content that was added as part of friends & family testing, partly due to it not always being of the same quality as the initial data I added, but also because when people are given a new toy, they tend to do silly things with it...
+The python terminal and browser console were monitored throughout development to catch bugs and errors as they occurred.
+The console does display a verbose message when navigating between pages. This is linked to the Materialize .js file so cannot be helped and doesn't impact the site in any way that I have been able to identify, and is therefore ignored. 
+The Materialize devs are aware of it [here](https://github.com/angular/components/issues/4221) but the issue has been closed so it's safe to say the issue isn't going away soon.
 
-To test yourself, you can
+Friends and family have also tested by creating accounts and using the site on their own devices. They have tested how the page displays, registered their own accounts, created their own drinks, added favorites, and left comments. I have removed all the content that was added as part of friends & family testing, partly due to it not always being of the same quality as the initial data I added, but also because when people are given a new toy, they tend to do silly things with it.
+
+To test the site yourself, you can
 - Browse as a guest, but with limited functionality.
 - Create your own user. Do not use a password you use elsewhere as the passwords are not secure.
 - Use an existing user to see how the app handles user drinks submissions for views, comments, favorites, etc. You can do this with:
@@ -599,10 +605,7 @@ It was then passed through [jigsaw.w3.org/css-validator/](https://jigsaw.w3.org/
 
 #### JavaScript
 
-The JS file was run through [jshint.com](https://jshint.com/). It lists 2 variables as undefined, ``$`` and ``position``.
-``$`` is due to using jQuery.
-The ``position`` variable is defined within ``search.html`` and the JS checks to see if it is defined first, before trying to use it.
-There were no other warnings.
+The JS file was run through [jshint.com](https://jshint.com/) and outside of numerous instances of ``$`` being undefined due to using jQuery, there were no errors.
 
 #### Python
 
@@ -612,25 +615,23 @@ The Python script was checked using [pep8online.com](http://pep8online.com/) and
 
 Chrome DevTools and physical devices were used throughout development for a number of purposes, one of which was to test the responsiveness and rendering across a range of sizes and devices. As issues were found they were either fixed at the time or noted and returned to later.
 
-There is only 1 unresolved issue and that is on touch devices. Any button with a CSS hover effect when clicked will remain in the hover state after the button is released. This isn't an issue when the button takes the user to a different page, but when it is used to show / hide certain elements, it is noticeable.
-
-My initial solution was to disable hover effects, but this affected all displays. For now, I have left it as it is, keeping the hover effect across all devices, and plan to fix this in a future update.
+On touch devices, any button with a hover effect, keeps the effect until something else is pressed. Whilst not ideal behavour, it doesn't detract from the overall experience, and is something that can be changed at a later date.
 
 The site has been tested successfully on the following devices,
 
 - Windows 10 desktop at HD, QHD, and UWQHD on various browsers
 
-- Apple Macbook, with Safari browser
+- Apple Macbook - Safari browser
 
-- Google Pixel 2XL
+- Google Pixel 2XL - Chrome browser
 
-- Apple iPhone 8S
+- Apple iPhone 8S - Safari Browser
 
-- iPad Mini
+- iPad Mini - Safari Browser
 
 ### Browser Compatibility
 
-The site has been tested successfully on the following browsers,
+The site has been tested successfully on the following desktop browsers,
 
 - Chrome v76
 
