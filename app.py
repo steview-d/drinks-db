@@ -11,6 +11,10 @@ from py_helper.helper import get_suggestions, sort_drinks, get_ingredients
 
 app = Flask(__name__)
 
+# import local env vars if in local dev environment
+if os.path.exists('env.py'):
+    import env
+
 app.config['SECRET_KEY'] = os.getenv('SECRET')
 app.config["MONGO_DBNAME"] = 'drinksdb'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')

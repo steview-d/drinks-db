@@ -11,6 +11,12 @@
         </div>
     </div>
 </section>
+<section class="page-container help-message">
+    <h6>UPDATE: November 2020</h6>
+    <p class="">This little project was first deployed in August 2020 and even though it hasn't been updated since, Heroku keeps showing it as in use so I figure it's still useful for some people.</p>
+    <p>Have a mess with things, create a user (passwords are insecure so don't use a real one!), add drinks, leave comments, just have a play around with it, and if you have any questions, you are more than welcome to get in touch. You can find my contact details <a href="https://davelaffan.dev/" target="_blank">here</a>, and the source code <a href="https://github.com/steview-d/drinks-db" target="_blank">here</a>.</p>
+    <p></p>
+</section>
 
 <section class="page-container content-wrapper">
 
@@ -51,9 +57,9 @@
     <!--Drinks Grid-->
     <section class="row">
         {% for drink in drinks %}
-            <div class="col s6 l4 xl3">
-                {% include 'helpers/drink_card.html' %}
-            </div>
+        <div class="col s6 l4 xl3">
+            {% include 'helpers/drink_card.html' %}
+        </div>
         {% endfor %}
     </section>
 

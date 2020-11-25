@@ -1074,3 +1074,20 @@ footer i {
         font-size: 5rem;
     }
 }
+
+/* Added 25.11.20 */
+.help-message {
+    background-color:#212121;
+    color:white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.help-message h6 {
+    font-weight: 700;
+}
+
+.help-message a {
+    color:#FFFFFF;
+    font-weight: 700;
+}
